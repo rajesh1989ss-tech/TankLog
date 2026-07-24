@@ -286,12 +286,8 @@
   .pv-doc .pv-phfig{margin:0;page-break-inside:avoid}
   .pv-doc .pv-phgrid img{width:100%;height:auto;display:block;border:1px solid #b9c2cc;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
   .pv-doc .pv-phfig figcaption{font-size:.66rem;color:#445;font-family:var(--mono);margin-top:3px}
-  .pv-doc .ph-land{width:48%}
-  .pv-doc .ph-port{width:31.5%}
-  .pv-doc .pv-phgrid img.ph-land{width:48%}
-  .pv-doc .pv-phgrid img.ph-port{width:31.5%}
-  .pv-doc .pv-phfig.ph-land{width:48%}
-  .pv-doc .pv-phfig.ph-port{width:31.5%}
+  .pv-doc .ph-land,.pv-doc .pv-phgrid img.ph-land,.pv-doc .pv-phfig.ph-land{width:48%}
+  .pv-doc .ph-port,.pv-doc .pv-phgrid img.ph-port,.pv-doc .pv-phfig.ph-port{width:48%}
   .pv-doc .rep-gallery figure{margin:0;width:320px}
   .pv-doc .rep-gallery img{width:320px;height:240px;object-fit:cover;border:1px solid #b9c2cc;border-radius:10px;display:block;box-shadow:0 2px 10px rgba(0,0,0,.14)}
   .pv-doc .rep-gallery figcaption{font-family:var(--mono);font-size:.68rem;color:#556;margin-top:4px}
@@ -300,13 +296,31 @@
   .pv-doc .pv-sig{min-width:200px}
   .pv-doc .pv-sig .line{border-bottom:1px solid #16202c;height:30px;margin-bottom:4px}
   .pv-doc .pv-end{text-align:center;font-size:.68rem;letter-spacing:.25em;color:#667;margin-top:30px;text-transform:uppercase}
+  /* framed page + running header/footer — visible in print only */
+  .pv-frame,.pv-runhead,.pv-runfoot{display:none}
+  @page{margin:11mm 11mm 13mm}
   @media print{
-    .pv-bar,.toast,.overlay{display:none!important}
+    .pv-bar,.toast,.overlay,.sidebar,.scrim{display:none!important}
     body{background:#fff!important}
-    .pv-doc{padding:0;max-width:none}
-    .pv-tank{page-break-inside:avoid}
-    .pv-doc th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    .pv-doc tr:nth-child(even) td,.pv-tank h2{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .pv-doc *,.pv-frame,.pv-runhead,.pv-runfoot{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    /* decorative double frame on every page */
+    .pv-frame{display:block;position:fixed;inset:0;border:2.5px solid #1a4d7a;border-radius:6px;outline:1px solid #b9c2cc;outline-offset:-6px;pointer-events:none;z-index:5}
+    /* running header: vessel · report · date — repeats every page */
+    .pv-runhead{display:flex;position:fixed;top:1.6mm;left:10mm;right:10mm;justify-content:space-between;gap:12px;font:600 8pt 'Segoe UI',Arial,sans-serif;letter-spacing:.08em;color:#1a4d7a;text-transform:uppercase;z-index:6}
+    .pv-runfoot{display:flex;position:fixed;bottom:1.8mm;left:10mm;right:10mm;justify-content:space-between;gap:12px;font:7.5pt 'Segoe UI',Arial,sans-serif;letter-spacing:.12em;color:#667;text-transform:uppercase;z-index:6}
+    /* spacious, readable body */
+    .pv-doc{padding:9mm 7mm 8mm;max-width:none;font-size:13pt;line-height:1.55}
+    .pv-doc table{font-size:10pt;margin-top:6px}
+    .pv-doc th{padding:7px 10px;font-size:8.5pt}
+    .pv-doc td{padding:7px 9px}
+    .pv-doc .pv-meta{font-size:9pt}
+    .pv-doc .pv-note-time{font-size:8.5pt}
+    .pv-doc .pv-phfig figcaption{font-size:8.5pt}
+    /* every major section starts on a fresh page; nothing splits awkwardly */
+    .pv-tank{page-break-before:always;page-break-inside:auto;margin-top:0}
+    .pv-doc .pv-tank:first-of-type{page-break-before:auto}
+    .pv-doc table,.pv-doc tr,.pv-phfig,.pv-doc .rep-gallery figure,.pv-doc .pv-foot{page-break-inside:avoid;break-inside:avoid}
+    .pv-tank h2,.pv-tank h3{page-break-after:avoid}
   }
 
   .masteronly{display:none}
@@ -614,6 +628,9 @@
       <button class="btn ghost" id="pvClose" style="margin-left:8px">Close</button>
     </span>
   </div>
+  <div class="pv-frame" aria-hidden="true"></div>
+  <div class="pv-runhead" id="pvRunHead" aria-hidden="true"></div>
+  <div class="pv-runfoot" id="pvRunFoot" aria-hidden="true"></div>
   <div class="pv-doc" id="pvDoc"></div>
 </div>
 
@@ -817,6 +834,12 @@
       <p style="font-size:.72rem;color:var(--dim);margin-bottom:8px">Deleted items are kept here so deletions sync across devices and never appear in logs or reports. Restore anything, or empty the bin permanently.</p>
       <div id="trashList" class="l3c-prev" style="max-height:240px;overflow:auto"></div>
       <button class="btn danger sm masteronly" id="emptyTrashBtn" style="margin-top:8px;display:none">Empty bin permanently</button>
+    </div>
+
+    <div class="blk masterblock" id="deskSnapBlk" style="display:none">
+      <h4>Desktop Snapshots</h4>
+      <p style="font-size:.72rem;color:var(--dim);margin-bottom:6px">Automatic on-disk snapshots of the app state (at most one per 10 minutes, newest 12 kept). Restoring first snapshots the current state, then reloads the app.</p>
+      <div id="deskSnapList" style="max-height:220px;overflow:auto"></div>
     </div>
 
     <div class="blk masterblock">
@@ -1051,25 +1074,6 @@ var DESK_READY=new Promise(function(res){
   var t=setTimeout(function(){res(false);},900);
   window.addEventListener('pywebviewready',function(){clearTimeout(t);up();},{once:true});
 });
-function suiteHomeBtn(){
-  if(!IS_DESK)return;
-  var st=document.createElement('style');
-  st.textContent='#suiteHome{position:fixed;left:12px;bottom:12px;z-index:99990;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(10,18,32,.88);color:#cfe0ff;font:600 12px/1 system-ui,sans-serif;letter-spacing:.4px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4)}#suiteHome:hover{background:rgba(20,34,58,.95)}@media print{#suiteHome{display:none!important}}';
-  document.head.appendChild(st);
-  var b=document.createElement('button');b.id='suiteHome';b.type='button';b.title='Ship Suite home';
-  b.textContent='\u2302 Suite';
-  b.onclick=function(){location.href='index.html';};
-  document.body.appendChild(b);
-}
-function deskPrint(html,auto){
-  var f=document.getElementById('__pframe');if(f&&f.parentNode)f.parentNode.removeChild(f);
-  f=document.createElement('iframe');f.id='__pframe';
-  f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden;';
-  document.body.appendChild(f);
-  var d=f.contentWindow.document;d.open();d.write(html);d.close();
-  if(auto)setTimeout(function(){try{f.contentWindow.focus();f.contentWindow.print();}catch(e){}},500);
-}
-
   'use strict';
   const LS_KEY='tankLogEngine_v2';
   const OLD_KEY='tankLogEngine_v1';
@@ -1392,9 +1396,19 @@ function deskPrint(html,auto){
   const THEMES=['dark','amoled','light'];
   function themeNext(){return THEMES[(THEMES.indexOf(state.theme)+1)%THEMES.length];}
   function themeLabel(t){return t==='amoled'?'AMOLED':(t==='light'?'Light':'Dark');}
+  const THEME_CHROME={dark:{bg:'#131e2d',text:'#d7e3f0',meta:'#0c131e',dark:true},
+                      amoled:{bg:'#000000',text:'#d7e3f0',meta:'#000000',dark:true},
+                      light:{bg:'#ffffff',text:'#16202c',meta:'#e9eef4',dark:false}};
+  function syncChrome(){
+    const c=THEME_CHROME[state.theme]||THEME_CHROME.dark;
+    const m=document.querySelector('meta[name="theme-color"]');
+    if(m)m.setAttribute('content',c.meta);
+    if(IS_DESK&&DESK&&DESK.set_titlebar){try{DESK.set_titlebar(c.bg,c.text,c.dark);}catch(e){}}
+  }
   function applyTheme(){
     document.body.classList.toggle('light',state.theme==='light');
     document.body.classList.toggle('amoled',state.theme==='amoled');
+    syncChrome();
     document.body.classList.toggle('dimacc',!!state.nightDim);
     const b=$('themeToggle');
     if(b)b.textContent='Switch to '+themeLabel(themeNext());
@@ -2673,6 +2687,7 @@ function deskPrint(html,auto){
     renderNoteSecToggles();
     renderTankManager();
     renderTrash();
+    if(IS_DESK)renderDeskSnaps();
     $('setOverlay').classList.add('open');
   });
   $('saveVessel').addEventListener('click',()=>{
@@ -3032,7 +3047,14 @@ function deskPrint(html,auto){
     if(key==='ul')s+=' / '+(a.avg>=0?'+':'')+(a.avg*100).toFixed(1)+' cm';
     return s;
   }
+  function pvSetRunning(subtitle){
+    const v=state.vessel||{};
+    const rh=$('pvRunHead'),rf=$('pvRunFoot');
+    if(rh)rh.innerHTML='<span>'+(v.name?'M.T. '+esc(v.name):'')+'</span><span>'+esc(subtitle||'Tank Log Report')+'</span><span>'+fmtTime(new Date().toISOString())+'</span>';
+    if(rf)rf.innerHTML='<span>Tank Log'+(v.imo?' · IMO '+esc(v.imo):'')+'</span><span>'+esc(repHeading||'')+'</span>';
+  }
   function pvHeader(subtitle){
+    pvSetRunning(subtitle);
     let html='';
     const v=state.vessel;
     if(v.name)html+='<div class="pv-vessel">M.T. '+esc(v.name)+'</div>';
@@ -3738,9 +3760,50 @@ function deskPrint(html,auto){
   applyTheme();
   refreshToggles();
   renderVoyages();refreshVoyChip();renderAuditList();
+  syncChrome();
+  /* desktop snapshots (shell js_api) */
+  async function renderDeskSnaps(){
+    if(!IS_DESK||!DESK.snapshots_list)return;
+    const blk=$('deskSnapBlk');if(!blk)return;
+    blk.style.display='';
+    let rows=[];
+    try{rows=await DESK.snapshots_list()||[];}catch(e){rows=[];}
+    const box=$('deskSnapList');
+    if(!rows.length){box.innerHTML='<div style="color:var(--dim);font-size:.72rem;padding:6px 0">No snapshots yet — they appear as you work.</div>';return;}
+    box.innerHTML='';
+    rows.forEach(r=>{
+      const div=document.createElement('div');div.className='hist-row';
+      div.innerHTML='<span class="ht">'+fmtTime(r.ts)+'</span><span class="hl2">'+esc(r.label||'state snapshot')+'</span><span class="hn">'+(r.kb?r.kb+' KB':'')+'</span>';
+      div.addEventListener('click',async()=>{
+        if(!confirm('Restore the snapshot from '+fmtTime(r.ts)+'?\nThe current state is snapshotted first, then the app reloads.'))return;
+        try{
+          const res=await DESK.snapshot_restore(r.id);
+          if(res&&res.ok){location.reload();}
+          else toast('Restore failed'+(res&&res.error?': '+res.error:''));
+        }catch(e){toast('Restore failed');}
+      });
+      box.appendChild(div);
+    });
+  }
+  if(IS_DESK)renderDeskSnaps();
+  /* PWA install prompt → sidebar Install button */
+  let bipEvent=null;
+  window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault();bipEvent=e;
+    if($('sbInstall'))return;
+    const sb=$('sidebar');if(!sb)return;
+    const b=document.createElement('button');
+    b.className='sb-item';b.id='sbInstall';
+    b.innerHTML='<span class="sb-ic">⬇</span><span>Install app</span>';
+    b.addEventListener('click',()=>{
+      if(!bipEvent)return;
+      bipEvent.prompt();
+      bipEvent.userChoice.finally(()=>{bipEvent=null;const x=$('sbInstall');if(x)x.remove();});
+    });
+    sb.appendChild(b);
+  });
   buildGrids();
   setMaster(false);
-  suiteHomeBtn();
 })();
 </script>
 </body>
