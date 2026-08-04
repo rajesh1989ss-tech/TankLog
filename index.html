@@ -524,6 +524,102 @@
     header h1{font-size:.85rem}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+  /* ================= v2.0 additions ================= */
+  /* quick-jump bar */
+  .qj{display:flex;gap:8px;align-items:center;padding:2px 0 12px}
+  .qj input{flex:1;background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:10px 13px;font-size:.86rem;font-family:inherit}
+  .qj input:focus{outline:1px solid var(--amber)}
+  .qj button{background:var(--cell);border:1px solid var(--line);color:var(--dim);border-radius:8px;padding:9px 12px;cursor:pointer;font-size:.8rem;font-family:inherit}
+  .qj button:hover{color:var(--text)}
+  .qj .qjn{font-family:var(--mono);font-size:.68rem;color:var(--dim);white-space:nowrap}
+
+  /* collapsible section heads */
+  button.sec-title{width:100%;background:none;border:none;font-family:inherit;cursor:pointer;padding:3px 0;color:inherit;text-align:left}
+  button.sec-title:hover h2{color:var(--text)}
+  .sec-title .caret{color:var(--amber);font-size:.72rem;flex-shrink:0;transition:transform .15s;display:inline-block}
+  .sec-title.col .caret{transform:rotate(-90deg)}
+  .sec-title .sec-cnt{font-family:var(--mono);font-size:.64rem;color:var(--dim);border:1px solid var(--line);border-radius:9px;padding:1px 7px;flex-shrink:0}
+  .sec-empty{color:var(--dim);font-size:.75rem;padding:12px 6px;text-align:center;border:1px dashed var(--line);border-radius:8px}
+
+  /* last-entry age badge on each space tile */
+  .tank .age{font-family:var(--mono);font-size:.6rem;letter-spacing:.04em;padding:2px 7px;border-radius:9px;border:1px solid var(--line);color:var(--dim);white-space:nowrap;margin-left:auto;flex-shrink:0}
+  .tank .age.fresh{color:var(--good);border-color:var(--good)}
+  .tank .age.warm{color:var(--amber);border-color:var(--amber)}
+  .tank .age.stale{color:var(--bad);border-color:var(--bad)}
+  .tank.full .age{margin-left:0}
+
+  /* category manager + reorder arrows */
+  .ord{background:var(--cell);border:1px solid var(--line);color:var(--dim);border-radius:5px;padding:1px 7px;cursor:pointer;font-size:.72rem;font-family:inherit;line-height:1.3}
+  .ord:hover{color:var(--amber);border-color:var(--amber)}
+  .cat-row{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:7px;padding:6px 9px;margin-bottom:6px;flex-wrap:wrap}
+  .cat-row .cnm{font-weight:700;font-size:.8rem;flex:1;min-width:110px}
+  .cat-row .csh{font-family:var(--mono);font-size:.64rem;color:var(--dim)}
+  .add-grid .three{display:grid;grid-template-columns:1fr 110px;gap:6px}
+
+  /* bulk entry space picker */
+  .bulk-cat{border:1px solid var(--line);border-radius:8px;margin-bottom:8px;overflow:hidden}
+  .bulk-cat h5{display:flex;align-items:center;gap:8px;background:var(--bg);padding:7px 10px;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:700}
+  .bulk-cat h5 button{margin-left:auto}
+  .bulk-picks{display:flex;flex-wrap:wrap;gap:6px;padding:8px 10px}
+  .bpick{border:1px solid var(--line);background:var(--bg);color:var(--dim);border-radius:999px;padding:4px 11px;font-size:.72rem;cursor:pointer;font-family:inherit}
+  .bpick.on{border-color:var(--amber);color:var(--amber);background:rgba(255,179,71,.1)}
+
+  /* before / after capture slots */
+  .ba-slots{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .ba-slot{border:1px dashed var(--line);border-radius:8px;padding:8px;text-align:center;min-height:118px;display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center}
+  .ba-slot b{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+  .ba-slot img{max-width:100%;max-height:88px;border-radius:6px;display:block}
+  .ba-slot .row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+  .ba-slot .btn{margin-top:0;padding:5px 10px;font-size:.7rem}
+  .lt-ba{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+  .lt-ba figure{margin:0}
+  .lt-ba img{width:100%;border-radius:6px;display:block;cursor:pointer}
+  .lt-ba figcaption{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:3px}
+
+  /* report dialog scope / range / preset controls */
+  .rep-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
+  .rep-grid .full{grid-column:1/-1}
+  .rep-lbl{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:2px 0 3px}
+  .rep-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .rep-row .btn{margin-top:0}
+  input[type=date].txt{font-family:var(--mono);font-size:.76rem}
+
+  /* calendar scope row */
+  .cv-sel{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:0 14px 8px;border-bottom:1px solid var(--line);background:var(--panel)}
+  .cv-sel select,.cv-sel input{background:var(--cell);border:1px solid var(--line);color:var(--text);border-radius:6px;padding:5px 8px;font-size:.72rem;font-family:inherit;width:auto}
+  .cv-sel .lb{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  .cv-sel button{background:var(--cell);border:1px solid var(--line);color:var(--dim);border-radius:6px;padding:5px 9px;cursor:pointer;font-size:.72rem;font-family:inherit}
+  .cv-sel button:hover{color:var(--text)}
+
+  /* ---- print: cover page + before/after pairs ---- */
+  .pv-doc .pv-cover{text-align:center;padding:6px 0 0}
+  .pv-doc .pv-cover .cv-title{font-size:1.5rem;letter-spacing:.2em;text-transform:uppercase;color:#13334f;font-weight:700;margin:18px 0 6px}
+  .pv-doc .pv-cover .cv-rule{height:3px;background:linear-gradient(90deg,#1a4d7a,#ffb347,#1a4d7a);border-radius:2px;margin:10px auto 18px;max-width:78%}
+  .pv-doc .pv-cover .cv-ves{font-size:1.15rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#16202c}
+  .pv-doc .pv-cover .cv-ids{font-size:.8rem;color:#445;font-family:var(--mono);margin-top:6px;letter-spacing:.06em}
+  .pv-doc .pv-cover .cv-badge{display:inline-block;background:linear-gradient(90deg,#1a4d7a,#2e6da4);color:#fff;border-left:5px solid #ffb347;border-radius:4px;padding:9px 20px;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin:6px 0 16px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pv-doc .pv-facts{width:100%;margin:14px 0 6px;font-size:.8rem}
+  .pv-doc .pv-facts td{text-align:left}
+  .pv-doc .pv-facts td.k{width:170px;font-weight:700;background:#eef2f7;text-transform:uppercase;letter-spacing:.08em;font-size:.7rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pv-doc .pv-sumhead{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#1a4d7a;font-weight:700;margin:22px 0 5px;text-align:left}
+  .pv-doc .pv-ba{display:flex;flex-wrap:wrap;gap:2.5%;row-gap:12px;margin-top:8px}
+  .pv-doc .pv-ba figure{margin:0;width:48%;page-break-inside:avoid;break-inside:avoid}
+  .pv-doc .pv-ba img{width:100%;height:auto;display:block;border:1px solid #b9c2cc;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  .pv-doc .pv-ba figcaption{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#fff;background:#1a4d7a;border-radius:0 0 5px 5px;padding:4px 8px;text-align:center;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pv-doc .pv-ba figure.after figcaption{background:#0a7a3d}
+  .pv-doc .pv-bacap{font-size:.8rem;color:#16202c;margin-top:8px;padding:7px 10px;border-left:4px solid #ffb347;background:#f4f6f9;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pv-doc .pv-baw{page-break-inside:avoid;break-inside:avoid;margin-top:14px}
+  .pv-doc .pv-ver{text-align:center;font-size:.66rem;color:#889;font-family:var(--mono);margin-top:8px;letter-spacing:.1em}
+  @media print{
+    .pv-doc .pv-cover{page-break-after:always}
+    .pv-doc .pv-cover .cv-title{font-size:22pt}
+    .pv-doc .pv-cover .cv-ves{font-size:15pt}
+    .pv-doc .pv-facts{font-size:10.5pt}
+    .pv-doc .pv-ba figcaption{font-size:9pt}
+    .pv-doc .pv-bacap{font-size:11pt}
+    .pv-doc .pv-baw{page-break-inside:avoid;break-inside:avoid}
+  }
 </style>
 <meta name="theme-color" content="#000000">
 <link rel="manifest" href="manifest.webmanifest">
@@ -557,6 +653,8 @@
   <div class="sb-logo"><span class="sb-logo-dot"></span></div>
   <button class="sb-item" data-act="new"><span class="sb-ic" style="color:var(--amber)">＋</span><span class="sb-lbl">New</span></button>
   <button class="sb-item" data-act="search"><span class="sb-ic">🔍</span><span class="sb-lbl">Search</span></button>
+  <button class="sb-item" data-act="bulk"><span class="sb-ic">&#9776;</span><span class="sb-lbl">Bulk entry</span></button>
+  <button class="sb-item" data-act="expand"><span class="sb-ic">&#8597;</span><span class="sb-lbl">Expand all</span></button>
   <button class="sb-item" data-act="sort"><span class="sb-ic">↕</span><span class="sb-lbl">Sort</span></button>
   <button class="sb-item" data-act="pinned"><span class="sb-ic">★</span><span class="sb-lbl">Pinned</span></button>
   <div class="sb-div"></div>
@@ -571,30 +669,12 @@
 </nav>
 
 <main>
-  <div class="section" id="cargoSection">
-    <div class="sec-title"><h2>Cargo Tanks</h2></div>
-    <div class="col-labels"><span class="pl">Port</span><span class="sl">Starboard</span></div>
-    <div class="tank-grid" id="cargoGrid"></div>
+  <div class="qj">
+    <input id="qjInput" placeholder="Quick jump — space name, status, highlight or cargo…" autocomplete="off">
+    <span class="qjn" id="qjCount"></span>
+    <button id="qjClear" title="Clear quick jump">&#10005;</button>
   </div>
-
-  <div class="section" id="ballastSection">
-    <div class="sec-title"><h2>Ballast Tanks</h2></div>
-    <div class="col-labels"><span class="pl">Port</span><span class="sl">Starboard</span></div>
-    <div class="tank-grid" id="ballastGrid"></div>
-  </div>
-
-  <div class="section" id="miscSection">
-    <div class="sec-title"><h2>Fresh Water Tanks</h2></div>
-    <div class="col-labels"><span class="pl">Port</span><span class="sl">Starboard</span></div>
-    <div class="tank-grid" id="miscGrid"></div>
-  </div>
-
-  <div class="section" id="coffSection">
-    <div class="sec-title"><h2>Cofferdam Space</h2></div>
-    <div class="col-labels" id="coffLabels"><span class="pl">Port</span><span class="sl">Starboard</span></div>
-    <div class="tank-grid" id="coffGrid"></div>
-    <div class="empty" id="coffEmpty" style="display:none">No cofferdam spaces added yet — add one via Settings → Add New Tank.</div>
-  </div>
+  <div id="secHost"></div>
 </main>
 
 <!-- report type dialog -->
@@ -603,6 +683,26 @@
     <div class="m-head"><h3>Generate Report</h3><button class="close" id="repClose" aria-label="Close">×</button></div>
     <div class="blk">
       <h4 id="repScopeLbl">Scope</h4>
+      <div class="rep-grid">
+        <div class="full">
+          <div class="rep-lbl">Saved preset</div>
+          <div class="rep-row">
+            <select id="repPreset" style="flex:1;min-width:150px"></select>
+            <button class="btn ghost sm" id="repPresetSave" title="Save current settings as a preset">Save</button>
+            <button class="btn ghost sm" id="repPresetDel" title="Delete selected preset">&#10005;</button>
+          </div>
+        </div>
+        <div><div class="rep-lbl">Category</div><select id="repCat"></select></div>
+        <div><div class="rep-lbl">Space</div><select id="repSpace"></select></div>
+        <div><div class="rep-lbl">From date</div><input type="date" class="txt" id="repFrom"></div>
+        <div><div class="rep-lbl">To date</div><input type="date" class="txt" id="repTo"></div>
+        <div class="full rep-row">
+          <button class="btn ghost sm" id="repRangeClear">Clear dates</button>
+          <button class="btn ghost sm" id="repRangeMonth">This month</button>
+          <button class="btn ghost sm" id="repRangeYear">This year</button>
+        </div>
+        <div class="full"><div class="rep-lbl">Report type</div></div>
+      </div>
       <select id="repType">
         <option value="full">Complete report (logs + all comparisons)</option>
         <option value="logs">Just Logs</option>
@@ -612,8 +712,12 @@
         <option value="ul">Ullage comparison</option>
         <option value="tp">Temperature comparison</option>
         <option value="pr">Pressure comparison</option>
+        <option value="ba">Before / After photo comparisons</option>
         <option value="board">Tank board snapshot (highlights / status / L3C)</option>
       </select>
+      <label style="display:flex;align-items:center;gap:8px;font-size:.74rem;color:var(--dim);margin-top:10px;cursor:pointer">
+        <input type="checkbox" id="repCover" checked style="width:auto"> Include cover page &amp; summary
+      </label>
       <button class="btn" id="repGen">Generate &amp; preview</button>
     </div>
   </div>
@@ -698,6 +802,16 @@
           <button class="btn" id="saveDef" style="margin-left:auto">Add defects note</button>
         </div>
         <div class="attach-tray" id="tray_dnote"></div>
+      </div>
+
+      <div class="blk note-blk" id="blk_ba">
+        <h4>Before / After Comparison</h4>
+        <div class="ba-slots">
+          <div class="ba-slot" id="baSlotB"><b>Before</b><div class="row"><button class="btn ghost sm" data-bacam="baB">&#128247;</button><button class="btn ghost sm" data-bapho="baB">&#128444;</button></div></div>
+          <div class="ba-slot" id="baSlotA"><b>After</b><div class="row"><button class="btn ghost sm" data-bacam="baA">&#128247;</button><button class="btn ghost sm" data-bapho="baA">&#128444;</button></div></div>
+        </div>
+        <textarea id="baText" style="margin-top:9px" placeholder="What changed — e.g. COT 3 (P) bulkhead before and after final rinse…"></textarea>
+        <div class="note-bar"><button class="btn" id="saveBa" style="margin-left:auto">Add before / after</button></div>
       </div>
     </div><!-- /editBlocks -->
 
@@ -790,16 +904,28 @@
     </div>
 
     <div class="blk">
-      <h4>Manage Tanks</h4>
+      <h4>Manage Space</h4>
+      <p style="font-size:.72rem;color:var(--dim);margin:-4px 0 8px">Use &#9650; &#9660; to reorder a space within its own category. The order here is the order on the home dashboard.</p>
       <div class="tk-list" id="tkList"></div>
-      <h4 style="margin-top:8px">Add New Tank</h4>
+      <h4 style="margin-top:10px">Add New Space</h4>
       <div class="add-grid">
-        <input class="txt" id="newName" placeholder="Tank name, e.g. COT 11W (P) or SLOP (S)">
+        <input class="txt" id="newName" placeholder="Space name, e.g. COT 11W (P) or SLOP (S)">
         <div class="two">
-          <select id="newCat"><option value="cargo">Cargo tank</option><option value="ballast">Ballast tank</option><option value="misc">Fresh water tank</option><option value="coff">Cofferdam space</option></select>
+          <select id="newCat"></select>
           <select id="newSide"><option value="port">Port</option><option value="stbd">Starboard</option><option value="full">Centre / full width</option></select>
         </div>
-        <button class="btn" id="addTank">Add tank</button>
+        <button class="btn" id="addTank">Add space</button>
+      </div>
+
+      <h4 style="margin-top:16px">Categories</h4>
+      <p style="font-size:.72rem;color:var(--dim);margin:-4px 0 8px">Rename, reorder or add your own categories. The short code is what prints in reports and appears on filter menus. A category can only be deleted once it holds no spaces.</p>
+      <div id="catList"></div>
+      <div class="add-grid" style="margin-top:8px">
+        <div class="three">
+          <input class="txt" id="newCatLabel" maxlength="34" placeholder="New category, e.g. Slop Tanks" style="margin:0">
+          <input class="txt" id="newCatShort" maxlength="10" placeholder="SLOP" style="margin:0">
+        </div>
+        <button class="btn" id="addCat">Add category</button>
       </div>
     </div>
 
@@ -816,6 +942,7 @@
       <div class="set-row"><span>IMO number</span><input class="txt" style="width:170px;text-align:left" id="vesImo" maxlength="12" placeholder="e.g. 9412034"></div>
       <div class="set-row"><span>Flag</span><input class="txt" style="width:170px;text-align:left" id="vesFlag" maxlength="30" placeholder="e.g. SINGAPORE"></div>
       <div class="set-row"><span>GRT</span><input class="txt" style="width:170px;text-align:left" id="vesGrt" maxlength="15" placeholder="e.g. 29234"></div>
+      <div class="set-row"><span>Prepared by</span><input class="txt" style="width:170px;text-align:left" id="vesPrep" maxlength="40" placeholder="e.g. C/O R. Kumar"></div>
       <button class="btn" id="saveVessel">Save vessel</button>
       <p style="font-size:.72rem;color:var(--dim);margin-top:8px">Printed in the header of every report.</p>
     </div>
@@ -936,6 +1063,10 @@ Kandla	Mundra	05-Jul-2026 00:00 LT	06-Jul-2026 06:00 LT	Loading	EDC 5k</div>
       <button class="btn" id="savePin" style="margin-top:10px">Change PIN</button>
     </div>
 
+    <div class="blk" style="text-align:center;background:none;border:none;padding:2px">
+      <span style="font-family:var(--mono);font-size:.66rem;color:var(--dim);letter-spacing:.14em" id="verLine"></span>
+    </div>
+
     <div class="blk masteronly" style="display:none">
       <h4>Danger Zone</h4>
       <button class="btn danger" id="clearAll">Clear all logs</button>
@@ -985,6 +1116,16 @@ Kandla	Mundra	05-Jul-2026 00:00 LT	06-Jul-2026 06:00 LT	Loading	EDC 5k</div>
     </div>
   </div>
   <div class="cv-filters" id="cvFilters"></div>
+  <div class="cv-sel">
+    <span class="lb">Category</span><select id="cvCatSel"></select>
+    <span class="lb">Space</span><select id="cvSpaceSel"></select>
+    <span class="lb">From</span><input type="date" id="cvFrom">
+    <span class="lb">To</span><input type="date" id="cvTo">
+    <button id="cvRangeClear" title="Clear date range">&#10005;</button>
+    <span class="lb" style="margin-left:auto">Preset</span>
+    <select id="cvPreset"></select>
+    <button id="cvPresetSave" title="Save these filters as a preset">Save</button>
+  </div>
   <div class="cv-body">
     <div class="cv-pane" id="cvCalPane">
       <div class="cv-nav">
@@ -1003,10 +1144,7 @@ Kandla	Mundra	05-Jul-2026 00:00 LT	06-Jul-2026 06:00 LT	Loading	EDC 5k</div>
       <div class="cv-nav">
         <button class="hbtn" id="tlModeBtn">Mode: Diagonal</button>
         <button class="hbtn" id="tlOrderBtn">Newest first</button>
-        <input type="date" class="txt tld" id="tlFrom" title="From date">
-        <span class="tldash">–</span>
-        <input type="date" class="txt tld" id="tlTo" title="To date">
-        <button class="hbtn" id="tlClear" title="Clear date range">✕</button>
+        <span class="tldash" id="tlRangeLbl">full history</span>
       </div>
       <div id="tlDiagWrap">
         <div id="tlStage"><div id="tlTrack"></div></div>
@@ -1044,6 +1182,36 @@ Kandla	Mundra	05-Jul-2026 00:00 LT	06-Jul-2026 06:00 LT	Loading	EDC 5k</div>
   </div>
 </div>
 
+<!-- bulk entry -->
+<div class="overlay" id="bulkOverlay">
+  <div class="modal" style="max-width:560px">
+    <div class="m-head"><h3>Bulk Entry</h3><button class="close" id="bulkClose" aria-label="Close">&#10005;</button></div>
+    <div class="blk">
+      <h4>Entry type</h4>
+      <select id="bulkType"></select>
+    </div>
+    <div class="blk">
+      <h4>Spaces <span style="font-weight:400;color:var(--dim);letter-spacing:0;text-transform:none" id="bulkCount">— none selected</span></h4>
+      <div class="rep-row" style="margin-bottom:8px">
+        <button class="btn ghost sm" id="bulkAll" style="margin-top:0">Select all</button>
+        <button class="btn ghost sm" id="bulkNone" style="margin-top:0">Clear all</button>
+      </div>
+      <div id="bulkPicker" style="max-height:34vh;overflow:auto"></div>
+    </div>
+    <div class="blk note-blk">
+      <h4>Text</h4>
+      <textarea id="bulkText" placeholder="One entry, written once, saved into every selected space…"></textarea>
+      <div class="note-bar">
+        <button class="btn ghost sm" data-cam="bulk">&#128247;</button>
+        <button class="btn ghost sm" data-pho="bulk">&#128444;</button>
+        <button class="btn ghost sm" data-fil="bulk">&#128206;</button>
+        <button class="btn" id="bulkSave" style="margin-left:auto">Save to selected spaces</button>
+      </div>
+      <div class="attach-tray" id="tray_bulk"></div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <!-- photo lightbox -->
@@ -1077,8 +1245,21 @@ var DESK_READY=new Promise(function(res){
   'use strict';
   const LS_KEY='tankLogEngine_v2';
   const OLD_KEY='tankLogEngine_v1';
+  const APP_VERSION='2.0.0';
+  const SCHEMA_VERSION=2;
+
+  /* ---------- default categories ---------- */
+  function defaultCats(){
+    return [{id:'cargo',label:'Cargo Tanks',short:'CARGO',ord:10,modified:1,deleted:false},
+            {id:'ballast',label:'Ballast Tanks',short:'BALLAST',ord:20,modified:1,deleted:false},
+            {id:'misc',label:'Fresh Water Tanks',short:'FW',ord:30,modified:1,deleted:false},
+            {id:'coff',label:'Cofferdam Space',short:'COFFERDAM',ord:40,modified:1,deleted:false}];
+  }
 
   /* ---------- default tanks ---------- */
+  /* Factory spaces are stamped modified:1 — the oldest possible record — so that
+     anything arriving from another device always wins the newest-wins merge. */
+  function seed(o,i){o.modified=1;o.deleted=false;o.ord=(i+1)*10;return o;}
   function defaultTanks(){
     const t=[{id:'FPT',name:'FORE PEAK TANK',side:'full',cat:'ballast'}];
     for(let i=1;i<=7;i++){
@@ -1090,7 +1271,8 @@ var DESK_READY=new Promise(function(res){
       t.push({id:'COT'+i+'S',name:'COT '+i+' (S)',side:'stbd',cat:'cargo'});
     }
     t.push(...defaultMiscTanks());
-    return t;
+    const per={};
+    return t.map(x=>{per[x.cat]=(per[x.cat]||0);return seed(x,per[x.cat]++);});
   }
   function defaultMiscTanks(){
     const t=[];
@@ -1099,7 +1281,7 @@ var DESK_READY=new Promise(function(res){
       t.push({id:'FWT'+i+'S',name:'FWT '+i+' (S)',side:'stbd',cat:'misc'});
     }
     t.push({id:'APT',name:'AFT PEAK TANK',side:'full',cat:'misc'});
-    return t;
+    return t.map((x,i)=>seed(x,i));
   }
 
   /* ---------- state ---------- */
@@ -1107,8 +1289,9 @@ var DESK_READY=new Promise(function(res){
   function pinValid(v){return v===state.pin||v===MASTER_PIN;}
   const DEFAULT_QP=['LOADED','DISCHARGING','EMPTY','INERTED','GAS FREE','CLEANING'];
   let state={tanks:defaultTanks(),logs:{},limits:{ul:0.05,tp:1.0,pr:50},uti:0,pin:'0000',miscSeeded:true,
-             vessel:{name:'',imo:'',flag:'',grt:''},quickPicks:DEFAULT_QP.slice(),view:{l3c:false,status:false,hl:true,pinnedOnly:false},lastBackup:null,theme:'dark',nightDim:false,tl:{mode:'diag',order:'new'},voyages:[],audit:[],fieldHist:{hl:[],l3c:[],status:[]},
-             noteSecs:{note:true,cnote:true,onote:true,dnote:true}};
+             vessel:{name:'',imo:'',flag:'',grt:'',prep:''},quickPicks:DEFAULT_QP.slice(),view:{l3c:false,status:false,hl:true,pinnedOnly:false},lastBackup:null,theme:'dark',nightDim:false,tl:{mode:'diag',order:'new'},voyages:[],audit:[],fieldHist:{hl:[],l3c:[],status:[]},
+             noteSecs:{note:true,cnote:true,onote:true,dnote:true,ba:true},
+             cats:defaultCats(),collapsed:{},presets:[],schemaVersion:SCHEMA_VERSION};
   let masterMode=false;
   await DESK_READY;
   try{
@@ -1120,7 +1303,7 @@ var DESK_READY=new Promise(function(res){
       state.limits=Object.assign(state.limits,p.limits||{});
       if(typeof p.pin==='string'&&p.pin)state.pin=p.pin;
       if(typeof p.uti==='number'&&isFinite(p.uti))state.uti=p.uti;
-      if(p.vessel&&typeof p.vessel==='object')state.vessel={name:String(p.vessel.name||''),imo:String(p.vessel.imo||''),flag:String(p.vessel.flag||''),grt:String(p.vessel.grt||'')};
+      if(p.vessel&&typeof p.vessel==='object')state.vessel={name:String(p.vessel.name||''),imo:String(p.vessel.imo||''),flag:String(p.vessel.flag||''),grt:String(p.vessel.grt||''),prep:String(p.vessel.prep||'')};
       if(Array.isArray(p.quickPicks))state.quickPicks=p.quickPicks.filter(x=>typeof x==='string'&&x.trim());
       if(p.view&&typeof p.view==='object')state.view={l3c:!!p.view.l3c,status:!!p.view.status,hl:p.view.hl!==false,pinnedOnly:false};
       if(typeof p.lastBackup==='string')state.lastBackup=p.lastBackup;
@@ -1134,7 +1317,10 @@ var DESK_READY=new Promise(function(res){
                          l3c:Array.isArray(p.fieldHist.l3c)?p.fieldHist.l3c:[],
                          status:Array.isArray(p.fieldHist.status)?p.fieldHist.status:[]};
       }
-      if(p.noteSecs&&typeof p.noteSecs==='object')state.noteSecs={note:p.noteSecs.note!==false,cnote:p.noteSecs.cnote!==false,onote:p.noteSecs.onote!==false,dnote:p.noteSecs.dnote!==false};
+      if(p.noteSecs&&typeof p.noteSecs==='object')state.noteSecs={note:p.noteSecs.note!==false,cnote:p.noteSecs.cnote!==false,onote:p.noteSecs.onote!==false,dnote:p.noteSecs.dnote!==false,ba:p.noteSecs.ba!==false};
+      if(Array.isArray(p.cats)&&p.cats.length)state.cats=p.cats;
+      if(p.collapsed&&typeof p.collapsed==='object')state.collapsed=p.collapsed;
+      if(Array.isArray(p.presets))state.presets=p.presets;
       state.miscSeeded=!!p.miscSeeded;
       if(!state.miscSeeded){
         // one-time upgrade: add the fresh water tank set if not already present
@@ -1165,6 +1351,22 @@ var DESK_READY=new Promise(function(res){
   // Idempotent: only fills what's missing, so it's safe to run on every load.
   (function migrateForSync(){
     state.tanks.forEach(t=>{ if(!t.modified) t.modified=Date.now(); if(typeof t.deleted!=='boolean') t.deleted=false; });
+    /* categories: stamp records, then auto-create any category a space refers to but that is missing */
+    if(!Array.isArray(state.cats)||!state.cats.length) state.cats=defaultCats();
+    state.cats.forEach((c,i)=>{ if(!c.modified)c.modified=Date.now(); if(typeof c.deleted!=='boolean')c.deleted=false;
+                                if(typeof c.ord!=='number')c.ord=(i+1)*10; if(!c.short)c.short=String(c.label||c.id).toUpperCase().slice(0,10); });
+    state.tanks.forEach(t=>{
+      const cid=String(t.cat||'misc');
+      if(!state.cats.some(c=>c.id===cid)){
+        const mx=state.cats.reduce((a,c)=>Math.max(a,c.ord||0),0);
+        state.cats.push({id:cid,label:cid.charAt(0).toUpperCase()+cid.slice(1),short:cid.toUpperCase().slice(0,10),ord:mx+10,modified:Date.now(),deleted:false});
+      }
+    });
+    /* a category holding spaces can never stay soft-deleted */
+    state.cats.forEach(c=>{ if(c.deleted&&state.tanks.some(t=>!t.deleted&&t.cat===c.id))c.deleted=false; });
+    if(!state.collapsed||typeof state.collapsed!=='object')state.collapsed={};
+    if(!Array.isArray(state.presets))state.presets=[];
+    state.schemaVersion=SCHEMA_VERSION;
     Object.keys(state.logs||{}).forEach(tankId=>{
       (state.logs[tankId]||[]).forEach(e=>{
         if(!e.id) e.id=uid();
@@ -1243,9 +1445,37 @@ var DESK_READY=new Promise(function(res){
   function logsOf(id){return (state.logs[id]||[]).filter(e=>!e.deleted);}
   function allLogsOf(id){return state.logs[id]||[];}
   function tankById(id){return state.tanks.find(t=>t.id===id);}
-  const CAT_LABEL={cargo:'CARGO',ballast:'BALLAST',misc:'FW',coff:'COFFERDAM'};
-  function catLabel(t){return CAT_LABEL[t.cat]||t.cat.toUpperCase();}
+  function liveCats(){return (state.cats||[]).filter(c=>!c.deleted).slice().sort((a,b)=>(a.ord||0)-(b.ord||0));}
+  function catById(id){return (state.cats||[]).find(c=>c.id===id)||null;}
+  function catShort(id){const c=catById(id);return (c?(c.short||c.label):String(id||'')).toUpperCase();}
+  function catName(id){const c=catById(id);return c?c.label:String(id||'');}
+  function catLabel(t){return catShort(t.cat);}
   function liveTanks(){return state.tanks.filter(t=>!t.deleted);}
+  /* spaces of one category, honouring the merge-safe `ord` field then array order */
+  function catTanks(catId,pool){
+    const arr=(pool||liveTanks()).filter(t=>t.cat===catId);
+    return arr.map((t,i)=>({t,k:(typeof t.ord==='number')?t.ord:1e9+i}))
+              .sort((a,b)=>a.k-b.k).map(x=>x.t);
+  }
+  /* rewrite ord for a whole category so ordering survives a merge.
+     Pass `list` when the new order comes from the array rather than from ord. */
+  function renumberCat(catId,list){
+    (list||catTanks(catId)).forEach((t,i)=>{t.ord=(i+1)*10;t.modified=Date.now();});
+  }
+  /* newest live entry for a space, and its human age */
+  function lastEntryMs(id){
+    let m=0;logsOf(id).forEach(e=>{const x=Date.parse(e.ts);if(!isNaN(x)&&x>m)m=x;});return m;
+  }
+  function ageInfo(id){
+    const m=lastEntryMs(id);
+    if(!m)return{txt:'never',cls:'',title:'No entries yet'};
+    const d=Math.floor((Date.now()-m)/86400000);
+    let txt;
+    if(d<=0)txt='today'; else if(d===1)txt='1 d'; else if(d<30)txt=d+' d';
+    else if(d<365)txt=Math.floor(d/30)+' mo'; else txt=Math.floor(d/365)+' y';
+    const cls=d<=7?'fresh':(d<=30?'warm':'stale');
+    return{txt,cls,title:'Last entry: '+fmtTime(new Date(m).toISOString())};
+  }
   function lastCmp(id){const l=logsOf(id);for(let i=0;i<l.length;i++){if(l[i].type==='cmp')return l[i];}return null;}
   function latestBeyond(e){
     const L=state.limits;
@@ -1364,7 +1594,7 @@ var DESK_READY=new Promise(function(res){
   });
 
   /* ---------- note section enable/disable (master) ---------- */
-  const NOTE_SECS=[['note','Add Note'],['cnote','Cleaning Note'],['onote','Operations Note'],['dnote','Defects Note']];
+  const NOTE_SECS=[['note','Add Note'],['cnote','Cleaning Note'],['onote','Operations Note'],['dnote','Defects Note'],['ba','Before / After']];
   function applyNoteSecs(){
     NOTE_SECS.forEach(([k])=>{
       const blk=$('blk_'+k);
@@ -1959,6 +2189,18 @@ var DESK_READY=new Promise(function(res){
 
   /* ================= Tank List import (new-ship setup) ================= */
   const TL_CATS={cargo:'cargo',ballast:'ballast',fw:'misc',fresh:'misc',freshwater:'misc',misc:'misc',coff:'coff',cofferdam:'coff'};
+  /* accept a built-in alias, or any custom category by id, short code or label */
+  function resolveCat(raw){
+    const k=String(raw||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+    if(!k)return undefined;
+    const hit=liveCats().find(c=>
+      String(c.id).toLowerCase().replace(/[^a-z0-9]/g,'')===k||
+      String(c.short||'').toLowerCase().replace(/[^a-z0-9]/g,'')===k||
+      String(c.label||'').toLowerCase().replace(/[^a-z0-9]/g,'')===k);
+    if(hit)return hit.id;
+    const alias=TL_CATS[k];
+    return (alias&&liveCats().some(c=>c.id===alias))?alias:undefined;
+  }
   const TL_SIDES={port:'port',p:'port',stbd:'stbd',s:'stbd',starboard:'stbd',full:'full',center:'full',centre:'full',c:'full'};
   const TL_SAMPLE=[
     ['TANK NAME','CATEGORY','SIDE'],
@@ -2011,7 +2253,7 @@ var DESK_READY=new Promise(function(res){
       const key=normName(name);
       if(seen.has(key)){bad.push('duplicate row: '+name);return;}
       seen.add(key);
-      const cat=TL_CATS[(c[1]||'').toLowerCase().replace(/[^a-z]/g,'')];
+      const cat=resolveCat(c[1]);
       const side=TL_SIDES[(c[2]||'').toLowerCase().replace(/[^a-z]/g,'')];
       const cur=byNorm[key];
       if(cur){
@@ -2039,14 +2281,16 @@ var DESK_READY=new Promise(function(res){
     }
   });
   $('tlistConfirm').addEventListener('click',()=>{
+    /* ord is rebuilt for every touched category once the import lands */
     if(!masterMode||!tlistMatched){toast('Run preview first');return;}
     tlistMatched.adds.forEach(a=>{
       state.tanks.push({id:uid(),name:a.name,side:a.side,cat:a.cat,modified:Date.now(),deleted:false});
     });
-    tlistMatched.updates.forEach(u=>{u.t.cat=u.cat;u.t.side=u.side;u.t.modified=Date.now();});
-    auditRec('TANKS',null,'Tank list import: +'+tlistMatched.adds.length+' added, '+tlistMatched.updates.length+' updated');
+    tlistMatched.updates.forEach(u=>{u.t.cat=u.cat;u.t.side=u.side;u.t.ord=undefined;u.t.modified=Date.now();});
+    auditRec('TANKS',null,'Space list import: +'+tlistMatched.adds.length+' added, '+tlistMatched.updates.length+' updated');
+    liveCats().forEach(c=>renumberCat(c.id));
     state.dataVersion=(state.dataVersion||1)+1;
-    save();buildGrids();renderTankManager();
+    save();buildGrids();renderTankManager();renderCatManager();
     toast('Tank list applied: +'+tlistMatched.adds.length+' new, '+tlistMatched.updates.length+' updated');
     tlistMatched=null;
     $('tlistConfirm').style.display='none';
@@ -2260,10 +2504,19 @@ var DESK_READY=new Promise(function(res){
       });
     }
   }
+  /* ---------- quick jump ---------- */
+  let qjTerm='';
+  function tankMatches(t,q){
+    if(!q)return true;
+    const bits=[t.name,t.status||'',(t.hl&&t.hl.text)||'',Array.isArray(t.l3c)?t.l3c.join(' '):'',catName(t.cat),catShort(t.cat)];
+    return bits.join(' ').toLowerCase().indexOf(q)>=0;
+  }
+
   function buildGrids(){
-    const grids={ballast:$('ballastGrid'),cargo:$('cargoGrid'),misc:$('miscGrid'),coff:$('coffGrid')};
-    Object.values(grids).forEach(g=>g.innerHTML='');
-    const seg={};   // current open pair-segment per category
+    const host=$('secHost');if(!host)return;
+    host.innerHTML='';
+    const q=qjTerm.trim().toLowerCase();
+    const pool=(state.view.pinnedOnly?liveTanks().filter(t=>t.pinned):liveTanks()).filter(t=>tankMatches(t,q));
     function makeTile(t){
       const div=document.createElement('button');
       div.className='tank '+t.side;
@@ -2280,41 +2533,90 @@ var DESK_READY=new Promise(function(res){
       if(chips.length)lines.push('<span class="chrow">'+chips.join('')+'</span>');
       if(state.view.l3c&&t.cat==='cargo'&&Array.isArray(t.l3c)&&t.l3c.some(x=>x))
         lines.push('<span class="tsub">L3C: '+esc(t.l3c.filter(x=>x).join(' • '))+'</span>');
+      const ag=ageInfo(t.id);
       div.innerHTML='<span class="tcol">'+lines.join('')+'</span>'+
+        '<span class="age '+ag.cls+'" id="age_'+t.id+'" title="'+esc(ag.title)+'">'+esc(ag.txt)+'</span>'+
         '<span class="meta"><span class="dot" id="dot_'+t.id+'"></span>'+
         '<span class="badge" id="bdg_'+t.id+'">0</span></span>';
       attachTileActions(div,t);
       if(masterMode)enableDrag(div,t);
       return div;
     }
-    const showTanks=state.view.pinnedOnly?liveTanks().filter(t=>t.pinned):liveTanks();
-    showTanks.forEach(t=>{
-      const grid=grids[t.cat]||grids.misc;
-      const tile=makeTile(t);
-      if(t.side==='full'){
-        seg[t.cat]=null;                 // full-width tank closes the current segment
-        grid.appendChild(tile);
+    let shown=0;
+    liveCats().forEach(cat=>{
+      const list=catTanks(cat.id,pool);
+      if(!list.length&&q)return;                         // hide empty categories while searching
+      shown+=list.length;
+      const sec=document.createElement('div');sec.className='section';
+      const collapsed=!!state.collapsed[cat.id];
+      const head=document.createElement('button');
+      head.className='sec-title'+(collapsed?' col':'');
+      head.type='button';
+      head.innerHTML='<span class="caret">&#9662;</span><h2>'+esc(cat.label)+'</h2>'+
+                     '<span class="sec-cnt">'+list.length+'</span>';
+      head.title=collapsed?'Show '+cat.label:'Hide '+cat.label;
+      head.addEventListener('click',()=>{
+        state.collapsed[cat.id]=!state.collapsed[cat.id];
+        save();buildGrids();
+      });
+      sec.appendChild(head);
+      const body=document.createElement('div');
+      if(collapsed)body.style.display='none';
+      if(!list.length){
+        const em=document.createElement('div');em.className='sec-empty';
+        em.textContent='No spaces in '+cat.label+' yet — add one via Settings \u2192 Add New Space.';
+        body.appendChild(em);
       }else{
-        if(!seg[t.cat]){
-          const pair=document.createElement('div');pair.className='pair';
-          const pc=document.createElement('div');pc.className='pcol';
-          const sc=document.createElement('div');sc.className='pcol';
-          pair.appendChild(pc);pair.appendChild(sc);
-          grid.appendChild(pair);
-          seg[t.cat]={p:pc,s:sc};
-        }
-        (t.side==='port'?seg[t.cat].p:seg[t.cat].s).appendChild(tile);
+        const cl=document.createElement('div');cl.className='col-labels';
+        cl.innerHTML='<span class="pl">Port</span><span class="sl">Starboard</span>';
+        const grid=document.createElement('div');grid.className='tank-grid';
+        let seg=null;
+        list.forEach(t=>{
+          const tile=makeTile(t);
+          if(t.side==='full'){seg=null;grid.appendChild(tile);}
+          else{
+            if(!seg){
+              const pair=document.createElement('div');pair.className='pair';
+              const pc=document.createElement('div');pc.className='pcol';
+              const sc=document.createElement('div');sc.className='pcol';
+              pair.appendChild(pc);pair.appendChild(sc);grid.appendChild(pair);
+              seg={p:pc,s:sc};
+            }
+            (t.side==='port'?seg.p:seg.s).appendChild(tile);
+          }
+        });
+        body.appendChild(cl);body.appendChild(grid);
       }
+      sec.appendChild(body);
+      host.appendChild(sec);
     });
-    $('ballastSection').style.display=grids.ballast.children.length?'':'none';
-    $('cargoSection').style.display=grids.cargo.children.length?'':'none';
-    $('miscSection').style.display=grids.misc.children.length?'':'none';
-    const coffHas=grids.coff.children.length>0;
-    $('coffLabels').style.display=coffHas?'':'none';
-    $('coffEmpty').style.display=coffHas?'none':'';
+    if(q&&!shown){
+      const em=document.createElement('div');em.className='sec-empty';em.style.marginTop='18px';
+      em.textContent='No space matches \u201c'+q+'\u201d.';
+      host.appendChild(em);
+    }
+    const cnt=$('qjCount');
+    if(cnt)cnt.textContent=q?(shown+' of '+liveTanks().length):'';
     refreshBadges();
     updateUndoBtn();
   }
+
+  /* quick-jump wiring */
+  (function(){
+    const inp=$('qjInput'),clr=$('qjClear');
+    if(!inp)return;
+    let h=null;
+    inp.addEventListener('input',()=>{clearTimeout(h);h=setTimeout(()=>{qjTerm=inp.value;buildGrids();},120);});
+    inp.addEventListener('keydown',e=>{
+      if(e.key==='Escape'){inp.value='';qjTerm='';buildGrids();}
+      if(e.key==='Enter'){
+        const q=qjTerm.trim().toLowerCase();
+        const hit=liveTanks().filter(t=>tankMatches(t,q));
+        if(q&&hit.length===1)openTank(hit[0].id,false);
+      }
+    });
+    if(clr)clr.addEventListener('click',()=>{inp.value='';qjTerm='';buildGrids();inp.focus();});
+  })();
 
   /* ---------- drag & drop reordering (master mode) ---------- */
   let dragId=null,dragJustHappened=false;
@@ -2364,13 +2666,17 @@ var DESK_READY=new Promise(function(res){
       const[moved]=state.tanks.splice(fi,1);
       ti=state.tanks.findIndex(x=>x.id===t.id);     // recompute after removal
       state.tanks.splice(fi<ti+1?ti+1:ti,0,moved);  // after target if dragged downward, else before
-      save();buildGrids();
+      renumberCat(t.cat,state.tanks.filter(x=>!x.deleted&&x.cat===t.cat));
+      state.dataVersion=(state.dataVersion||1)+1;
+      save();buildGrids();renderTankManager();
       toast('Tank order updated — Undo available');
     });
   }
   function refreshBadges(){
     state.tanks.forEach(t=>{
       const n=logsOf(t.id).length;
+      const a=$('age_'+t.id);
+      if(a){const ag=ageInfo(t.id);a.className='age '+ag.cls;a.textContent=ag.txt;a.title=ag.title;}
       const b=$('bdg_'+t.id);if(!b)return;
       b.textContent=n;b.classList.toggle('has',n>0);
       const d=$('dot_'+t.id);
@@ -2387,7 +2693,8 @@ var DESK_READY=new Promise(function(res){
   function openTank(id,historyOnly){
     const t=tankById(id);if(!t)return;
     current=t;
-    pendingAtt={note:[],cnote:[],onote:[],dnote:[]};
+    pendingAtt.note=[];pendingAtt.cnote=[];pendingAtt.onote=[];pendingAtt.dnote=[];
+    baPend={baB:null,baA:null};renderBaSlots();
     $('mTitle').textContent=t.name;
     $('editBlocks').style.display=historyOnly?'none':'';
     $('tankReport').style.display=historyOnly?'none':'';
@@ -2453,7 +2760,8 @@ var DESK_READY=new Promise(function(res){
   $('shOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)shDismiss();});
 
   /* ---------- note attachments (pending, before save) ---------- */
-  let pendingAtt={note:[],cnote:[],onote:[],dnote:[]};
+  let pendingAtt={note:[],cnote:[],onote:[],dnote:[],bulk:[]};
+  let baPend={baB:null,baA:null};
   let attachTarget=null;
   function renderTray(kind){
     const tray=$('tray_'+kind);if(!tray)return;
@@ -2470,8 +2778,17 @@ var DESK_READY=new Promise(function(res){
   document.querySelectorAll('[data-cam]').forEach(b=>b.addEventListener('click',()=>{attachTarget=b.dataset.cam;$('camIn').click();}));
   document.querySelectorAll('[data-pho]').forEach(b=>b.addEventListener('click',()=>{attachTarget=b.dataset.pho;$('phoIn').click();}));
   document.querySelectorAll('[data-fil]').forEach(b=>b.addEventListener('click',()=>{attachTarget=b.dataset.fil;$('filIn').click();}));
-  $('camIn').addEventListener('change',e=>{addPendingPhotos(attachTarget,[...e.target.files]);e.target.value='';});
-  $('phoIn').addEventListener('change',e=>{addPendingPhotos(attachTarget,[...e.target.files]);e.target.value='';});
+  function isBaTarget(k){return k==='baB'||k==='baA';}
+  function addBaPhoto(kind,files){
+    if(!files.length)return;
+    toast('Compressing photo\u2026');
+    compressImage(files[0],400).then(r=>{
+      baPend[kind]={kind:'photo',name:files[0].name||'photo.jpg',size:r.blob.size,data:r.dataUrl};
+      renderBaSlots();toast('Attached');
+    }).catch(err=>{console.error(err);toast('Photo failed: '+err.message);});
+  }
+  $('camIn').addEventListener('change',e=>{const f=[...e.target.files];if(isBaTarget(attachTarget))addBaPhoto(attachTarget,f);else addPendingPhotos(attachTarget,f);e.target.value='';});
+  $('phoIn').addEventListener('change',e=>{const f=[...e.target.files];if(isBaTarget(attachTarget))addBaPhoto(attachTarget,f);else addPendingPhotos(attachTarget,f);e.target.value='';});
   $('filIn').addEventListener('change',e=>{addPendingFiles(attachTarget,[...e.target.files]);e.target.value='';});
   function addPendingPhotos(kind,files){
     if(!kind||!files.length)return;
@@ -2489,6 +2806,48 @@ var DESK_READY=new Promise(function(res){
     })).then(items=>{pendingAtt[kind].push(...items.filter(Boolean));renderTray(kind);toast('Attached');})
       .catch(err=>{console.error(err);toast('File failed');});
   }
+
+  /* ---------- before / after photo pair ---------- */
+  function renderBaSlots(){
+    [['baB','baSlotB','Before'],['baA','baSlotA','After']].forEach(([k,elId,lbl])=>{
+      const box=$(elId);if(!box)return;
+      const a=baPend[k];
+      box.innerHTML='<b>'+lbl+'</b>'+
+        (a?'<img src="'+a.data+'" alt="'+esc(a.name||'')+'">':'')+
+        '<div class="row">'+
+          '<button class="btn ghost sm" data-bacam="'+k+'">&#128247;</button>'+
+          '<button class="btn ghost sm" data-bapho="'+k+'">&#128444;</button>'+
+          (a?'<button class="btn ghost sm" data-bax="'+k+'">&#10005;</button>':'')+
+        '</div>';
+      box.querySelector('[data-bacam]').addEventListener('click',()=>{attachTarget=k;$('camIn').click();});
+      box.querySelector('[data-bapho]').addEventListener('click',()=>{attachTarget=k;$('phoIn').click();});
+      const x=box.querySelector('[data-bax]');
+      if(x)x.addEventListener('click',()=>{baPend[k]=null;renderBaSlots();});
+    });
+  }
+  renderBaSlots();
+  $('saveBa').addEventListener('click',()=>{
+    if(!current)return;
+    if(!baPend.baB||!baPend.baA){toast('Attach both a Before and an After photo');return;}
+    const tankId=current.id,ts=new Date().toISOString();
+    const txt=$('baText').value.trim();
+    const refs=[];
+    const jobs=[['before',baPend.baB],['after',baPend.baA]].map(([role,a])=>{
+      const mid='m_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+      refs.push({mediaId:mid,kind:'photo',role,name:a.name,thumb:a.data});
+      return idbPut({id:mid,tankId,kind:'photo',name:a.name,size:a.size,ts:Date.parse(ts),data:a.data});
+    });
+    Promise.all(jobs).then(()=>{
+      if(!state.logs[tankId])state.logs[tankId]=[];
+      state.logs[tankId].unshift({id:uid(),type:'ba',ts,modified:Date.now(),deleted:false,text:txt,att:refs});
+      state.dataVersion=(state.dataVersion||1)+1;
+      save();refreshBadges();
+      $('baText').value='';
+      baPend={baB:null,baA:null};renderBaSlots();
+      renderEntries();
+      toast('Before / after saved & timestamped');
+    }).catch(err=>{console.error(err);toast('Save failed: '+err.message);});
+  });
 
   function downloadMedia(it){if(IS_DESK){DESK.export_data_url(it.name||'file',it.data).then(r=>{if(r&&r.ok)toast('Saved: '+r.path);else if(r&&r.error!=='cancelled')toast('Save failed');});return;}const a=document.createElement('a');a.href=it.data;a.download=it.name||'file';a.click();}
   let lbCurrent=null;
@@ -2583,7 +2942,13 @@ var DESK_READY=new Promise(function(res){
 
   const labels={ul:['Ullage','m',3],tp:['Temp','°C',1],pr:['Press','mbar',0]};
   const NOTE_TYPES={note:['NOTE','note'],cnote:['CLEANING','cn'],onote:['OPERATIONS','on'],dnote:['DEFECTS','dn']};
-  function isTextNote(e){return e.type==='note'||e.type==='cnote'||e.type==='onote'||e.type==='dnote';}
+  function isTextNote(e){return e.type==='note'||e.type==='cnote'||e.type==='onote'||e.type==='dnote'||e.type==='ba';}
+  function baPair(e){
+    if(e.type!=='ba'||!Array.isArray(e.att))return null;
+    const b=e.att.find(a=>a.role==='before')||e.att[0]||null;
+    const a=e.att.find(a2=>a2.role==='after')||e.att[1]||null;
+    return (b&&a)?{b,a}:null;
+  }
   function attachHTML(e){
     if(!Array.isArray(e.att)||!e.att.length)return '';
     let h='';const photos=e.att.filter(a=>a.kind==='photo'),files=e.att.filter(a=>a.kind==='file');
@@ -2592,12 +2957,25 @@ var DESK_READY=new Promise(function(res){
     return h;
   }
   function tagClass(e){
+    if(e.type==='ba')return['BEFORE / AFTER','ba'];
     if(e.type==='cmp')return['COMPARISON','cmp'];
     if(e.type==='photo')return['PHOTO','ph'];
     if(e.type==='file')return['FILE','fl'];
     return NOTE_TYPES[e.type]||NOTE_TYPES.note;
   }
   function entryBodyHTML(e){
+    if(e.type==='ba'){
+      const p=baPair(e);
+      let b=e.text?'<div class="lt-text">'+esc(e.text)+'</div>':'';
+      if(p){
+        b+='<div class="lt-ba">'+
+           '<figure><img src="'+(p.b.thumb||'')+'" data-mid="'+esc(p.b.mediaId||'')+'" alt="before"><figcaption>Before</figcaption></figure>'+
+           '<figure><img src="'+(p.a.thumb||'')+'" data-mid="'+esc(p.a.mediaId||'')+'" alt="after"><figcaption>After</figcaption></figure>'+
+           '</div>';
+      }
+      if(e.edited)b+='<div class="lt-edited">edited '+fmtTime(e.edited)+'</div>';
+      return b;
+    }
     if(isTextNote(e)){
       let b=e.text?'<div class="lt-text">'+esc(e.text)+'</div>':'';
       b+=attachHTML(e);
@@ -2641,7 +3019,7 @@ var DESK_READY=new Promise(function(res){
     html+='</table>';
     list.innerHTML=html;
     // photo / file clicks
-    list.querySelectorAll('.logphotos img').forEach(img=>{
+    list.querySelectorAll('.logphotos img,.lt-ba img').forEach(img=>{
       img.addEventListener('click',()=>openMediaById(img.dataset.mid,img.src,img.alt));
     });
     list.querySelectorAll('.logfile').forEach(fl=>{
@@ -2682,16 +3060,21 @@ var DESK_READY=new Promise(function(res){
     $('vesImo').value=state.vessel.imo;
     $('vesFlag').value=state.vessel.flag||'';
     $('vesGrt').value=state.vessel.grt||'';
+    $('vesPrep').value=state.vessel.prep||'';
     refreshBackupAge();
     renderQpManage();
     renderNoteSecToggles();
     renderTankManager();
+    renderCatManager();
+    fillCatSelect($('newCat'));
     renderTrash();
+    const vl=$('verLine');
+    if(vl)vl.textContent='Tank Log v'+APP_VERSION+' · schema '+SCHEMA_VERSION+' · '+(IS_DESK?'Windows desktop':'Android / browser');
     if(IS_DESK)renderDeskSnaps();
     $('setOverlay').classList.add('open');
   });
   $('saveVessel').addEventListener('click',()=>{
-    state.vessel={name:$('vesName').value.trim().toUpperCase(),imo:$('vesImo').value.trim(),flag:$('vesFlag').value.trim().toUpperCase(),grt:$('vesGrt').value.trim()};
+    state.vessel={name:$('vesName').value.trim().toUpperCase(),imo:$('vesImo').value.trim(),flag:$('vesFlag').value.trim().toUpperCase(),grt:$('vesGrt').value.trim(),prep:$('vesPrep').value.trim()};
     save();
     toast('Vessel identity saved');
   });
@@ -2715,16 +3098,51 @@ var DESK_READY=new Promise(function(res){
   });
 
   /* ---------- settings: manage tanks ---------- */
+  function moveTank(t,dir){
+    const sib=catTanks(t.cat);
+    const i=sib.indexOf(t),j=i+dir;
+    if(i<0||j<0||j>=sib.length)return;
+    renumberCat(t.cat,sib);            // guarantee clean, distinct ord values first
+    const other=sib[j],a=t.ord;
+    t.ord=other.ord;other.ord=a;
+    t.modified=Date.now();other.modified=Date.now();
+    state.dataVersion=(state.dataVersion||1)+1;
+    save();buildGrids();renderTankManager();
+  }
   function renderTankManager(){
     const list=$('tkList');if(!list)return;
     list.innerHTML='';
-    liveTanks().forEach(t=>{
+    const ordered=[];
+    liveCats().forEach(c=>{ordered.push(...catTanks(c.id));});
+    liveTanks().forEach(t=>{if(ordered.indexOf(t)<0)ordered.push(t);});
+    ordered.forEach(t=>{
+      const sib=catTanks(t.cat),pos=sib.indexOf(t);
       const row=document.createElement('div');row.className='tk-row';
       const n=logsOf(t.id).length;
       row.innerHTML='<span class="nm">'+esc(t.name)+'</span>'+
         '<span class="tag">'+catLabel(t)+' · '+(t.side==='full'?'CL':t.side.toUpperCase())+' · '+n+' logs</span>'+
+        '<button class="ord" data-act="up" title="Move up"'+(pos<=0?' disabled':'')+'>&#9650;</button>'+
+        '<button class="ord" data-act="dn" title="Move down"'+(pos>=sib.length-1?' disabled':'')+'>&#9660;</button>'+
         '<button class="btn ghost sm" data-act="ren">Rename</button>'+
+        '<button class="btn ghost sm" data-act="mv">Move</button>'+
         (masterMode?'<button class="btn danger sm" data-act="del">Delete</button>':'');
+      row.querySelector('[data-act="up"]').addEventListener('click',()=>moveTank(t,-1));
+      row.querySelector('[data-act="dn"]').addEventListener('click',()=>moveTank(t,1));
+      row.querySelector('[data-act="mv"]').addEventListener('click',()=>{
+        const cs=liveCats();
+        const menu=cs.map((c,i)=>(i+1)+' = '+c.label).join('\n');
+        const pick=prompt('Move '+t.name+' to which category?\n\n'+menu,String(cs.findIndex(c=>c.id===t.cat)+1));
+        if(pick===null)return;
+        const idx=parseInt(pick,10)-1;
+        if(isNaN(idx)||idx<0||idx>=cs.length){toast('No such category');return;}
+        if(cs[idx].id===t.cat)return;
+        const from=t.cat;
+        t.cat=cs[idx].id;t.ord=undefined;t.modified=Date.now();
+        renumberCat(from);renumberCat(t.cat);
+        state.dataVersion=(state.dataVersion||1)+1;
+        save();buildGrids();renderTankManager();renderCatManager();
+        toast(t.name+' moved to '+cs[idx].label);
+      });
       row.querySelector('[data-act="ren"]').addEventListener('click',()=>{
         const nv=prompt('Rename tank:',t.name);
         if(nv===null)return;
@@ -2740,22 +3158,100 @@ var DESK_READY=new Promise(function(res){
         t.deleted=true; t.deletedAt=new Date().toISOString(); t.modified=Date.now();
         (state.logs[t.id]||[]).forEach(e=>{ e.deleted=true; e.deletedAt=t.deletedAt; e.modified=Date.now(); });
         state.dataVersion=(state.dataVersion||1)+1;
-        save();buildGrids();renderTankManager();renderTrash&&renderTrash();
-        toast('Tank moved to Trash');
+        renumberCat(t.cat);
+        save();buildGrids();renderTankManager();renderCatManager();renderTrash&&renderTrash();
+        toast('Space moved to Trash');
       });
       list.appendChild(row);
     });
   }
+  function fillCatSelect(sel,keep){
+    if(!sel)return;
+    const want=keep!==undefined?keep:sel.value;
+    sel.innerHTML=liveCats().map(c=>'<option value="'+esc(c.id)+'">'+esc(c.label)+'</option>').join('');
+    if(want&&liveCats().some(c=>c.id===want))sel.value=want;
+  }
   $('addTank').addEventListener('click',()=>{
     const name=$('newName').value.trim();
-    if(!name){toast('Enter a tank name');return;}
-    if(state.tanks.some(t=>t.name.toLowerCase()===name.toLowerCase())){toast('A tank with this name already exists');return;}
+    if(!name){toast('Enter a space name');return;}
+    if(state.tanks.some(t=>!t.deleted&&t.name.toLowerCase()===name.toLowerCase())){toast('A space with this name already exists');return;}
+    const cat=$('newCat').value||(liveCats()[0]&&liveCats()[0].id)||'misc';
     const id='TK'+Date.now().toString(36);
-    state.tanks.push({id,name,side:$('newSide').value,cat:$('newCat').value,modified:Date.now(),deleted:false});
+    state.tanks.push({id,name,side:$('newSide').value,cat,modified:Date.now(),deleted:false});
+    renumberCat(cat);
     state.dataVersion=(state.dataVersion||1)+1;
-    save();buildGrids();renderTankManager();
+    save();buildGrids();renderTankManager();renderCatManager();
     $('newName').value='';
-    toast('Tank added');
+    toast('Space added');
+  });
+
+  /* ---------- settings: manage categories ---------- */
+  function moveCat(c,dir){
+    const cs=liveCats();
+    const i=cs.indexOf(c),j=i+dir;
+    if(i<0||j<0||j>=cs.length)return;
+    const other=cs[j],a=c.ord;
+    c.ord=other.ord;other.ord=a;
+    c.modified=Date.now();other.modified=Date.now();
+    state.dataVersion=(state.dataVersion||1)+1;
+    save();buildGrids();renderCatManager();renderTankManager();
+  }
+  function renderCatManager(){
+    const box=$('catList');if(!box)return;
+    box.innerHTML='';
+    const cs=liveCats();
+    cs.forEach((c,i)=>{
+      const n=liveTanks().filter(t=>t.cat===c.id).length;
+      const row=document.createElement('div');row.className='cat-row';
+      row.innerHTML='<span class="cnm">'+esc(c.label)+'</span>'+
+        '<span class="csh">'+esc(c.short||'')+' · '+n+' space'+(n===1?'':'s')+'</span>'+
+        '<button class="ord" data-a="up" title="Move up"'+(i===0?' disabled':'')+'>&#9650;</button>'+
+        '<button class="ord" data-a="dn" title="Move down"'+(i===cs.length-1?' disabled':'')+'>&#9660;</button>'+
+        '<button class="btn ghost sm" data-a="ed">Edit</button>'+
+        '<button class="btn danger sm" data-a="rm">Delete</button>';
+      row.querySelector('[data-a="up"]').addEventListener('click',()=>moveCat(c,-1));
+      row.querySelector('[data-a="dn"]').addEventListener('click',()=>moveCat(c,1));
+      row.querySelector('[data-a="ed"]').addEventListener('click',()=>{
+        const nl=prompt('Category name:',c.label);
+        if(nl===null)return;
+        const lab=nl.trim();
+        if(!lab){toast('Name cannot be empty');return;}
+        if(liveCats().some(x=>x!==c&&x.label.toLowerCase()===lab.toLowerCase())){toast('That category already exists');return;}
+        const ns=prompt('Short code for reports (max 10 characters):',c.short||lab.toUpperCase().slice(0,10));
+        if(ns===null)return;
+        c.label=lab;
+        c.short=(ns.trim()||lab).toUpperCase().slice(0,10);
+        c.modified=Date.now();
+        state.dataVersion=(state.dataVersion||1)+1;
+        save();buildGrids();renderCatManager();renderTankManager();fillCatSelect($('newCat'));
+        toast('Category updated');
+      });
+      row.querySelector('[data-a="rm"]').addEventListener('click',()=>{
+        const held=liveTanks().filter(t=>t.cat===c.id).length;   // recount at click time
+        if(held){toast('Move or delete its '+held+' space'+(held===1?'':'s')+' first');return;}
+        if(liveCats().length<=1){toast('At least one category is required');return;}
+        if(!confirm('Delete the category \u201c'+c.label+'\u201d?'))return;
+        c.deleted=true;c.modified=Date.now();
+        delete state.collapsed[c.id];
+        state.dataVersion=(state.dataVersion||1)+1;
+        save();buildGrids();renderCatManager();renderTankManager();fillCatSelect($('newCat'));
+        toast('Category deleted');
+      });
+      box.appendChild(row);
+    });
+  }
+  $('addCat').addEventListener('click',()=>{
+    const lab=$('newCatLabel').value.trim();
+    if(!lab){toast('Enter a category name');return;}
+    if(liveCats().some(c=>c.label.toLowerCase()===lab.toLowerCase())){toast('That category already exists');return;}
+    const short=($('newCatShort').value.trim()||lab).toUpperCase().slice(0,10);
+    const id='cat_'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+    const mx=(state.cats||[]).reduce((a,c)=>Math.max(a,c.ord||0),0);
+    state.cats.push({id,label:lab,short,ord:mx+10,modified:Date.now(),deleted:false});
+    state.dataVersion=(state.dataVersion||1)+1;
+    save();buildGrids();renderCatManager();fillCatSelect($('newCat'));
+    $('newCatLabel').value='';$('newCatShort').value='';
+    toast('Category added');
   });
 
   /* ---------- master options ---------- */
@@ -2783,7 +3279,10 @@ var DESK_READY=new Promise(function(res){
     save();refreshBackupAge();
     toast('Bundling photos & files…');
     idbAll().then(media=>{
-      const payload=JSON.stringify(Object.assign({},state,{media}),null,2);
+      const payload=JSON.stringify(Object.assign({},state,{media,
+        schemaVersion:SCHEMA_VERSION,appVersion:APP_VERSION,
+        exportedAt:new Date().toISOString(),
+        exportedBy:state.deviceName||'Device'}),null,2);
       const fname='TankLog_backup_'+new Date().toISOString().slice(0,10)+'.json';
       if(IS_DESK){
         DESK.export_text(fname,payload).then(r=>{
@@ -2889,7 +3388,29 @@ var DESK_READY=new Promise(function(res){
   // Merges an incoming TankLog payload into current state without wiping anything.
   // Returns {tanksAdded,tanksUpdated,logsAdded,logsUpdated,mediaAdded}.
   function mergeTankData(p){
-    let tanksAdded=0,tanksUpdated=0,logsAdded=0,logsUpdated=0;
+    let tanksAdded=0,tanksUpdated=0,logsAdded=0,logsUpdated=0,unchanged=0,deleted=0;
+    // categories by id — newest wins, soft deletes propagate
+    if(!Array.isArray(state.cats)||!state.cats.length)state.cats=defaultCats();
+    const cById={}; state.cats.forEach(c=>cById[c.id]=c);
+    (p.cats||[]).forEach(inc=>{
+      if(!inc||!inc.id)return;
+      if(typeof inc.deleted!=='boolean')inc.deleted=false;
+      if(!inc.modified)inc.modified=Date.now();
+      const cur=cById[inc.id];
+      if(!cur){state.cats.push(inc);cById[inc.id]=inc;}
+      else if((inc.modified||0)>(cur.modified||0))Object.assign(cur,inc);
+    });
+    // report presets by id — newest wins, soft deletes propagate
+    if(!Array.isArray(state.presets))state.presets=[];
+    const pById={}; state.presets.forEach(x=>pById[x.id]=x);
+    (p.presets||[]).forEach(inc=>{
+      if(!inc||!inc.id)return;
+      if(typeof inc.deleted!=='boolean')inc.deleted=false;
+      if(!inc.modified)inc.modified=Date.now();
+      const cur=pById[inc.id];
+      if(!cur){state.presets.push(inc);pById[inc.id]=inc;}
+      else if((inc.modified||0)>(cur.modified||0))Object.assign(cur,inc);
+    });
     // tanks by id
     const tById={}; state.tanks.forEach(t=>tById[t.id]=t);
     (p.tanks||[]).forEach(inc=>{
@@ -2897,8 +3418,9 @@ var DESK_READY=new Promise(function(res){
       if(typeof inc.deleted!=='boolean') inc.deleted=false;
       if(!inc.modified) inc.modified=Date.now();
       const cur=tById[inc.id];
-      if(!cur){ state.tanks.push(inc); tById[inc.id]=inc; tanksAdded++; }
-      else if((inc.modified||0)>(cur.modified||0)){ Object.assign(cur,inc); tanksUpdated++; }
+      if(!cur){ state.tanks.push(inc); tById[inc.id]=inc; tanksAdded++; if(inc.deleted)deleted++; }
+      else if((inc.modified||0)>(cur.modified||0)){ const wasDel=cur.deleted; Object.assign(cur,inc); tanksUpdated++; if(inc.deleted&&!wasDel)deleted++; }
+      else unchanged++;
     });
     // logs by id within each tank
     const incLogs=p.logs||{};
@@ -2911,8 +3433,9 @@ var DESK_READY=new Promise(function(res){
         if(typeof inc.deleted!=='boolean') inc.deleted=false;
         if(!inc.modified) inc.modified = inc.ts?Date.parse(inc.ts):Date.now();
         const cur=eById[inc.id];
-        if(!cur){ state.logs[tankId].push(inc); eById[inc.id]=inc; logsAdded++; }
-        else if((inc.modified||0)>(cur.modified||0)){ Object.assign(cur,inc); logsUpdated++; }
+        if(!cur){ state.logs[tankId].push(inc); eById[inc.id]=inc; logsAdded++; if(inc.deleted)deleted++; }
+        else if((inc.modified||0)>(cur.modified||0)){ const wasDel=cur.deleted; Object.assign(cur,inc); logsUpdated++; if(inc.deleted&&!wasDel)deleted++; }
+        else unchanged++;
       });
       // keep newest-first ordering by ts for display consistency
       state.logs[tankId].sort((a,b)=>Date.parse(b.ts||0)-Date.parse(a.ts||0));
@@ -2958,8 +3481,18 @@ var DESK_READY=new Promise(function(res){
     if(state.audit.length>3000)state.audit.length=3000;
     // limits/vessel/quickPicks: only fill if we don't already have them (non-destructive)
     if(p.vessel && (!state.vessel || !state.vessel.name)) state.vessel=Object.assign({name:'',imo:'',flag:'',grt:''},p.vessel);
+    /* a category that still holds live spaces can never remain deleted after a merge */
+    state.cats.forEach(c=>{ if(c.deleted&&state.tanks.some(t=>!t.deleted&&t.cat===c.id))c.deleted=false; });
+    /* any space pointing at a category this device has never seen gets one created */
+    state.tanks.forEach(t=>{
+      const cid=String(t.cat||'misc');
+      if(!state.cats.some(c=>c.id===cid)){
+        const mx=state.cats.reduce((a,c)=>Math.max(a,c.ord||0),0);
+        state.cats.push({id:cid,label:cid.charAt(0).toUpperCase()+cid.slice(1),short:cid.toUpperCase().slice(0,10),ord:mx+10,modified:Date.now(),deleted:false});
+      }
+    });
     state.dataVersion=Math.max(state.dataVersion||1, p.dataVersion||1)+1;
-    return {tanksAdded,tanksUpdated,logsAdded,logsUpdated};
+    return {tanksAdded,tanksUpdated,logsAdded,logsUpdated,unchanged,deleted};
   }
   // Restore incoming media additively (never clears existing).
   function mergeMedia(media){
@@ -2977,6 +3510,10 @@ var DESK_READY=new Promise(function(res){
         const p=JSON.parse(reader.result);
         if(!Array.isArray(p.tanks)||typeof p.logs!=='object')
           throw new Error('not a Tank Log backup');
+        const incSchema=(typeof p.schemaVersion==='number')?p.schemaVersion:1;
+        if(incSchema>SCHEMA_VERSION)
+          throw new Error('this file was written by a newer version of Tank Log (schema '+incSchema+
+                          ', this app understands '+SCHEMA_VERSION+'). Update the app first — nothing has been changed.');
         // version-guard: warn if the file looks older than current data
         const incMax=Math.max(0,...Object.values(p.logs||{}).flat().map(x=>x&&x.modified||0));
         const curMax=Math.max(0,...Object.values(state.logs||{}).flat().map(x=>x&&x.modified||0));
@@ -2988,9 +3525,23 @@ var DESK_READY=new Promise(function(res){
         const rep=mergeTankData(p);
         undoStack=[];
         save();applyTheme&&applyTheme();refreshToggles&&refreshToggles();buildGrids();renderTankManager();renderQpManage&&renderQpManage();renderNoteSecToggles&&renderNoteSecToggles();refreshBackupAge&&refreshBackupAge();refreshBadges();renderTrash&&renderTrash();
+        renderCatManager&&renderCatManager();
+        fillCatSelect&&fillCatSelect($('newCat'));
+        fillPresetSelect&&fillPresetSelect($('repPreset'));
+        fillPresetSelect&&fillPresetSelect($('cvPreset'));
         mergeMedia(p.media).then(mediaAdded=>{
           if(current)renderEntries();
-          toast('Merged: +'+rep.tanksAdded+' tanks, +'+rep.logsAdded+' logs ('+rep.logsUpdated+' updated)');
+          const src=(p.exportedBy||'unknown device')+
+                    (p.exportedAt?(' \u00b7 exported '+fmtTime(p.exportedAt)):'');
+          const msg='MERGE COMPLETE\n\n'+
+            'Added:      '+(rep.tanksAdded+rep.logsAdded)+'  ('+rep.tanksAdded+' spaces, '+rep.logsAdded+' entries)\n'+
+            'Updated:    '+(rep.tanksUpdated+rep.logsUpdated)+'\n'+
+            'Unchanged:  '+rep.unchanged+'\n'+
+            'Deletions:  '+rep.deleted+' propagated\n'+
+            'Media:      '+mediaAdded+' restored\n\n'+
+            'Source file: '+src;
+          toast('Merged: +'+(rep.tanksAdded+rep.logsAdded)+' new, '+(rep.tanksUpdated+rep.logsUpdated)+' updated');
+          setTimeout(()=>alert(msg),150);
         }).catch(()=>toast('Merged, but some media failed to restore'));
       }catch(err){
         toast('Import failed: '+err.message);
@@ -3003,14 +3554,122 @@ var DESK_READY=new Promise(function(res){
   });
 
   /* ---------- printable reports ---------- */
-  const typeNames={full:'Complete Report — Logs & All Comparisons',logs:'Just Logs Report',photos:'Photos Report',cnote:'Cleaning Notes Report',onote:'Operations Notes Report',ul:'Ullage Comparison Report',tp:'Temperature Comparison Report',pr:'Pressure Comparison Report',board:'Tank Board Snapshot'};
+  const typeNames={full:'Complete Report \u2014 Logs & All Comparisons',logs:'Just Logs Report',photos:'Photos Report',cnote:'Cleaning Notes Report',onote:'Operations Notes Report',ul:'Ullage Comparison Report',tp:'Temperature Comparison Report',pr:'Pressure Comparison Report',ba:'Before / After Photo Comparisons',board:'Tank Board Snapshot'};
   let repScope=null,repHeading='';
+  let repBase=null,repSingle=null,repCoverOn=true;
+  let repRange={f:null,t:null,fv:'',tv:''};
+  /* every report table reads its entries through this, so the date range applies everywhere */
+  function repLogs(id){
+    const l=logsOf(id);
+    if(repRange.f===null&&repRange.t===null)return l;
+    return l.filter(e=>{
+      const ms=Date.parse(e.ts);
+      if(isNaN(ms))return false;
+      if(repRange.f!==null&&ms<repRange.f)return false;
+      if(repRange.t!==null&&ms>repRange.t)return false;
+      return true;
+    });
+  }
+  function repPeriodLabel(){
+    if(!repRange.fv&&!repRange.tv)return 'Full history';
+    return (repRange.fv?fmtD(repRange.fv):'\u2026')+' \u2192 '+(repRange.tv?fmtD(repRange.tv):'\u2026');
+  }
 
+  function fillRepSpaces(){
+    const cs=$('repCat'),ss=$('repSpace');
+    if(!cs||!ss)return;
+    const keep=ss.value;
+    if(repSingle){
+      ss.innerHTML='<option value="'+esc(repSingle.id)+'">'+esc(repSingle.name)+'</option>';
+      ss.value=repSingle.id;
+      return;
+    }
+    const pool=cs.value==='all'?liveTanks():catTanks(cs.value);
+    ss.innerHTML='<option value="all">All spaces</option>'+
+      pool.map(t=>'<option value="'+esc(t.id)+'">'+esc(t.name)+'</option>').join('');
+    ss.value=(keep&&pool.some(t=>t.id===keep))?keep:'all';
+  }
+  function fillRepCats(){
+    const cs=$('repCat');
+    if(!cs)return;
+    const keep=cs.value;
+    if(repSingle){
+      cs.innerHTML='<option value="'+esc(repSingle.cat)+'">'+esc(catName(repSingle.cat))+'</option>';
+      cs.value=repSingle.cat;
+      return;
+    }
+    cs.innerHTML='<option value="all">All categories</option>'+
+      liveCats().map(c=>'<option value="'+esc(c.id)+'">'+esc(c.label)+'</option>').join('');
+    if(keep&&(keep==='all'||liveCats().some(c=>c.id===keep)))cs.value=keep;
+  }
+  function repTargetTanks(){
+    let arr=(repBase&&repBase.length?repBase:liveTanks()).filter(t=>!t.deleted);
+    if(repSingle)return arr;
+    const c=$('repCat').value,sp=$('repSpace').value;
+    if(c&&c!=='all')arr=arr.filter(t=>t.cat===c);
+    if(sp&&sp!=='all')arr=arr.filter(t=>t.id===sp);
+    /* keep dashboard order */
+    const order=[];liveCats().forEach(k=>order.push(...catTanks(k.id,arr)));
+    arr.forEach(t=>{if(order.indexOf(t)<0)order.push(t);});
+    return order;
+  }
+  function repScopeText(){
+    if(repSingle)return repSingle.name;
+    const c=$('repCat').value,sp=$('repSpace').value;
+    if(sp&&sp!=='all'){const t=tankById(sp);if(t)return t.name;}
+    if(c&&c!=='all')return catName(c);
+    return 'All Spaces';
+  }
   function openReportDialog(tanks,heading){
-    repScope=tanks;repHeading=heading;
-    $('repScopeLbl').textContent='Scope: '+heading;
+    repBase=tanks;
+    repSingle=(Array.isArray(tanks)&&tanks.length===1&&heading!=='All Tanks')?tanks[0]:null;
+    repHeading=heading;
+    $('repScopeLbl').textContent=repSingle?('Scope: '+heading):'Report scope';
+    fillRepCats();fillRepSpaces();
+    fillPresetSelect($('repPreset'));
+    $('repCat').disabled=!!repSingle;
+    $('repSpace').disabled=!!repSingle;
     $('repOverlay').classList.add('open');
   }
+  $('repCat').addEventListener('change',()=>{$('repSpace').value='all';fillRepSpaces();});
+  $('repRangeClear').addEventListener('click',()=>{$('repFrom').value='';$('repTo').value='';});
+  $('repRangeMonth').addEventListener('click',()=>{
+    const n=new Date();
+    $('repFrom').value=dayKey(new Date(n.getFullYear(),n.getMonth(),1));
+    $('repTo').value=dayKey(new Date(n.getFullYear(),n.getMonth()+1,0));
+  });
+  $('repRangeYear').addEventListener('click',()=>{
+    const n=new Date();
+    $('repFrom').value=n.getFullYear()+'-01-01';
+    $('repTo').value=n.getFullYear()+'-12-31';
+  });
+  $('repPreset').addEventListener('change',()=>{
+    const p=presetById($('repPreset').value);
+    if(!p)return;
+    if(!repSingle){
+      $('repCat').value=(p.cat&&(p.cat==='all'||liveCats().some(c=>c.id===p.cat)))?p.cat:'all';
+      fillRepSpaces();
+      if(p.space&&p.space!=='all'&&tankById(p.space))$('repSpace').value=p.space;
+      else $('repSpace').value='all';
+    }
+    $('repFrom').value=p.from||'';
+    $('repTo').value=p.to||'';
+    if(p.repType&&typeNames[p.repType])$('repType').value=p.repType;
+    toast('Preset \u201c'+p.name+'\u201d applied');
+  });
+  $('repPresetSave').addEventListener('click',()=>{
+    savePreset({cat:repSingle?'all':$('repCat').value,space:repSingle?'all':$('repSpace').value,
+                from:$('repFrom').value,to:$('repTo').value,repType:$('repType').value,types:[...cvF.types]});
+  });
+  $('repPresetDel').addEventListener('click',()=>{
+    const p=presetById($('repPreset').value);
+    if(!p){toast('Choose a preset first');return;}
+    if(!confirm('Delete the preset \u201c'+p.name+'\u201d?'))return;
+    p.deleted=true;p.modified=Date.now();
+    state.dataVersion=(state.dataVersion||1)+1;
+    save();fillPresetSelect($('repPreset'),'');fillPresetSelect($('cvPreset'),'');
+    toast('Preset deleted');
+  });
   $('exportBtn').addEventListener('click',()=>openReportDialog(state.tanks,'All Tanks'));
   $('tankReport').addEventListener('click',()=>{
     if(!current)return;
@@ -3024,7 +3683,7 @@ var DESK_READY=new Promise(function(res){
     return '<td class="num '+(beyond?'bad':'good')+'">'+(d>=0?'+':'')+d.toFixed(dec)+'</td>';
   }
   function cmpEntriesFor(tankId,key){
-    return logsOf(tankId).filter(e=>e.type==='cmp'&&(e.data[key+'_ccr']!==null||e.data[key+'_man']!==null)).slice().reverse();
+    return repLogs(tankId).filter(e=>e.type==='cmp'&&(e.data[key+'_ccr']!==null||e.data[key+'_man']!==null)).slice().reverse();
   }
   function avgDiff(tankId,key){
     const ents=cmpEntriesFor(tankId,key);
@@ -3053,8 +3712,84 @@ var DESK_READY=new Promise(function(res){
     if(rh)rh.innerHTML='<span>'+(v.name?'M.T. '+esc(v.name):'')+'</span><span>'+esc(subtitle||'Tank Log Report')+'</span><span>'+fmtTime(new Date().toISOString())+'</span>';
     if(rf)rf.innerHTML='<span>Tank Log'+(v.imo?' · IMO '+esc(v.imo):'')+'</span><span>'+esc(repHeading||'')+'</span>';
   }
-  function pvHeader(subtitle){
+  const SUM_TYPES=[['note','Notes'],['cnote','Cleaning'],['onote','Operations'],['dnote','Defects'],['cmp','Comparisons'],['ba','Before/After'],['media','Media']];
+  function sumKey(e){
+    if(e.type==='photo'||e.type==='file')return 'media';
+    return SUM_TYPES.some(x=>x[0]===e.type)?e.type:'note';
+  }
+  function pvCoverHTML(subtitle,info){
+    const v=state.vessel||{};
+    const tanks=info.tanks||[];
+    let html='<div class="pv-cover">';
+    html+='<div class="cv-ves">'+(v.name?'M.T. '+esc(v.name):'Vessel not set')+'</div>';
+    const bits=[];
+    if(v.imo)bits.push('IMO '+esc(v.imo));
+    if(v.flag)bits.push('Flag: '+esc(v.flag));
+    if(v.grt)bits.push('GRT: '+esc(v.grt));
+    if(bits.length)html+='<div class="cv-ids">'+bits.join(' &nbsp;\u00b7&nbsp; ')+'</div>';
+    html+='<div class="cv-rule"></div>';
+    html+='<div class="cv-title">Tank Log Report</div>';
+    html+='<div class="cv-badge">'+esc(subtitle)+'</div>';
+
+    /* facts */
+    const cur=(typeof currentVoyLeg==='function')?currentVoyLeg():null;
+    const filters=[];
+    if(info.scopeCat&&info.scopeCat!=='all')filters.push('Category: '+catName(info.scopeCat));
+    if(info.scopeSpace&&info.scopeSpace!=='all'){const tt=tankById(info.scopeSpace);if(tt)filters.push('Space: '+tt.name);}
+    if(Array.isArray(info.types)&&info.types.length&&info.types.length<Object.keys(CV_TYPES).length)
+      filters.push('Entry types: '+info.types.map(k=>CV_TYPES[k]?CV_TYPES[k][0]:k).join(', '));
+    const rows=[['Report scope',esc(repHeading||'All Spaces')],
+                ['Period covered',esc(info.period||repPeriodLabel())],
+                ['Filters applied',filters.length?esc(filters.join(' \u00b7 ')):'None \u2014 everything in scope'],
+                ['Spaces covered',String(tanks.length)],
+                ['Entries in report',String((info.entries||[]).length)]];
+    if(cur&&cur.no)rows.push(['Voyage / leg',esc(cur.no+(cur.leg?' \u00b7 '+cur.leg:''))]);
+    rows.push(['UTI correction',state.uti.toFixed(3)+' m']);
+    rows.push(['Generated',esc(fmtTime(new Date().toISOString()))]);
+    rows.push(['Prepared by',esc(v.prep||'\u2014')]);
+    html+='<table class="pv-facts">';
+    rows.forEach(([k,val])=>{html+='<tr><td class="k">'+k+'</td><td>'+val+'</td></tr>';});
+    html+='</table>';
+
+    /* summary table: entry counts per space */
+    const ents=info.entries||[];
+    if(ents.length){
+      const per={};
+      ents.forEach(x=>{
+        const id=x.t.id;
+        if(!per[id])per[id]={t:x.t,total:0};
+        per[id].total++;
+        const k=sumKey(x.e);
+        per[id][k]=(per[id][k]||0)+1;
+      });
+      const used=SUM_TYPES.filter(([k])=>ents.some(x=>sumKey(x.e)===k));
+      html+='<div class="pv-sumhead">Summary \u2014 entries by space</div>';
+      html+='<table><tr><th>Space</th><th>Category</th>'+
+            used.map(([,l])=>'<th class="num">'+l+'</th>').join('')+
+            '<th class="num">Total</th></tr>';
+      tanks.forEach(t=>{
+        const r=per[t.id];if(!r)return;
+        html+='<tr><td>'+esc(t.name)+'</td><td>'+esc(catShort(t.cat))+'</td>'+
+              used.map(([k])=>'<td class="num">'+(r[k]||'\u2014')+'</td>').join('')+
+              '<td class="num"><b>'+r.total+'</b></td></tr>';
+      });
+      const tot={};ents.forEach(x=>{const k=sumKey(x.e);tot[k]=(tot[k]||0)+1;});
+      html+='<tr><td colspan="2"><b>ALL SPACES</b></td>'+
+            used.map(([k])=>'<td class="num"><b>'+(tot[k]||'\u2014')+'</b></td>').join('')+
+            '<td class="num"><b>'+ents.length+'</b></td></tr>';
+      html+='</table>';
+    }
+    html+='<div class="pv-foot">'+
+      '<div class="pv-sig"><div class="line"></div>Prepared by (Name / Rank)</div>'+
+      '<div class="pv-sig"><div class="line"></div>Signature</div>'+
+      '<div class="pv-sig"><div class="line"></div>Date</div></div>';
+    html+='<div class="pv-ver">Tank Log v'+APP_VERSION+'</div>';
+    html+='</div>';
+    return html;
+  }
+  function pvHeader(subtitle,cover){
     pvSetRunning(subtitle);
+    if(cover&&repCoverOn)return pvCoverHTML(subtitle,cover);
     let html='';
     const v=state.vessel;
     if(v.name)html+='<div class="pv-vessel">M.T. '+esc(v.name)+'</div>';
@@ -3081,11 +3816,11 @@ var DESK_READY=new Promise(function(res){
   }
 
   function buildBoardHTML(tanks){
-    let html=pvHeader(typeNames.board);
-    const cats=[['cargo','Cargo Tanks'],['ballast','Ballast Tanks'],['misc','Fresh Water Tanks'],['coff','Cofferdam Space']];
+    let html=pvHeader(typeNames.board,{period:'Board snapshot \u2014 '+fmtTime(new Date().toISOString()),tanks,entries:[]});
+    const cats=liveCats().map(c=>[c.id,c.label]);
     let anything=false;
     cats.forEach(([cat,title])=>{
-      const list=tanks.filter(t=>t.cat===cat);
+      const list=catTanks(cat,tanks);
       if(!list.length)return;
       anything=true;
       let sec='<div class="pv-tank"><h2><span>'+title+'</span></h2>';
@@ -3101,7 +3836,7 @@ var DESK_READY=new Promise(function(res){
         if(t.status)chips+='<span class="bstat">'+esc(t.status)+'</span>';
         if(chips)s+='<div class="bchips">'+chips+'</div>';
         if(t.cat==='cargo'&&Array.isArray(t.l3c)&&t.l3c.some(x=>x))
-          s+='<div class="bl3c">L3C: '+esc(t.l3c.filter(x=>x).join(' • '))+'</div>';
+          s+='<div class="bl3c">L3C: '+esc(t.l3c.filter(x=>x).join(' \u00b7 '))+'</div>';
         const lc=t.cat==='cargo'?lastCmp(t.id):null;
         s+='<div class="bmeta">'+(lc&&latestBeyond(lc)?'<span class="bwarn"></span>':'')+'<span class="bcount">'+logsOf(t.id).length+'</span></div>';
         return s+'</div>';
@@ -3126,7 +3861,11 @@ var DESK_READY=new Promise(function(res){
   function buildReportHTML(tanks,type){
     if(type==='board')return buildBoardHTML(tanks);
     const L=state.limits;
-    let html=pvHeader(typeNames[type]);
+    const coverEnts=[];
+    tanks.forEach(t=>repLogs(t.id).forEach(e=>coverEnts.push({t,e})));
+    let html=pvHeader(typeNames[type],{period:repPeriodLabel(),tanks:tanks.filter(t=>repLogs(t.id).length),
+                                       entries:coverEnts,scopeCat:repSingle?'all':$('repCat').value,
+                                       scopeSpace:repSingle?'all':$('repSpace').value});
     let anything=false;
 
     tanks.forEach(t=>{
@@ -3138,7 +3877,7 @@ var DESK_READY=new Promise(function(res){
                      onote:[['onote','Operations Log']]};
       if(noteMap[type]){
         noteMap[type].forEach(([nk,title])=>{
-          const notes=logsOf(t.id).filter(e=>e.type===nk).slice().reverse();
+          const notes=repLogs(t.id).filter(e=>e.type===nk).slice().reverse();
           if(!notes.length)return;
           sec+='<h3>'+title+'</h3><table><tr><th style="width:200px">Date / Time</th><th>Note</th></tr>';
           notes.forEach(e=>{
@@ -3158,7 +3897,7 @@ var DESK_READY=new Promise(function(res){
              photos attached to notes already appear inline with their note ---- */
       if(type==='full'||type==='logs'){
         const photos=[];
-        logsOf(t.id).slice().reverse().forEach(e=>{
+        repLogs(t.id).slice().reverse().forEach(e=>{
           if(e.type==='photo'&&e.thumb)photos.push({ts:e.ts,thumb:e.thumb,name:e.name});
         });
         if(photos.length){
@@ -3170,7 +3909,7 @@ var DESK_READY=new Promise(function(res){
       /* ---- photos-only report: everything, incl. note attachments ---- */
       if(type==='photos'){
         const photos=[];
-        logsOf(t.id).slice().reverse().forEach(e=>{
+        repLogs(t.id).slice().reverse().forEach(e=>{
           if(e.type==='photo'&&e.thumb)photos.push({ts:e.ts,thumb:e.thumb,name:e.name,tag:'PHOTO'});
           if(Array.isArray(e.att))e.att.forEach(a=>{if(a.kind==='photo'&&a.thumb)photos.push({ts:e.ts,thumb:a.thumb,name:a.name,tag:tagClass(e)[0]});});
         });
@@ -3181,6 +3920,20 @@ var DESK_READY=new Promise(function(res){
               '<figcaption>'+fmtTime(p.ts)+' · '+esc(p.tag)+(p.name?' · '+esc(p.name):'')+'</figcaption></figure>';
           });
           sec+='</div>';
+        }
+      }
+      /* ---- before / after photo pairs: full width, two per row, caption beneath ---- */
+      if(type==='ba'||type==='full'){
+        const bas=repLogs(t.id).filter(e=>e.type==='ba'&&baPair(e)).slice().reverse();
+        if(bas.length){
+          sec+='<h3><span>Before / After Comparisons</span><span class="pv-avg">'+bas.length+' pair'+(bas.length===1?'':'s')+'</span></h3>';
+          bas.forEach(e=>{
+            const p=baPair(e);
+            sec+='<div class="pv-baw"><div class="pv-ba">'+
+              '<figure class="before"><img src="'+(p.b.thumb||'')+'" alt="before"><figcaption>Before</figcaption></figure>'+
+              '<figure class="after"><img src="'+(p.a.thumb||'')+'" alt="after"><figcaption>After</figcaption></figure>'+
+              '</div><div class="pv-bacap"><b>'+fmtTime(e.ts)+'</b>'+(e.text?' &nbsp;\u2014&nbsp; '+esc(e.text):'')+'</div></div>';
+          });
         }
       }
       /* ---- ullage comparison ---- */
@@ -3234,7 +3987,7 @@ var DESK_READY=new Promise(function(res){
       if(sec){
         anything=true;
         const avgRight=(type==='ul'||type==='tp'||type==='pr')?'<span class="pv-avg">'+avgLabel(t.id,type)+'</span>':'';
-        html+='<div class="pv-tank"><h2><span>'+esc(t.name)+' &nbsp;<span style="font-weight:400;font-size:.7rem;color:#556">['+catLabel(t)+' · '+(t.side==='full'?'CL':t.side.toUpperCase())+']</span></span>'+avgRight+'</h2>'+sec+'</div>';
+        html+='<div class="pv-tank"><h2><span>'+esc(t.name)+' &nbsp;<span style="font-weight:400;font-size:.7rem;color:#556">['+catLabel(t)+' \u00b7 '+(t.side==='full'?'CL':t.side.toUpperCase())+']</span></span>'+avgRight+'</h2>'+sec+'</div>';
       }
     });
 
@@ -3244,8 +3997,18 @@ var DESK_READY=new Promise(function(res){
 
   $('repGen').addEventListener('click',()=>{
     const type=$('repType').value;
-    const html=buildReportHTML(repScope,type);
-    if(!html){toast('No matching entries for this report type');return;}
+    const fv=$('repFrom').value,tv=$('repTo').value;
+    if(fv&&tv&&fv>tv){toast('From date is after the To date');return;}
+    repRange={fv,tv,
+              f:fv?Date.parse(fv+'T00:00:00'):null,
+              t:tv?Date.parse(tv+'T23:59:59'):null};
+    repCoverOn=$('repCover').checked;
+    const tanks=repTargetTanks();
+    if(!tanks.length){toast('No space matches this scope');return;}
+    repScope=tanks;
+    repHeading=repScopeText()+((fv||tv)?(' \u00b7 '+repPeriodLabel()):'');
+    const html=buildReportHTML(tanks,type);
+    if(!html){toast('No matching entries for this report type / date range');return;}
     $('pvDoc').innerHTML=html;
     sizeRepPhotos();
     $('repOverlay').classList.remove('open');
@@ -3303,7 +4066,15 @@ var DESK_READY=new Promise(function(res){
       closeSidebar();
       switch(act){
         case 'new': $('settingsBtn').click(); setTimeout(()=>{const n=$('newName');if(n){n.scrollIntoView({behavior:'smooth'});n.focus();}},150); break;
+        case 'expand': {
+          const cs=liveCats(),anyOpen=cs.some(c=>!state.collapsed[c.id]);
+          cs.forEach(c=>{state.collapsed[c.id]=anyOpen;});
+          save();buildGrids();
+          toast(anyOpen?'All categories collapsed':'All categories expanded');
+          break;
+        }
         case 'search': openSearch(); break;
+        case 'bulk': openBulk(); break;
         case 'sort': $('sortOverlay').classList.add('open'); break;
         case 'pinned': state.view.pinnedOnly=!state.view.pinnedOnly; save(); buildGrids(); toast(state.view.pinnedOnly?'Showing pinned tanks':'Showing all tanks'); break;
         case 'calendar': openCalView(); break;
@@ -3315,17 +4086,121 @@ var DESK_READY=new Promise(function(res){
       }
     });
   });
+  /* ================= bulk entry ================= */
+  const BULK_TYPES=[['note','Note'],['cnote','Cleaning note'],['onote','Operations note'],['dnote','Defects note (Master)']];
+  let bulkSel=new Set();
+  function bulkTypeOptions(){
+    const sel=$('bulkType');if(!sel)return;
+    const keep=sel.value;
+    sel.innerHTML=BULK_TYPES.filter(([k])=>k!=='dnote'||masterMode)
+      .filter(([k])=>state.noteSecs[k]!==false)
+      .map(([k,l])=>'<option value="'+k+'">'+l+'</option>').join('');
+    if(keep&&[...sel.options].some(o=>o.value===keep))sel.value=keep;
+  }
+  function bulkCountLbl(){
+    const el=$('bulkCount');if(!el)return;
+    el.textContent=bulkSel.size?('— '+bulkSel.size+' selected'):'— none selected';
+  }
+  function renderBulkPicker(){
+    const box=$('bulkPicker');if(!box)return;
+    box.innerHTML='';
+    liveCats().forEach(c=>{
+      const list=catTanks(c.id);
+      if(!list.length)return;
+      const wrap=document.createElement('div');wrap.className='bulk-cat';
+      const h=document.createElement('h5');
+      h.innerHTML='<span>'+esc(c.label)+'</span>';
+      const all=document.createElement('button');all.className='bpick';all.textContent='All';
+      all.addEventListener('click',()=>{
+        const every=list.every(t=>bulkSel.has(t.id));
+        list.forEach(t=>every?bulkSel.delete(t.id):bulkSel.add(t.id));
+        renderBulkPicker();
+      });
+      h.appendChild(all);
+      wrap.appendChild(h);
+      const picks=document.createElement('div');picks.className='bulk-picks';
+      list.forEach(t=>{
+        const b=document.createElement('button');
+        b.className='bpick'+(bulkSel.has(t.id)?' on':'');
+        b.textContent=t.name;
+        b.addEventListener('click',()=>{
+          bulkSel.has(t.id)?bulkSel.delete(t.id):bulkSel.add(t.id);
+          b.classList.toggle('on');bulkCountLbl();
+        });
+        picks.appendChild(b);
+      });
+      wrap.appendChild(picks);
+      box.appendChild(wrap);
+    });
+    bulkCountLbl();
+  }
+  function openBulk(){
+    bulkTypeOptions();
+    if(!$('bulkType').options.length){toast('No note sections are enabled');return;}
+    renderBulkPicker();
+    $('bulkOverlay').classList.add('open');
+  }
+  $('bulkClose').addEventListener('click',()=>$('bulkOverlay').classList.remove('open'));
+  $('bulkOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)$('bulkOverlay').classList.remove('open');});
+  $('bulkAll').addEventListener('click',()=>{liveTanks().forEach(t=>bulkSel.add(t.id));renderBulkPicker();});
+  $('bulkNone').addEventListener('click',()=>{bulkSel.clear();renderBulkPicker();});
+  $('bulkSave').addEventListener('click',()=>{
+    const type=$('bulkType').value;
+    if(type==='dnote'&&!masterMode){toast('Master mode required for defects notes');return;}
+    const ids=[...bulkSel].filter(id=>{const t=tankById(id);return t&&!t.deleted;});
+    if(!ids.length){toast('Select at least one space');return;}
+    const txt=$('bulkText').value.trim();
+    const atts=pendingAtt.bulk||[];
+    if(!txt&&!atts.length){toast('Nothing to save — write text or attach a photo');return;}
+    if(atts.length*ids.length>60&&!confirm('This will store '+(atts.length*ids.length)+' attachment copies (one set per space). Continue?'))return;
+    const ts=new Date().toISOString();
+    toast('Saving to '+ids.length+' space'+(ids.length===1?'':'s')+'\u2026');
+    const jobs=[];
+    ids.forEach(tankId=>{
+      const refs=[];
+      atts.forEach(a=>{
+        const mid='m_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+        refs.push({mediaId:mid,kind:a.kind,name:a.name,thumb:a.kind==='photo'?a.data:null});
+        jobs.push(idbPut({id:mid,tankId,kind:a.kind,name:a.name,size:a.size,ts:Date.parse(ts),data:a.data}));
+      });
+      if(!state.logs[tankId])state.logs[tankId]=[];
+      state.logs[tankId].unshift({id:uid(),type,ts,modified:Date.now(),deleted:false,text:txt,att:refs,bulk:true});
+    });
+    Promise.all(jobs).then(()=>{
+      state.dataVersion=(state.dataVersion||1)+1;
+      auditRec('BULK',null,ids.length+' \u00d7 '+(BULK_TYPES.find(x=>x[0]===type)||[,type])[1]+(txt?' — '+txt.slice(0,60):''));
+      save();buildGrids();refreshBadges();
+      if(current)renderEntries();
+      $('bulkText').value='';
+      pendingAtt.bulk=[];renderTray('bulk');
+      $('bulkOverlay').classList.remove('open');
+      toast('Saved to '+ids.length+' space'+(ids.length===1?'':'s'));
+    }).catch(err=>{console.error(err);toast('Bulk save failed: '+err.message);});
+  });
+
   /* ================= Calendar & Timeline view ================= */
-  const CV_TYPES={note:['Note','#8fa3b8'],cnote:['Cleaning','#2dd4bf'],onote:['Ops','#4da3ff'],dnote:['Defect','#ff5c5c'],cmp:['Compare','#ffb347'],media:['Media','#b78cff']};
-  const CV_CATS={cargo:'Cargo',ballast:'Ballast',misc:'FW',coff:'Coff'};
+  const CV_TYPES={note:['Note','#8fa3b8'],cnote:['Cleaning','#2dd4bf'],onote:['Ops','#4da3ff'],dnote:['Defect','#ff5c5c'],cmp:['Compare','#ffb347'],ba:['Before/After','#7ee787'],media:['Media','#b78cff']};
   const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const cvF={types:new Set(Object.keys(CV_TYPES)),cats:new Set(Object.keys(CV_CATS))};
+  const cvF={types:new Set(Object.keys(CV_TYPES)),cat:'all',space:'all'};
   let cvTab='cal',cvYm=null,cvSelDay=null;
   let tlAll=[],tlShown=0,tlGeo=null;
   const TL_CHUNK=60;
 
   function pad2(n){return (n<10?'0':'')+n;}
   function dayKey(d){return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate());}
+  /* one shared date range drives calendar, timeline and their printouts */
+  function cvRange(){
+    const fEl=$('cvFrom'),tEl=$('cvTo');
+    const fv=fEl?fEl.value:'',tv=tEl?tEl.value:'';
+    const f=fv?Date.parse(fv+'T00:00:00'):null;
+    const t=tv?Date.parse(tv+'T23:59:59'):null;
+    return{fv,tv,f:(f!==null&&!isNaN(f))?f:null,t:(t!==null&&!isNaN(t))?t:null};
+  }
+  function rangeLabel(){
+    const r=cvRange();
+    if(!r.fv&&!r.tv)return 'full history';
+    return (r.fv?fmtD(r.fv):'\u2026')+' \u2192 '+(r.tv?fmtD(r.tv):'\u2026');
+  }
   function fmtDayHead(ms){
     const d=new Date(ms),days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     return days[d.getDay()]+' · '+pad2(d.getDate())+' '+MONTHS[d.getMonth()].slice(0,3).toUpperCase()+' '+d.getFullYear();
@@ -3337,6 +4212,7 @@ var DESK_READY=new Promise(function(res){
   }
   function cvSnippet(e){
     if(e.text)return e.text;
+    if(e.type==='ba')return 'Before / after photo pair';
     if(e.type==='cmp')return 'CCR vs Manual comparison';
     if(e.type==='photo')return e.name||'Photo';
     if(e.type==='file')return e.name||'File';
@@ -3350,16 +4226,24 @@ var DESK_READY=new Promise(function(res){
   }
   function cvEntries(){
     const out=[];
+    const r=cvRange();
     liveTanks().forEach(t=>{
-      const cat=CV_CATS[t.cat]?t.cat:'misc';
-      if(!cvF.cats.has(cat))return;
+      if(cvF.cat!=='all'&&t.cat!==cvF.cat)return;
+      if(cvF.space!=='all'&&t.id!==cvF.space)return;
       logsOf(t.id).forEach(e=>{
         if(!cvF.types.has(cvType(e)))return;
         const ms=Date.parse(e.ts);if(isNaN(ms))return;
+        if(r.f!==null&&ms<r.f)return;
+        if(r.t!==null&&ms>r.t)return;
         out.push({t,e,ms});
       });
     });
     return out;
+  }
+  function cvScopeLabel(){
+    if(cvF.space!=='all'){const t=tankById(cvF.space);if(t)return t.name;}
+    if(cvF.cat!=='all')return catName(cvF.cat);
+    return 'All Spaces';
   }
 
   /* ----- filter chips (shared by both tabs) ----- */
@@ -3373,14 +4257,91 @@ var DESK_READY=new Promise(function(res){
       b.addEventListener('click',()=>{cvF.types.has(k)?cvF.types.delete(k):cvF.types.add(k);renderCvFilters();cvRefresh();});
       box.appendChild(b);
     });
-    Object.keys(CV_CATS).forEach(k=>{
-      const b=document.createElement('button');
-      b.className='cv-chip cat'+(cvF.cats.has(k)?' on':'');
-      b.textContent=CV_CATS[k];
-      b.addEventListener('click',()=>{cvF.cats.has(k)?cvF.cats.delete(k):cvF.cats.add(k);renderCvFilters();cvRefresh();});
-      box.appendChild(b);
+    const all=document.createElement('button');
+    all.className='cv-chip cat on';
+    all.textContent=(cvF.types.size===Object.keys(CV_TYPES).length)?'None':'All types';
+    all.addEventListener('click',()=>{
+      if(cvF.types.size===Object.keys(CV_TYPES).length)cvF.types.clear();
+      else Object.keys(CV_TYPES).forEach(k=>cvF.types.add(k));
+      renderCvFilters();cvRefresh();
     });
+    box.appendChild(all);
   }
+
+  /* ----- scope selects (category \u2192 space) + shared date range ----- */
+  function renderCvScope(){
+    const cs=$('cvCatSel'),ss=$('cvSpaceSel');
+    if(!cs||!ss)return;
+    cs.innerHTML='<option value="all">All categories</option>'+
+      liveCats().map(c=>'<option value="'+esc(c.id)+'">'+esc(c.label)+'</option>').join('');
+    cs.value=liveCats().some(c=>c.id===cvF.cat)?cvF.cat:'all';
+    cvF.cat=cs.value;
+    const pool=cvF.cat==='all'?liveTanks():catTanks(cvF.cat);
+    ss.innerHTML='<option value="all">All spaces</option>'+
+      pool.map(t=>'<option value="'+esc(t.id)+'">'+esc(t.name)+'</option>').join('');
+    if(!pool.some(t=>t.id===cvF.space))cvF.space='all';
+    ss.value=cvF.space;
+    const rl=$('tlRangeLbl');if(rl)rl.textContent=rangeLabel();
+  }
+  (function wireCvScope(){
+    const cs=$('cvCatSel'),ss=$('cvSpaceSel'),f=$('cvFrom'),t=$('cvTo'),x=$('cvRangeClear');
+    if(!cs)return;
+    cs.addEventListener('change',()=>{cvF.cat=cs.value;cvF.space='all';renderCvScope();cvRefresh();});
+    ss.addEventListener('change',()=>{cvF.space=ss.value;cvRefresh();});
+    f.addEventListener('change',()=>{renderCvScope();cvRefresh();});
+    t.addEventListener('change',()=>{renderCvScope();cvRefresh();});
+    x.addEventListener('click',()=>{f.value='';t.value='';renderCvScope();cvRefresh();});
+  })();
+
+  /* ----- saved presets (shared by the calendar and the report dialog) ----- */
+  function livePresets(){return (state.presets||[]).filter(p=>!p.deleted);}
+  function fillPresetSelect(sel,keep){
+    if(!sel)return;
+    const want=keep!==undefined?keep:sel.value;
+    sel.innerHTML='<option value="">\u2014 preset \u2014</option>'+
+      livePresets().map(p=>'<option value="'+esc(p.id)+'">'+esc(p.name)+'</option>').join('');
+    if(want&&livePresets().some(p=>p.id===want))sel.value=want;
+  }
+  function presetById(id){return livePresets().find(p=>p.id===id)||null;}
+  function savePreset(fields){
+    const name=prompt('Preset name:',fields.name||'');
+    if(name===null)return null;
+    const nm=name.trim();
+    if(!nm){toast('Preset name cannot be empty');return null;}
+    let p=livePresets().find(x=>x.name.toLowerCase()===nm.toLowerCase());
+    if(p){
+      if(!confirm('A preset called \u201c'+p.name+'\u201d already exists. Overwrite it?'))return null;
+      Object.assign(p,fields,{name:nm,modified:Date.now()});
+    }else{
+      p={id:'ps_'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),name:nm,modified:Date.now(),deleted:false};
+      Object.assign(p,fields,{name:nm});
+      state.presets.push(p);
+    }
+    state.dataVersion=(state.dataVersion||1)+1;
+    save();
+    fillPresetSelect($('cvPreset'),p.id);
+    fillPresetSelect($('repPreset'),p.id);
+    toast('Preset saved');
+    return p;
+  }
+  function applyPresetToCal(p){
+    if(!p)return;
+    cvF.cat=p.cat||'all';cvF.space=p.space||'all';
+    if(Array.isArray(p.types)&&p.types.length){cvF.types=new Set(p.types.filter(k=>CV_TYPES[k]));}
+    $('cvFrom').value=p.from||'';
+    $('cvTo').value=p.to||'';
+    renderCvFilters();renderCvScope();cvRefresh();
+    toast('Preset \u201c'+p.name+'\u201d applied');
+  }
+  (function wireCvPreset(){
+    const sel=$('cvPreset'),btn=$('cvPresetSave');
+    if(!sel)return;
+    sel.addEventListener('change',()=>{const p=presetById(sel.value);if(p)applyPresetToCal(p);});
+    btn.addEventListener('click',()=>{
+      const r=cvRange();
+      savePreset({cat:cvF.cat,space:cvF.space,from:r.fv,to:r.tv,types:[...cvF.types],repType:'full'});
+    });
+  })();
 
   /* ----- month calendar ----- */
   function renderCalendar(){
@@ -3441,11 +4402,7 @@ var DESK_READY=new Promise(function(res){
 
   /* ----- timeline data ----- */
   function tlFiltered(){
-    let ent=cvEntries();
-    const f=$('tlFrom').value?Date.parse($('tlFrom').value+'T00:00:00'):null;
-    const t=$('tlTo').value?Date.parse($('tlTo').value+'T23:59:59'):null;
-    if(f!==null&&!isNaN(f))ent=ent.filter(x=>x.ms>=f);
-    if(t!==null&&!isNaN(t))ent=ent.filter(x=>x.ms<=t);
+    const ent=cvEntries();
     ent.sort((a,b)=>state.tl.order==='new'?b.ms-a.ms:a.ms-b.ms);
     return ent;
   }
@@ -3571,6 +4528,8 @@ var DESK_READY=new Promise(function(res){
   function openCalView(){
     if(!cvYm){const n=new Date();cvYm={y:n.getFullYear(),m:n.getMonth()};cvSelDay=dayKey(n);}
     renderCvFilters();
+    renderCvScope();
+    fillPresetSelect($('cvPreset'));
     $('calView').classList.add('open');
     cvSetTab(cvTab);
   }
@@ -3584,6 +4543,7 @@ var DESK_READY=new Promise(function(res){
     cvRefresh();
   }
   function cvRefresh(){
+    const rl=$('tlRangeLbl');if(rl)rl.textContent=rangeLabel();
     if(!$('calView').classList.contains('open'))return;
     if(cvTab==='cal')renderCalendar();else tlRefresh();
   }
@@ -3595,9 +4555,6 @@ var DESK_READY=new Promise(function(res){
   $('cvToday').addEventListener('click',()=>{const n=new Date();cvYm={y:n.getFullYear(),m:n.getMonth()};cvSelDay=dayKey(n);renderCalendar();});
   $('tlModeBtn').addEventListener('click',()=>{state.tl.mode=state.tl.mode==='diag'?'vert':'diag';save();tlRefresh();});
   $('tlOrderBtn').addEventListener('click',()=>{state.tl.order=state.tl.order==='new'?'old':'new';save();tlRefresh();});
-  $('tlFrom').addEventListener('change',tlRefresh);
-  $('tlTo').addEventListener('change',tlRefresh);
-  $('tlClear').addEventListener('click',()=>{$('tlFrom').value='';$('tlTo').value='';tlRefresh();});
   $('tlMore').addEventListener('click',tlDiagMore);
   window.addEventListener('resize',()=>{
     if($('calView').classList.contains('open')&&cvTab==='tl'&&state.tl.mode==='diag')tlRefresh();
@@ -3605,11 +4562,21 @@ var DESK_READY=new Promise(function(res){
 
   function buildCalPrintHTML(){
     const y=cvYm.y,m=cvYm.m;
-    repHeading='All Tanks — '+MONTHS[m]+' '+y;
-    const ent=cvEntries().filter(x=>{const d=new Date(x.ms);return d.getFullYear()===y&&d.getMonth()===m;});
+    const r=cvRange(),ranged=!!(r.fv||r.tv);
+    const period=ranged?rangeLabel():(MONTHS[m]+' '+y);
+    repHeading=cvScopeLabel()+' — '+period;
+    /* with a date range set the whole range prints; otherwise just the month on screen */
+    const ent=ranged?cvEntries()
+                    :cvEntries().filter(x=>{const d=new Date(x.ms);return d.getFullYear()===y&&d.getMonth()===m;});
     if(!ent.length)return null;
     const byDay={};ent.forEach(x=>{const k=dayKey(new Date(x.ms));(byDay[k]=byDay[k]||[]).push(x);});
-    let html=pvHeader('Monthly Activity Calendar');
+    let html=pvHeader(ranged?'Activity Report':'Monthly Activity Calendar',{period,tanks:tanksInScope(ent),entries:ent});
+    if(ranged){
+      html+='<div class="pv-tank"><h2><span>'+esc(period)+'</span></h2>';
+      html+=cvDayTables(byDay);
+      html+='</div>';
+      return html+pvFooter();
+    }
     const lead=(new Date(y,m,1).getDay()+6)%7,start=new Date(y,m,1-lead);
     html+='<div class="pv-tank"><h2><span>'+MONTHS[m]+' '+y+'</span></h2><table><tr>';
     ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(d=>html+='<th>'+d+'</th>');
@@ -3631,25 +4598,36 @@ var DESK_READY=new Promise(function(res){
       html+='</tr>';
     }
     html+='</table>';
+    html+=cvDayTables(byDay);
+    html+='</div>';
+    return html+pvFooter();
+  }
+  function tanksInScope(ent){
+    const seen=new Set(),out=[];
+    ent.forEach(x=>{if(!seen.has(x.t.id)){seen.add(x.t.id);out.push(x.t);}});
+    return out;
+  }
+  function cvDayTables(byDay){
+    let html='';
     Object.keys(byDay).sort().forEach(k=>{
-      html+='<h3><span>'+fmtDayHead(byDay[k][0].ms)+'</span></h3><table><tr><th style="width:60px">Time</th><th style="width:130px">Tank</th><th style="width:92px">Type</th><th>Entry</th></tr>';
+      html+='<h3><span>'+fmtDayHead(byDay[k][0].ms)+'</span></h3><table><tr><th style="width:60px">Time</th><th style="width:150px">Space</th><th style="width:105px">Type</th><th>Entry</th></tr>';
       byDay[k].slice().sort((a,b)=>a.ms-b.ms).forEach(x=>{
         const t2=cvType(x.e),tm=new Date(x.ms);
         html+='<tr><td class="pv-note-time">'+pad2(tm.getHours())+':'+pad2(tm.getMinutes())+'</td><td>'+esc(x.t.name)+'</td>'+
           '<td><span class="cv-pill" style="background:'+CV_TYPES[t2][1]+'">'+CV_TYPES[t2][0].toUpperCase()+'</span></td>'+
-          '<td>'+esc(cvSnippet(x.e))+(cvPhotoCount(x.e)?' <span style="color:#667">[📷 '+cvPhotoCount(x.e)+']</span>':'')+'</td></tr>';
+          '<td>'+esc(cvSnippet(x.e))+(cvPhotoCount(x.e)?' <span style="color:#667">[&#128247; '+cvPhotoCount(x.e)+']</span>':'')+'</td></tr>';
       });
       html+='</table>';
     });
-    html+='</div>';
-    return html+pvFooter();
+    return html;
   }
   function buildTlPrintHTML(){
     const ent=tlFiltered();
     if(!ent.length)return null;
-    const f=$('tlFrom').value,t=$('tlTo').value;
-    repHeading='All Tanks — Timeline'+((f||t)?(' '+(f||'…')+' → '+(t||'…')):' (full history)');
-    let html=pvHeader('Activity Timeline · '+(state.tl.order==='new'?'newest first':'oldest first'));
+    const period=rangeLabel();
+    repHeading=cvScopeLabel()+' — Timeline ('+period+')';
+    let html=pvHeader('Activity Timeline \u00b7 '+(state.tl.order==='new'?'newest first':'oldest first'),
+                      {period,tanks:tanksInScope(ent),entries:ent});
     html+='<div class="pv-tank">';
     let lastD=null;
     ent.forEach(x=>{
@@ -3657,7 +4635,7 @@ var DESK_READY=new Promise(function(res){
       if(k!==lastD){
         if(lastD)html+='</table>';
         lastD=k;
-        html+='<h3><span>'+fmtDayHead(x.ms)+'</span></h3><table><tr><th style="width:60px">Time</th><th style="width:130px">Tank</th><th style="width:92px">Type</th><th>Entry</th></tr>';
+        html+='<h3><span>'+fmtDayHead(x.ms)+'</span></h3><table><tr><th style="width:60px">Time</th><th style="width:150px">Space</th><th style="width:105px">Type</th><th>Entry</th></tr>';
       }
       const t2=cvType(x.e),tm=new Date(x.ms);
       let thumbs='';
@@ -3731,7 +4709,9 @@ var DESK_READY=new Promise(function(res){
     if(!hits.length){box.innerHTML='<div class="empty">No matches.</div>';return;}
     hits.forEach(({t,why})=>{
       const b=document.createElement('button');b.className='btn ghost';b.style.cssText='display:flex;justify-content:space-between;width:100%;text-align:left;margin:0';
-      b.innerHTML='<span>'+esc(t.name)+'</span><span style="color:var(--dim);font-size:.72rem">'+esc(why)+'</span>';
+      const ag=ageInfo(t.id);
+      b.innerHTML='<span>'+esc(t.name)+' <span style="color:var(--dim);font-size:.68rem">['+esc(catShort(t.cat))+']</span></span>'+
+        '<span style="color:var(--dim);font-size:.72rem">'+esc(why)+' \u00b7 '+esc(ag.txt)+'</span>';
       b.addEventListener('click',()=>{$('searchOverlay').classList.remove('open');openTank(t.id,false);});
       box.appendChild(b);
     });
@@ -3739,12 +4719,20 @@ var DESK_READY=new Promise(function(res){
 
   /* ---------- sort ---------- */
   function sortWithin(cmp){
-    const order={cargo:0,ballast:1,misc:2,coff:3};
+    const order={};
+    liveCats().forEach((c,i)=>{order[c.id]=i;});
+    const rank=t=>(order[t.cat]!==undefined?order[t.cat]:999);
     state.tanks.sort((a,b)=>{
-      if(order[a.cat]!==order[b.cat])return order[a.cat]-order[b.cat];
+      if(rank(a)!==rank(b))return rank(a)-rank(b);
       return cmp(a,b);
     });
-    save();buildGrids();$('sortOverlay').classList.remove('open');toast('Tanks sorted');
+    /* ord must follow the new order, otherwise catTanks() would undo the sort */
+    liveCats().forEach(c=>{
+      state.tanks.filter(t=>!t.deleted&&t.cat===c.id).forEach((t,i)=>{t.ord=(i+1)*10;t.modified=Date.now();});
+    });
+    state.dataVersion=(state.dataVersion||1)+1;
+    save();buildGrids();renderTankManager();
+    $('sortOverlay').classList.remove('open');toast('Spaces sorted');
   }
   $('sortClose').addEventListener('click',()=>$('sortOverlay').classList.remove('open'));
   $('sortOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)$('sortOverlay').classList.remove('open');});

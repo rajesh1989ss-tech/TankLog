@@ -1,10 +1,16 @@
 /* Tank Log service worker — network-first, cache fallback.
-   Updates always flow when online; the app still opens offline. */
-const CACHE = 'tanklog-v2';
-const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-512-maskable.png'];
+   Updates flow the moment the phone is online; the app still opens offline.
+   CACHE must be bumped on every release or Android keeps serving stale code. */
+const CACHE = 'tanklog-v3-2.0.0';
+const CORE = ['./', './index.html', './manifest.webmanifest',
+              './icon192.png', './icon512.png', './icon512maskable.png'];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
+  e.waitUntil(
+    caches.open(CACHE)
+      .then(c => Promise.all(CORE.map(u => c.add(u).catch(() => {}))))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', e => {
@@ -26,8 +32,6 @@ self.addEventListener('fetch', e => {
         }
         return resp;
       })
-      .catch(() =>
-        caches.match(e.request).then(hit => hit || caches.match('./index.html'))
-      )
+      .catch(() => caches.match(e.request).then(hit => hit || caches.match('./index.html')))
   );
 });

@@ -1,32 +1,17 @@
 {
-  "name": "Tank Log \u2014 M.T. Chem Pondicherry",
+  "id": "tanklog-shipsuite",
+  "name": "Tank Log",
   "short_name": "Tank Log",
-  "description": "Cargo tank status, highlights, last-3-cargoes, inspections and voyage log",
+  "description": "Shipboard space log — status, highlights, last-3-cargoes, cleaning, operations, defects, before/after photos, inspections and voyage log.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#0c131e",
+  "theme_color": "#0c131e",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-512-maskable.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "id": "tanklog-chem-pondicherry"
+    { "src": "icon192.png",        "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon512.png",        "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon512maskable.png","sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
 }
