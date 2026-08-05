@@ -1245,7 +1245,10 @@ var DESK_READY=new Promise(function(res){
   'use strict';
   const LS_KEY='tankLogEngine_v2';
   const OLD_KEY='tankLogEngine_v1';
-  const APP_VERSION='2.0.0';
+  const APP_VERSION='1.0.1';
+  /* Data-format version, deliberately NOT the app version — the two move
+     independently. It only has to differ from what older builds wrote, so the
+     import guard can refuse a file this app cannot read safely. */
   const SCHEMA_VERSION=2;
 
   /* ---------- default categories ---------- */
@@ -4034,25 +4037,89 @@ var DESK_READY=new Promise(function(res){
     toast('Tank deleted');
   });
 
-  /* esc key closes modals */
-  document.addEventListener('keydown',e=>{
-    if(e.key==='Escape'){
-      if($('lightbox').classList.contains('open')){$('lightbox').classList.remove('open');lbCurrent=null;return;}
-      if(document.body.classList.contains('printing')){document.body.classList.remove('printing');return;}
-      if($('fldOverlay').classList.contains('open')){$('fldOverlay').classList.remove('open');return;}
-      if($('voySumOverlay').classList.contains('open')){$('voySumOverlay').classList.remove('open');return;}
-      if($('calView').classList.contains('open')&&!$('tankOverlay').classList.contains('open')){closeCalView();return;}
-      if($('cmpOverlay').classList.contains('open')){$('cmpOverlay').classList.remove('open');return;}
-      if($('shOverlay').classList.contains('open')){shDismiss();return;}
-      closeTank();
-      closePin();
-      closeSidebar();
-      $('setOverlay').classList.remove('open');
-      $('repOverlay').classList.remove('open');
-      $('searchOverlay').classList.remove('open');
-      $('sortOverlay').classList.remove('open');
-      document.body.classList.remove('printing');
+  /* ==================================================================
+     Layer stack — one dismissal order shared by the Esc key and the
+     Android back button.
+
+     A standalone PWA opens with a single history entry, so pressing back
+     with a dialog open used to unwind straight past it and close the whole
+     app. Every layer that opens now pushes a history entry, so back peels
+     one layer at a time. Back on the bare dashboard still exits, which is
+     what Android users expect.
+
+     Innermost first — the first one found open is the one that closes.
+     ================================================================== */
+  function ovl(id){return {el:()=>$(id),open:()=>{const e=$(id);return !!e&&e.classList.contains('open');},
+                           close:()=>{const e=$(id);if(e)e.classList.remove('open');}};}
+  const LAYERS=[
+    {el:()=>$('lightbox'),open:()=>$('lightbox').classList.contains('open'),
+     close:()=>{$('lightbox').classList.remove('open');lbCurrent=null;}},
+    {el:()=>document.body,open:()=>document.body.classList.contains('printing'),
+     close:()=>{document.body.classList.remove('printing');const d=$('pvDoc');if(d)d.innerHTML='';}},
+    ovl('pinOverlay'),
+    ovl('fldOverlay'),
+    ovl('voySumOverlay'),
+    ovl('cmpOverlay'),
+    {el:()=>$('shOverlay'),open:()=>$('shOverlay').classList.contains('open'),close:()=>shDismiss()},
+    ovl('bulkOverlay'),
+    ovl('sortOverlay'),
+    ovl('searchOverlay'),
+    ovl('repOverlay'),
+    ovl('setOverlay'),
+    {el:()=>$('tankOverlay'),open:()=>$('tankOverlay').classList.contains('open'),close:()=>closeTank()},
+    {el:()=>$('calView'),open:()=>$('calView').classList.contains('open'),close:()=>closeCalView()},
+    {el:()=>$('sidebar'),open:()=>$('sidebar').classList.contains('open'),close:()=>closeSidebar()}
+  ];
+  function openLayerCount(){let n=0;LAYERS.forEach(l=>{try{if(l.open())n++;}catch(e){}});return n;}
+  function closeTopLayer(){
+    for(const l of LAYERS){
+      try{ if(l.open()){l.close();return true;} }catch(e){}
     }
+    return false;
+  }
+
+  /* keep the history depth equal to the number of open layers */
+  let backDepth=0,backSuppress=0,backSyncing=false;
+  function backSync(){
+    if(backSyncing)return;
+    const n=openLayerCount();
+    if(n>backDepth){
+      backSyncing=true;
+      try{ while(backDepth<n){backDepth++;history.pushState({tlDepth:backDepth},'');} }
+      catch(e){ backDepth=n; }
+      backSyncing=false;
+    }else if(n<backDepth){
+      const diff=backDepth-n;
+      backDepth=n;backSuppress+=diff;
+      try{ history.go(-diff); }catch(e){ backSuppress=Math.max(0,backSuppress-diff); }
+    }
+  }
+  window.addEventListener('popstate',()=>{
+    if(backSuppress>0){backSuppress--;return;}    // we caused this pop ourselves
+    if(openLayerCount()>0){
+      backDepth=Math.max(0,backDepth-1);
+      backSyncing=true;                            // the close must not re-push
+      try{ closeTopLayer(); }finally{ backSyncing=false; }
+      return;
+    }
+    backDepth=0;                                   // nothing open — let Android exit
+  });
+  /* catches every open and close, whichever code path did it */
+  (function watchLayers(){
+    if(typeof MutationObserver!=='function')return;
+    const mo=new MutationObserver(()=>backSync());
+    const seen=new Set();
+    LAYERS.forEach(l=>{
+      let el=null;try{el=l.el();}catch(e){}
+      if(el&&!seen.has(el)){seen.add(el);mo.observe(el,{attributes:true,attributeFilter:['class']});}
+    });
+    const scrim=$('scrim');
+    if(scrim)mo.observe(scrim,{attributes:true,attributeFilter:['class']});
+  })();
+
+  /* esc key uses the same order */
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape')closeTopLayer();
   });
 
   /* ---------- sidebar ---------- */
