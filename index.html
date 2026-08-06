@@ -525,6 +525,29 @@
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
+  /* ---- settings: collapsible groups ---- */
+  .sfilter{display:flex;gap:8px;align-items:center;margin:2px 0 12px}
+  .sfilter input{flex:1;background:var(--cell);border:1px solid var(--line);color:var(--text);
+                 border-radius:8px;padding:9px 12px;font-size:.82rem;font-family:inherit}
+  .sfilter input:focus{outline:1px solid var(--amber)}
+  .sfilter button{background:var(--cell);border:1px solid var(--line);color:var(--dim);
+                  border-radius:8px;padding:8px 11px;cursor:pointer;font-size:.75rem;font-family:inherit}
+  .sfilter button:hover{color:var(--text)}
+  .sgrp{border:1px solid var(--line);border-radius:10px;margin-bottom:9px;overflow:hidden;background:var(--panel)}
+  .sgrp-h{display:flex;align-items:center;gap:10px;width:100%;background:var(--cell);border:none;
+          color:var(--text);font-family:inherit;font-size:.82rem;font-weight:700;letter-spacing:.06em;
+          text-transform:uppercase;padding:13px 14px;cursor:pointer;text-align:left}
+  .sgrp-h:hover{background:var(--line)}
+  .sgrp-h .sic{font-size:1rem;opacity:.85;flex-shrink:0;width:20px;text-align:center}
+  .sgrp-h .scount{margin-left:auto;font-family:var(--mono);font-size:.64rem;font-weight:400;
+                  color:var(--dim);border:1px solid var(--line);border-radius:9px;padding:1px 7px;letter-spacing:0}
+  .sgrp-h .scar{color:var(--amber);font-size:.72rem;transition:transform .15s;flex-shrink:0}
+  .sgrp.col .sgrp-h .scar{transform:rotate(-90deg)}
+  .sgrp-b{padding:10px 11px 4px}
+  .sgrp.col .sgrp-b{display:none}
+  .sgrp-b .blk{margin-bottom:10px}
+  .sgrp-sub{font-size:.7rem;color:var(--dim);letter-spacing:0;text-transform:none;font-weight:400}
+
   /* ================= v2.0 additions ================= */
   /* quick-jump bar */
   .qj{display:flex;gap:8px;align-items:center;padding:2px 0 12px}
@@ -893,6 +916,11 @@
   <div class="modal" style="max-width:440px">
     <div class="m-head"><h3>Settings</h3><button class="close" id="setClose" aria-label="Close">×</button></div>
 
+    <div class="sfilter" id="setFilterBar">
+      <input id="setFilter" placeholder="Search settings…" autocomplete="off">
+      <button id="setExpandAll" title="Expand or collapse every group">Expand all</button>
+    </div>
+
     <div class="blk">
       <h4>Deviation Limits</h4>
       <div class="set-row"><span>Ullage limit (m)</span><input type="number" step="0.001" id="lim_ul"></div>
@@ -992,11 +1020,11 @@ Kandla	Mundra	05-Jul-2026 00:00 LT	06-Jul-2026 06:00 LT	Loading	EDC 5k</div>
     </div>
 
     <div class="blk masterblock">
-      <h4>Tank List — Set Up a New Ship (Paste from Excel)</h4>
-      <p style="font-size:.72rem;color:var(--dim);margin-bottom:8px">Columns: Tank name ⇥ Category ⇥ Side. Category: CARGO / BALLAST / FW / COFF. Side: PORT / STBD / FULL (full-width). Existing tanks are matched by name — their logs are kept and only category/side update if changed; new names are added in paste order. Nothing is ever deleted by this import.</p>
+      <h4>Space List — Set Up a New Ship (Paste from Excel)</h4>
+      <p style="font-size:.72rem;color:var(--dim);margin-bottom:8px">Three columns: <b>Space name ⇥ Category ⇥ Side</b>. <b>Category is free text</b> — type anything. CARGO, BALLAST, FW and COFF map to the built-ins; any other name (Stores, Rafts and Boats, Void Spaces…) creates a new category automatically, so you can add as many as you like straight from the sheet. <b>Side</b>: PORT / STBD / FULL — left blank or unrecognised it becomes FULL WIDTH, and the preview tells you so. Existing spaces are matched by name: their logs are kept and only category/side change; new names are added in paste order. <b>Nothing is ever deleted by this import.</b></p>
       <div style="margin-bottom:6px">
         <button class="btn ghost sm" id="tlistSample">Load sample layout</button>
-        <button class="btn ghost sm" id="tlistCurrent" style="margin-left:6px">Copy current tank list</button>
+        <button class="btn ghost sm" id="tlistCurrent" style="margin-left:6px">Copy current space list</button>
         <button class="btn ghost sm" id="tlistCopy" style="margin-left:6px">Copy box → Excel</button>
       </div>
       <textarea id="tlistPaste" style="min-height:100px;font-family:var(--mono);font-size:.72rem" placeholder="TANK NAME&#9;CATEGORY&#9;SIDE&#10;COT 1 (P)&#9;CARGO&#9;PORT&#10;COT 1 (S)&#9;CARGO&#9;STBD&#10;FPT&#9;BALLAST&#9;FULL"></textarea>
@@ -1245,7 +1273,7 @@ var DESK_READY=new Promise(function(res){
   'use strict';
   const LS_KEY='tankLogEngine_v2';
   const OLD_KEY='tankLogEngine_v1';
-  const APP_VERSION='1.0.1';
+  const APP_VERSION='1.1.0';
   /* Data-format version, deliberately NOT the app version — the two move
      independently. It only has to differ from what older builds wrote, so the
      import guard can refuse a file this app cannot read safely. */
@@ -1495,6 +1523,7 @@ var DESK_READY=new Promise(function(res){
     masterMode=on;
     document.body.classList.toggle('master',on);
     document.querySelectorAll('.masteronly').forEach(el=>{el.style.display=on?'':'none';});
+    if(typeof refreshSettingsGroups==='function')refreshSettingsGroups();
     const el=$('sbExitLbl');if(el)el.textContent=on?'Exit Master':'Exit';
     buildGrids();
     if(current){renderEntries();applyNoteSecs();}
@@ -1751,7 +1780,7 @@ var DESK_READY=new Promise(function(res){
     const raw=$('l3cPaste').value.trim();
     const box=$('l3cPrevBox');
     l3cMatched=null;$('l3cConfirm').style.display='none';
-    if(!raw){box.style.display='none';toast('Paste the Excel rows first');return;}
+    if(!raw){box.innerHTML='';box.style.display='none';toast('Paste the Excel rows first');return;}
     const byNorm={};liveTanks().forEach(t=>{if(t.cat==='cargo')byNorm[normName(t.name)]=t;});
     const matched=[],unmatched=[];
     raw.split(/\r?\n/).forEach(line=>{
@@ -1832,7 +1861,7 @@ var DESK_READY=new Promise(function(res){
     const raw=$('btPaste').value.trim();
     const box=$('btPrevBox');
     btMatched=null;$('btConfirm').style.display='none';
-    if(!raw){box.style.display='none';toast('Paste the Excel rows first');return;}
+    if(!raw){box.innerHTML='';box.style.display='none';toast('Paste the Excel rows first');return;}
     const byNorm={};liveTanks().forEach(t=>{byNorm[normName(t.name)]=t;});
     const matched=[],unmatched=[];
     raw.split(/\r?\n/).forEach((line,i)=>{
@@ -2192,7 +2221,10 @@ var DESK_READY=new Promise(function(res){
 
   /* ================= Tank List import (new-ship setup) ================= */
   const TL_CATS={cargo:'cargo',ballast:'ballast',fw:'misc',fresh:'misc',freshwater:'misc',misc:'misc',coff:'coff',cofferdam:'coff'};
-  /* accept a built-in alias, or any custom category by id, short code or label */
+  /* Match a spreadsheet category cell against an existing category — by id,
+     short code or full label, punctuation and case ignored — or against one of
+     the built-in aliases. Returns the category id, or undefined when the name
+     is one this ship has never used (the importer then offers to create it). */
   function resolveCat(raw){
     const k=String(raw||'').toLowerCase().replace(/[^a-z0-9]/g,'');
     if(!k)return undefined;
@@ -2204,9 +2236,28 @@ var DESK_READY=new Promise(function(res){
     const alias=TL_CATS[k];
     return (alias&&liveCats().some(c=>c.id===alias))?alias:undefined;
   }
-  const TL_SIDES={port:'port',p:'port',stbd:'stbd',s:'stbd',starboard:'stbd',full:'full',center:'full',centre:'full',c:'full'};
+  /* Tidy a free-text category cell into a display label: "rafts and BOATS"
+     becomes "Rafts And Boats". */
+  function prettyCatLabel(raw){
+    return String(raw||'').trim().replace(/\s+/g,' ')
+      .replace(/\b[a-z]/g,ch=>ch.toUpperCase()).slice(0,34);
+  }
+  function shortFromLabel(label){
+    const words=String(label||'').trim().split(/\s+/).filter(Boolean);
+    if(!words.length)return 'CAT';
+    if(words.length===1)return words[0].toUpperCase().slice(0,10);
+    const initials=words.map(w=>w[0]).join('').toUpperCase();
+    return (initials.length>=3?initials:words.join('').toUpperCase()).slice(0,10);
+  }
+  const TL_SIDES={port:'port',p:'port',pt:'port',portside:'port',
+                  stbd:'stbd',s:'stbd',sb:'stbd',stb:'stbd',starboard:'stbd',starboardside:'stbd',
+                  full:'full',fw:'full',center:'full',centre:'full',c:'full',cl:'full',
+                  centreline:'full',centerline:'full',middle:'full',mid:'full'};
   const TL_SAMPLE=[
-    ['TANK NAME','CATEGORY','SIDE'],
+    ['SPACE NAME','CATEGORY','SIDE'],
+    ['Life Raft (P)','Rafts and Boats','PORT'],
+    ['Life Raft (S)','Rafts and Boats','STBD'],
+    ['Bosun Store','Stores','FULL'],
     ['FPT','BALLAST','FULL'],
     ['WBT 1 (P)','BALLAST','PORT'],['WBT 1 (S)','BALLAST','STBD'],
     ['WBT 2 (P)','BALLAST','PORT'],['WBT 2 (S)','BALLAST','STBD'],
@@ -2224,11 +2275,12 @@ var DESK_READY=new Promise(function(res){
     toast('Sample layout loaded — copy to Excel, adjust for your ship, paste back');
   });
   $('tlistCurrent').addEventListener('click',()=>{
-    const inv={cargo:'CARGO',ballast:'BALLAST',misc:'FW',coff:'COFF'};
-    const rows=[['TANK NAME','CATEGORY','SIDE'].join('\t')];
-    liveTanks().forEach(t=>rows.push([t.name,inv[t.cat]||'FW',(t.side||'full').toUpperCase()].join('\t')));
+    const rows=[['SPACE NAME','CATEGORY','SIDE'].join('\t')];
+    liveCats().forEach(c=>{
+      catTanks(c.id).forEach(t=>rows.push([t.name,c.label,(t.side||'full').toUpperCase()].join('\t')));
+    });
     $('tlistPaste').value=rows.join('\n');
-    toast('Current tank list loaded — copy to Excel');
+    toast('Current space list loaded — copy to Excel');
   });
   $('tlistCopy').addEventListener('click',()=>{
     const txt=$('tlistPaste').value;
@@ -2243,60 +2295,124 @@ var DESK_READY=new Promise(function(res){
     const raw=$('tlistPaste').value.trim();
     const box=$('tlistPrevBox');
     tlistMatched=null;$('tlistConfirm').style.display='none';
-    if(!raw){box.style.display='none';toast('Paste the Excel rows first');return;}
+    if(!raw){box.innerHTML='';box.style.display='none';toast('Paste the Excel rows first');return;}
     const byNorm={};liveTanks().forEach(t=>{byNorm[normName(t.name)]=t;});
-    const adds=[],updates=[],noops=[],bad=[];
+    const adds=[],updates=[],noops=[],bad=[],notes=[];
+    const newCats={};                 // normalised key -> {label, short, id, rows}
     const seen=new Set();
-    raw.split(/\r?\n/).forEach((line,i)=>{
-      if(!line.trim())return;
-      const c=line.split('\t').map(x=>x.trim());
-      if(i===0&&normName(c[0]||'').indexOf('tank')===0)return; // header
-      const name=c[0];
-      if(!name){return;}
-      const key=normName(name);
-      if(seen.has(key)){bad.push('duplicate row: '+name);return;}
-      seen.add(key);
-      const cat=resolveCat(c[1]);
-      const side=TL_SIDES[(c[2]||'').toLowerCase().replace(/[^a-z]/g,'')];
-      const cur=byNorm[key];
-      if(cur){
-        const ch=[];
-        if(cat&&cat!==cur.cat)ch.push('category → '+(c[1]||'').toUpperCase());
-        if(side&&side!==cur.side)ch.push('side → '+(c[2]||'').toUpperCase());
-        if(ch.length)updates.push({t:cur,cat:cat||cur.cat,side:side||cur.side,label:ch.join(' · ')});
-        else noops.push(cur.name);
-      }else{
-        if(!cat||!side){bad.push('new tank needs valid category & side: '+line.slice(0,50));return;}
-        adds.push({name,cat,side});
+    /* A category name this ship has never used is not an error — it is a new
+       category. Plan it here, create it on confirm. */
+    function catFor(cell){
+      const known=resolveCat(cell);
+      if(known)return known;
+      const key=String(cell||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+      if(!key)return undefined;
+      if(!newCats[key]){
+        const label=prettyCatLabel(cell);
+        let short=shortFromLabel(label),n=2;
+        const taken=()=>liveCats().some(c=>(c.short||'').toUpperCase()===short)||
+                         Object.keys(newCats).some(k=>k!==key&&newCats[k].short===short);
+        while(taken()){short=(shortFromLabel(label).slice(0,8)+n).slice(0,10);n++;}
+        newCats[key]={label,short,id:'cat_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),rows:0};
       }
+      newCats[key].rows++;
+      return newCats[key].id;
+    }
+    const rows=raw.split(/\r?\n/);
+    rows.forEach((line,i)=>{
+      if(!line.trim())return;
+      const c=line.split(/\t|,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(x=>x.trim().replace(/^"|"$/g,''));
+      const h=normName(c[0]||'');
+      if(i===0&&(h.indexOf('tank')===0||h.indexOf('space')===0||h==='name'))return;   // header row
+      const name=c[0];
+      if(!name)return;
+      const key=normName(name);
+      if(seen.has(key)){bad.push('row '+(i+1)+' — duplicate name, ignored: '+name);return;}
+      seen.add(key);
+
+      const catCell=c[1]||'';
+      const sideRaw=(c[2]||'').toLowerCase().replace(/[^a-z]/g,'');
+      const sideKnown=TL_SIDES.hasOwnProperty(sideRaw);
+      const side=sideKnown?TL_SIDES[sideRaw]:undefined;
+      const cur=byNorm[key];
+
+      if(cur){
+        const cat=catCell?catFor(catCell):undefined;
+        const ch=[];
+        if(cat&&cat!==cur.cat)ch.push('category \u2192 '+esc(catNameFor(cat,newCats)));
+        if(side&&side!==cur.side)ch.push('side \u2192 '+side.toUpperCase());
+        if(ch.length)updates.push({t:cur,cat:cat||cur.cat,side:side||cur.side,label:ch.join(' \u00b7 ')});
+        else noops.push(cur.name);
+        return;
+      }
+
+      /* new space — fill in what the sheet left out rather than rejecting it */
+      let cat=catCell?catFor(catCell):undefined;
+      if(!cat){
+        const first=liveCats()[0];
+        if(!first){bad.push('row '+(i+1)+' — no category given and none exist yet: '+name);return;}
+        cat=first.id;
+        notes.push(name+' \u2014 no category given, filed under '+first.label);
+      }
+      if(!side&&c[2])notes.push(name+' \u2014 side "'+c[2]+'" not recognised, set to FULL WIDTH');
+      else if(!side&&!c[2])notes.push(name+' \u2014 no side given, set to FULL WIDTH');
+      adds.push({name,cat,side:side||'full'});
     });
+
+    const catList=Object.keys(newCats).map(k=>newCats[k]);
     let html='';
-    adds.forEach(a=>{html+='<div class="okline">＋ NEW '+esc(a.name)+' — '+esc(a.cat.toUpperCase())+' · '+esc(a.side.toUpperCase())+'</div>';});
-    updates.forEach(u=>{html+='<div class="okline">✓ '+esc(u.t.name)+': '+esc(u.label)+'</div>';});
-    noops.forEach(n=>{html+='<div style="color:var(--dim);font-size:.72rem;padding:2px 0">• '+esc(n)+' — unchanged (logs kept)</div>';});
-    bad.forEach(b=>{html+='<div class="badline">✗ '+esc(b)+'</div>';});
-    if(!adds.length&&!updates.length&&!bad.length&&!noops.length)html='<div class="badline">Nothing matched. Check tab separation.</div>';
+    catList.forEach(nc=>{
+      html+='<div class="okline">\uFF0B NEW CATEGORY \u2014 '+esc(nc.label)+
+            ' <span style="opacity:.7">('+esc(nc.short)+', '+nc.rows+' space'+(nc.rows===1?'':'s')+')</span></div>';
+    });
+    adds.forEach(a=>{html+='<div class="okline">\uFF0B NEW '+esc(a.name)+' \u2014 '+
+      esc(catNameFor(a.cat,newCats))+' \u00b7 '+esc(a.side.toUpperCase())+'</div>';});
+    updates.forEach(u=>{html+='<div class="okline">\u2713 '+esc(u.t.name)+': '+u.label+'</div>';});
+    noops.forEach(n=>{html+='<div style="color:var(--dim);font-size:.72rem;padding:2px 0">\u2022 '+esc(n)+' \u2014 unchanged (logs kept)</div>';});
+    notes.forEach(n=>{html+='<div style="color:var(--amber);font-size:.72rem;padding:2px 0">! '+esc(n)+'</div>';});
+    bad.forEach(b=>{html+='<div class="badline">\u2717 '+esc(b)+'</div>';});
+    if(!adds.length&&!updates.length&&!bad.length&&!noops.length)
+      html='<div class="badline">Nothing matched. Columns must be Name, Category, Side \u2014 tab separated, which is what Excel gives you when you copy cells.</div>';
     box.innerHTML=html;box.style.display='block';
-    if(adds.length||updates.length){
-      tlistMatched={adds,updates};
+    if(adds.length||updates.length||catList.length){
+      tlistMatched={adds,updates,newCats:catList};
       $('tlistConfirm').style.display='';
-      $('tlistConfirm').textContent='Confirm import (+'+adds.length+' new, '+updates.length+' updated)';
+      const bits=[];
+      if(catList.length)bits.push('+'+catList.length+' categor'+(catList.length===1?'y':'ies'));
+      if(adds.length)bits.push('+'+adds.length+' new');
+      if(updates.length)bits.push(updates.length+' updated');
+      $('tlistConfirm').textContent='Confirm import ('+bits.join(', ')+')';
     }
   });
+  /* label for a category that may not exist yet */
+  function catNameFor(id,pending){
+    const c=catById(id);
+    if(c)return c.label;
+    const k=Object.keys(pending||{}).find(k2=>pending[k2].id===id);
+    return k?pending[k].label:String(id);
+  }
   $('tlistConfirm').addEventListener('click',()=>{
     /* ord is rebuilt for every touched category once the import lands */
     if(!masterMode||!tlistMatched){toast('Run preview first');return;}
+    (tlistMatched.newCats||[]).forEach(nc=>{
+      const mx=(state.cats||[]).reduce((a,c)=>Math.max(a,c.ord||0),0);
+      state.cats.push({id:nc.id,label:nc.label,short:nc.short,ord:mx+10,modified:Date.now(),deleted:false});
+    });
     tlistMatched.adds.forEach(a=>{
       state.tanks.push({id:uid(),name:a.name,side:a.side,cat:a.cat,modified:Date.now(),deleted:false});
     });
     tlistMatched.updates.forEach(u=>{u.t.cat=u.cat;u.t.side=u.side;u.t.ord=undefined;u.t.modified=Date.now();});
-    auditRec('TANKS',null,'Space list import: +'+tlistMatched.adds.length+' added, '+tlistMatched.updates.length+' updated');
+    auditRec('TANKS',null,'Space list import: +'+(tlistMatched.newCats||[]).length+' categories, +'+
+             tlistMatched.adds.length+' added, '+tlistMatched.updates.length+' updated');
     liveCats().forEach(c=>renumberCat(c.id));
     state.dataVersion=(state.dataVersion||1)+1;
     save();buildGrids();renderTankManager();renderCatManager();
-    toast('Tank list applied: +'+tlistMatched.adds.length+' new, '+tlistMatched.updates.length+' updated');
+    fillCatSelect($('newCat'));
+    toast('Applied: +'+(tlistMatched.newCats||[]).length+' categories, +'+tlistMatched.adds.length+
+          ' new, '+tlistMatched.updates.length+' updated');
     tlistMatched=null;
     $('tlistConfirm').style.display='none';
+    $('tlistPrevBox').innerHTML='';
     $('tlistPrevBox').style.display='none';
     $('tlistPaste').value='';
   });
@@ -3067,6 +3183,7 @@ var DESK_READY=new Promise(function(res){
     refreshBackupAge();
     renderQpManage();
     renderNoteSecToggles();
+    buildSettingsGroups();
     renderTankManager();
     renderCatManager();
     fillCatSelect($('newCat'));
@@ -3075,6 +3192,7 @@ var DESK_READY=new Promise(function(res){
     if(vl)vl.textContent='Tank Log v'+APP_VERSION+' · schema '+SCHEMA_VERSION+' · '+(IS_DESK?'Windows desktop':'Android / browser');
     if(IS_DESK)renderDeskSnaps();
     $('setOverlay').classList.add('open');
+    refreshSettingsGroups();
   });
   $('saveVessel').addEventListener('click',()=>{
     state.vessel={name:$('vesName').value.trim().toUpperCase(),imo:$('vesImo').value.trim(),flag:$('vesFlag').value.trim().toUpperCase(),grt:$('vesGrt').value.trim(),prep:$('vesPrep').value.trim()};
@@ -3187,6 +3305,126 @@ var DESK_READY=new Promise(function(res){
     $('newName').value='';
     toast('Space added');
   });
+
+  /* ==================================================================
+     Settings used to be eighteen blocks in one long scroll. They are now
+     grouped, collapsed by default, and searchable. Blocks are matched by
+     their own <h4> text, so nothing had to be re-nested by hand and a block
+     that gains a new heading simply lands in "More".
+     ================================================================== */
+  const SET_GROUPS=[
+    {id:'spaces', icon:'\u25A6', label:'Spaces & Categories',
+     sub:'add, rename, reorder, import from Excel',
+     match:['Manage Space','Space List']},
+    {id:'vessel', icon:'\u2693', label:'Vessel & Voyage',
+     sub:'identity, voyage and leg records',
+     match:['Vessel Identity','Voyage']},
+    {id:'entry',  icon:'\u270E', label:'Entry & Measurement',
+     sub:'note sections, quick-picks, deviation limits',
+     match:['Note Sections','Status Quick-Picks','Deviation Limits']},
+    {id:'bulk',   icon:'\u2261', label:'Bulk Data from Excel',
+     sub:'tank data and last-3-cargoes paste',
+     match:['Bulk Tank Data','Last 3 Cargoes']},
+    {id:'look',   icon:'\u25D0', label:'Appearance',
+     sub:'theme and display',
+     match:['Appearance']},
+    {id:'data',   icon:'\u2913', label:'Backup, Sync & Trash',
+     sub:'export, import, snapshots, deleted items, change log',
+     match:['Backup','Trash','Desktop Snapshots','Change Log']},
+    {id:'master', icon:'\u26A0', label:'Master Options',
+     sub:'restricted actions',
+     match:['Master Mode Options','Danger Zone']},
+    {id:'more',   icon:'\u2026', label:'More', sub:'', match:[]}
+  ];
+  let setGrouped=false;
+  function blkHeading(el){
+    const h=el.querySelector('h4');
+    return h?h.textContent.replace(/\s+/g,' ').trim():'';
+  }
+  function groupForBlk(el){
+    const head=blkHeading(el);
+    if(!head)return null;                       // version line etc. stay loose
+    for(const g of SET_GROUPS){
+      if(g.match.some(m=>head.toLowerCase().indexOf(m.toLowerCase())===0))return g.id;
+    }
+    return 'more';
+  }
+  function buildSettingsGroups(){
+    if(setGrouped)return;
+    const modal=$('setOverlay').querySelector('.modal');
+    if(!modal)return;
+    const blks=[...modal.children].filter(el=>el.classList&&el.classList.contains('blk'));
+    const buckets={};
+    blks.forEach(el=>{
+      const gid=groupForBlk(el);
+      if(!gid)return;
+      (buckets[gid]=buckets[gid]||[]).push(el);
+    });
+    const anchor=$('setFilterBar');
+    let after=anchor;
+    SET_GROUPS.forEach(g=>{
+      const list=buckets[g.id];
+      if(!list||!list.length)return;
+      const sec=document.createElement('div');
+      sec.className='sgrp col';                  // everything starts closed
+      sec.dataset.grp=g.id;
+      const h=document.createElement('button');
+      h.type='button';h.className='sgrp-h';
+      h.innerHTML='<span class="sic">'+g.icon+'</span>'+
+                  '<span>'+esc(g.label)+(g.sub?'<br><span class="sgrp-sub">'+esc(g.sub)+'</span>':'')+'</span>'+
+                  '<span class="scount">'+list.length+'</span>'+
+                  '<span class="scar">\u25BE</span>';
+      h.addEventListener('click',()=>{
+        const opening=sec.classList.contains('col');
+        sec.classList.toggle('col');
+        if(opening)setTimeout(()=>h.scrollIntoView({block:'nearest',behavior:'smooth'}),60);
+      });
+      const body=document.createElement('div');
+      body.className='sgrp-b';
+      list.forEach(el=>body.appendChild(el));
+      sec.appendChild(h);sec.appendChild(body);
+      after.parentNode.insertBefore(sec,after.nextSibling);
+      after=sec;
+    });
+    setGrouped=true;
+    wireSettingsFilter();
+  }
+  function wireSettingsFilter(){
+    const inp=$('setFilter'),btn=$('setExpandAll');
+    if(!inp||inp.dataset.wired)return;
+    inp.dataset.wired='1';
+    const groups=()=>[...$('setOverlay').querySelectorAll('.sgrp')];
+    inp.addEventListener('input',()=>{
+      const q=inp.value.trim().toLowerCase();
+      groups().forEach(sec=>{
+        if(!q){sec.style.display='';sec.classList.add('col');return;}
+        const hit=sec.textContent.toLowerCase().indexOf(q)>=0;
+        sec.style.display=hit?'':'none';
+        sec.classList.toggle('col',!hit);        // matches open themselves
+      });
+      btn.textContent=q?'Clear':'Expand all';
+    });
+    btn.addEventListener('click',()=>{
+      if(inp.value.trim()){
+        inp.value='';inp.dispatchEvent(new Event('input'));
+        return;
+      }
+      const anyClosed=groups().some(s=>s.classList.contains('col'));
+      groups().forEach(s=>s.classList.toggle('col',!anyClosed));
+      btn.textContent=anyClosed?'Collapse all':'Expand all';
+    });
+  }
+  /* a group whose blocks are all master-only should not advertise itself */
+  function refreshSettingsGroups(){
+    if(!setGrouped)return;
+    $('setOverlay').querySelectorAll('.sgrp').forEach(sec=>{
+      const blks=[...sec.querySelectorAll('.blk')];
+      const visible=blks.filter(b=>getComputedStyle(b).display!=='none');
+      const c=sec.querySelector('.scount');
+      if(c)c.textContent=visible.length;
+      sec.style.display=visible.length?'':'none';
+    });
+  }
 
   /* ---------- settings: manage categories ---------- */
   function moveCat(c,dir){
