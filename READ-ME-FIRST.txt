@@ -1,0 +1,61 @@
+ICON FIX  —  upload these two files to the repo root
+====================================================
+    manifest.webmanifest
+    sw.js
+
+Do NOT re-upload index.html. The one already in your repo (27 minutes ago)
+is the correct 1.1.0 build.
+
+
+WHAT WENT WRONG — MY MISTAKE
+----------------------------
+Your repo holds the icons under these names:
+
+    icon-192.png
+    icon-512.png
+    icon-512-maskable.png          <- with hyphens
+
+The copies I was working from were named icon192.png / icon512.png /
+icon512maskable.png, without hyphens. I concluded the manifest was pointing at
+files that did not exist and "corrected" it to the hyphen-free names. It was
+the manifest that was right and my copy that was odd.
+
+Result: since you uploaded that manifest two days ago, all three icons have
+been 404. That is why the install prompt behaved oddly.
+
+These two files put the hyphenated names back, exactly matching your repo.
+Nothing else about them changed. The cache name moved to tanklog-v1.1.1 so the
+phone actually picks them up.
+
+
+CHECK IT WORKED
+---------------
+Open  https://rajesh1989ss-tech.github.io/TankLog/icon-192.png
+in the phone browser. The icon should display. If it 404s, the filename in the
+repo differs from what is written above — send me a screenshot of the file
+list and I will match it exactly.
+
+Then: Chrome menu -> Install app should offer the real install, with your icon
+on the home screen rather than a generic globe.
+
+
+ABOUT THE FAILED ACTIONS RUNS
+-----------------------------
+    "The job was not acquired by Runner of type hosted even after
+     multiple attempts"
+
+That is not your repo and not your files. GitHub could not allocate a build
+machine — their own infrastructure. Runs #5, #6 and #7 died that way; #5 sat
+15 minutes before giving up.
+
+What to do: nothing, other than retry.
+  * Actions tab -> click the failed run -> "Re-run all jobs", or
+  * just upload these two files, which triggers a fresh run anyway.
+
+Until a run goes green, Pages keeps serving the last successful deployment.
+Your 1.1.0 index.html may therefore not be live yet even though it is in the
+repo — check Settings -> Pages for "Your site is live at ...", and confirm the
+app's Settings screen reads v1.1.0.
+
+If runs keep failing for more than an hour, check
+https://www.githubstatus.com — this error is usually a listed incident.
