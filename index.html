@@ -19,6 +19,12 @@
     --bad:#ff5c5c;
     --good:#3ddc84;
     --mono:Consolas,Menlo,'Courier New',monospace;
+    /* 3.0 — Before / After hub. Before is cool, After is warm-violet, so the
+       two halves of a comparison never rely on position alone to be told apart. */
+    --ba-before:#5aa9f0;
+    --ba-after:#b98cf5;
+    --ba-open:#ffb347;
+    --fs-group:1.15rem;--fs-cat:.95rem;--fs-name:.86rem;--fs-chip:.62rem;--fs-meta:.66rem;
     --r-lg:14px;--r-md:10px;--r-sm:7px;
     --shadow:0 10px 32px rgba(0,0,0,.45),0 2px 8px rgba(0,0,0,.35);
     --hairline:linear-gradient(90deg,transparent,var(--amber) 30%,var(--amber) 70%,transparent);
@@ -358,7 +364,7 @@
   .hl-chip{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
   /* ---------- light theme ---------- */
-  body.light{--bg:#e9eef4;--panel:#ffffff;--cell:#f7fafd;--cell-hover:#e7edf4;--line:#bfccda;--text:#16202c;--dim:#5b6b7d;--amber:#c97e0a}
+  body.light{--bg:#e9eef4;--panel:#ffffff;--cell:#f7fafd;--cell-hover:#e7edf4;--line:#bfccda;--text:#16202c;--dim:#5b6b7d;--amber:#c97e0a;--ba-before:#1a6fbf;--ba-after:#7b3fb8;--ba-open:#a5680a}
   body.light .hl-chip{color:#fff}
 
   /* ---------- AMOLED true-black theme ---------- */
@@ -759,6 +765,101 @@
     .pv-doc .pv-bacap{font-size:11pt}
     .pv-doc .pv-baw{page-break-inside:avoid;break-inside:avoid}
   }
+
+  /* ==================================================================
+     Before & After hub (3.0)
+     Every colour below comes from a token so the three themes cannot drift.
+     ================================================================== */
+  .home-acts{max-width:1180px;margin:0 auto 14px;padding:0 14px;display:flex;gap:10px;flex-wrap:wrap}
+  .hact{flex:1 1 260px;max-width:520px;display:flex;align-items:center;gap:12px;text-align:left;
+        background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--ba-before);
+        border-radius:var(--r-lg);padding:13px 15px;color:var(--text);cursor:pointer;box-shadow:var(--shadow);
+        min-height:64px;transition:background .15s,border-color .15s}
+  .hact:hover{background:var(--cell-hover);border-color:var(--amber)}
+  .hact .hact-ic{font-size:1.5rem;line-height:1;flex:0 0 auto}
+  .hact .hact-txt{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .hact .hact-txt b{font-size:var(--fs-cat);font-weight:700;letter-spacing:.02em}
+  .hact .hact-txt i{font-style:normal;font-size:var(--fs-meta);color:var(--dim);line-height:1.35}
+  .hact .hact-badge{margin-left:auto;flex:0 0 auto;font-family:var(--mono);font-size:var(--fs-chip);
+        letter-spacing:.06em;padding:4px 9px;border-radius:999px;border:1px solid var(--ba-open);
+        color:var(--ba-open);white-space:nowrap}
+  .hact .hact-badge:empty{display:none}
+
+  .ba-hub{max-width:920px}
+  .ba-tabs{display:flex;gap:8px;margin:2px 0 12px;border-bottom:1px solid var(--line)}
+  .ba-tab{flex:1;background:none;border:none;border-bottom:3px solid transparent;color:var(--dim);
+          font-size:var(--fs-cat);font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+          padding:11px 8px;cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:center;gap:8px}
+  .ba-tab[data-batab="before"].active{color:var(--ba-before);border-bottom-color:var(--ba-before)}
+  .ba-tab[data-batab="after"].active{color:var(--ba-after);border-bottom-color:var(--ba-after)}
+  .ba-tab .cnt{font-family:var(--mono);font-size:var(--fs-chip);font-weight:400;letter-spacing:.04em;
+               border:1px solid currentColor;border-radius:999px;padding:2px 7px}
+  .ba-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+  .ba-bar select{min-width:150px}
+  .ba-bar .ba-count{font-family:var(--mono);font-size:var(--fs-meta);color:var(--dim);margin-left:auto}
+  .ba-lead{font-size:var(--fs-meta);color:var(--dim);line-height:1.5;margin:-4px 0 10px}
+  .ba-pin{border:1px solid var(--ba-open);border-radius:var(--r-md);padding:10px 12px;margin-bottom:12px;
+          background:var(--cell)}
+  .ba-pin h5{font-size:var(--fs-chip);letter-spacing:.16em;text-transform:uppercase;color:var(--ba-open);margin-bottom:8px}
+  .ba-daysep{font-size:var(--fs-chip);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
+             border-bottom:1px solid var(--line);padding:12px 0 5px;margin-bottom:9px}
+  .ba-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+  .ba-card{background:var(--cell);border:1px solid var(--line);border-top:3px solid var(--ba-before);
+           border-radius:var(--r-md);padding:8px;cursor:pointer;display:flex;flex-direction:column;gap:6px;
+           min-height:44px;text-align:left;color:var(--text)}
+  .ba-card.after{border-top-color:var(--ba-after)}
+  .ba-card.sel{outline:2px solid var(--amber);outline-offset:1px}
+  .ba-card img{width:100%;height:104px;object-fit:cover;border-radius:var(--r-sm);display:block}
+  .ba-card .nm{font-size:var(--fs-name);font-weight:700;line-height:1.25;overflow-wrap:anywhere}
+  .ba-card .mt{font-family:var(--mono);font-size:var(--fs-meta);color:var(--dim)}
+  .ba-card .chips{display:flex;flex-wrap:wrap;gap:4px}
+  .ba-chip{font-size:var(--fs-chip);letter-spacing:.1em;text-transform:uppercase;border-radius:999px;
+           padding:2px 7px;border:1px solid var(--line);color:var(--dim);white-space:nowrap}
+  .ba-chip.b{color:var(--ba-before);border-color:var(--ba-before)}
+  .ba-chip.a{color:var(--ba-after);border-color:var(--ba-after)}
+  .ba-chip.open{color:var(--ba-open);border-color:var(--ba-open)}
+  .ba-chip.done{color:var(--good);border-color:var(--good)}
+  .ba-empty{color:var(--dim);font-size:var(--fs-meta);line-height:1.6;padding:16px 4px}
+  .ba-linkbar{position:sticky;bottom:0;background:var(--panel);border-top:1px solid var(--line);
+              padding:10px 2px 2px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+  .ba-linkbar .sel{font-family:var(--mono);font-size:var(--fs-meta);color:var(--amber)}
+  .ba-pick{display:flex;flex-direction:column;gap:8px;max-height:52vh;overflow:auto}
+  .ba-pickrow{display:flex;gap:10px;align-items:center;background:var(--cell);border:1px solid var(--line);
+              border-left:3px solid var(--ba-before);border-radius:var(--r-md);padding:8px;cursor:pointer;
+              text-align:left;color:var(--text);min-height:44px}
+  .ba-pickrow:hover{background:var(--cell-hover)}
+  .ba-pickrow img{width:58px;height:58px;object-fit:cover;border-radius:var(--r-sm);flex:0 0 auto}
+  .ba-pickrow .tx{min-width:0}
+  .ba-pickrow .tx b{display:block;font-size:var(--fs-name)}
+  .ba-pickrow .tx span{font-family:var(--mono);font-size:var(--fs-meta);color:var(--dim)}
+  .ba-sel-row{display:flex;gap:10px;align-items:flex-start;background:var(--cell);border:1px solid var(--line);
+              border-radius:var(--r-md);padding:9px;margin-bottom:8px}
+  .ba-sel-row>input{margin-top:3px;width:20px;height:20px;flex:0 0 auto}
+  .ba-sel-row .bd{min-width:0;flex:1}
+  .ba-sel-row .bd b{font-size:var(--fs-name)}
+  .ba-sel-row .bd .mt{font-family:var(--mono);font-size:var(--fs-meta);color:var(--dim)}
+  .ba-sel-photos{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;padding-left:10px;
+                 border-left:2px solid var(--line)}
+  .ba-sel-photos label{display:flex;gap:6px;align-items:center;font-size:var(--fs-meta);color:var(--dim)}
+  .ba-sel-photos img{width:44px;height:44px;object-fit:cover;border-radius:var(--r-sm)}
+  .lt-ba-extra{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+  .lt-ba-extra figure{margin:0}
+  .lt-ba-extra img{width:100%;border-radius:6px;display:block;cursor:pointer}
+  .lt-ba-extra figcaption{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:3px}
+  /* report: extra photos beyond the primary pair */
+  .pv-doc .pv-bax{display:flex;flex-wrap:wrap;gap:2.5%;row-gap:12px;margin-top:10px}
+  .pv-doc .pv-bax figure{margin:0;width:48%;page-break-inside:avoid;break-inside:avoid}
+  .pv-doc .pv-bax img{width:100%;height:auto;display:block;border:1px solid #b9c2cc;border-radius:6px}
+  .pv-doc .pv-bax figcaption{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+       color:#fff;background:#5c4a86;border-radius:0 0 5px 5px;padding:4px 8px;text-align:center;
+       -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pv-doc .pv-outside figcaption{background:#8a5a00}
+  .pv-doc .pv-outside img{border-color:#8a5a00}
+  .pv-doc .pv-ba figure.pv-outside figcaption{background:#8a5a00}
+  @media(max-width:640px){
+    .ba-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+    .ba-bar .ba-count{margin-left:0;width:100%}
+  }
 </style>
 <meta name="theme-color" content="#000000">
 <link rel="manifest" href="manifest.webmanifest">
@@ -792,6 +893,7 @@
   <div class="sb-logo"><span class="sb-logo-dot"></span></div>
   <button class="sb-item" data-act="new"><span class="sb-ic" style="color:var(--amber)">＋</span><span class="sb-lbl">New</span></button>
   <button class="sb-item" data-act="search"><span class="sb-ic">🔍</span><span class="sb-lbl">Search</span></button>
+  <button class="sb-item" data-act="ba"><span class="sb-ic" style="color:var(--ba-before)">◧</span><span class="sb-lbl">Before &amp; After</span></button>
   <button class="sb-item" data-act="bulk"><span class="sb-ic">&#9776;</span><span class="sb-lbl">Bulk entry</span></button>
   <button class="sb-item" data-act="expand"><span class="sb-ic">&#8597;</span><span class="sb-lbl">Expand all</span></button>
   <button class="sb-item" data-act="sort"><span class="sb-ic">↕</span><span class="sb-lbl">Sort</span></button>
@@ -808,6 +910,13 @@
 </nav>
 
 <main>
+  <div class="home-acts">
+    <button class="hact" id="baHubBtn" aria-label="Before and After photos">
+      <span class="hact-ic" aria-hidden="true">◧</span>
+      <span class="hact-txt"><b>Before &amp; After</b><i>Shoot inspection rounds, pair the After photos, print the comparison</i></span>
+      <span class="hact-badge" id="baHubBadge"></span>
+    </button>
+  </div>
   <div class="qj">
     <input id="qjInput" placeholder="Quick jump — space name, status, highlight or cargo…" autocomplete="off">
     <span class="qjn" id="qjCount"></span>
@@ -1392,6 +1501,77 @@ Kandla	Mundra	05-Jul-2026 00:00 LT	06-Jul-2026 06:00 LT	Loading	EDC 5k</div>
 </div>
 
 <!-- hidden master PIN popup -->
+
+<!-- ================= Before & After hub ================= -->
+<div class="overlay" id="baOverlay">
+  <div class="modal ba-hub">
+    <div class="m-head"><h3>Before &amp; After</h3><button class="close" id="baHubClose" aria-label="Close">&times;</button></div>
+    <div class="ba-tabs" role="tablist">
+      <button class="ba-tab active" data-batab="before" role="tab">Before <span class="cnt" id="baCntB">0</span></button>
+      <button class="ba-tab" data-batab="after" role="tab">After <span class="cnt" id="baCntA">0</span></button>
+    </div>
+    <p class="ba-lead" id="baLead"></p>
+    <div class="ba-bar">
+      <select id="baSpaceSel" title="Space these photos belong to"></select>
+      <button class="btn ghost sm" id="baCam">&#128247; Camera</button>
+      <button class="btn ghost sm" id="baGal">&#128444; Gallery</button>
+      <button class="btn ghost sm" id="baShowAll">Show all</button>
+      <button class="btn ghost sm" id="baReportBtn">&#128424; Print preview</button>
+      <span class="ba-count" id="baCounts"></span>
+    </div>
+    <div id="baPinned"></div>
+    <div id="baBody"></div>
+    <div class="ba-linkbar" id="baLinkBar" style="display:none">
+      <span class="sel" id="baSelInfo"></span>
+      <button class="btn ghost sm" id="baLinkBtn">Link to Before&hellip;</button>
+      <button class="btn ghost sm" id="baAssignBtn">Set space&hellip;</button>
+      <button class="btn ghost sm" id="baSoloBtn">Mark standalone</button>
+      <button class="btn danger sm" id="baDelBtn">Delete</button>
+      <button class="btn ghost sm" id="baClearSel">Clear</button>
+    </div>
+  </div>
+</div>
+
+<!-- Before picker used when linking After photos -->
+<div class="overlay" id="baPickOverlay">
+  <div class="modal" style="max-width:520px">
+    <div class="m-head"><h3>Choose the Before</h3><button class="close" id="baPickClose" aria-label="Close">&times;</button></div>
+    <p class="ba-lead" id="baPickLead">Pick the Before photo these After photos belong to. Only comparisons still open are listed &mdash; turn on &ldquo;Show all&rdquo; in the hub to add a second After to one that is already complete.</p>
+    <div class="ba-pick" id="baPickList"></div>
+  </div>
+</div>
+
+<!-- two-step before/after report -->
+<div class="overlay" id="baRepOverlay">
+  <div class="modal" style="max-width:640px">
+    <div class="m-head"><h3 id="baRepTitle">Before / After report</h3><button class="close" id="baRepClose" aria-label="Close">&times;</button></div>
+    <div id="baRepStep1">
+      <p class="ba-lead">Step 1 of 2 &mdash; narrow the list down. Everything matching is shown next, where you tick what actually goes in the report.</p>
+      <div class="blk">
+        <div class="rep-grid">
+          <div><div class="rep-lbl">Group</div><select id="baRepGrp"></select></div>
+          <div><div class="rep-lbl">Category</div><select id="baRepCat"></select></div>
+          <div><div class="rep-lbl">Space</div><select id="baRepSpace"></select></div>
+          <div><div class="rep-lbl">From</div><input type="date" id="baRepFrom"></div>
+          <div><div class="rep-lbl">To</div><input type="date" id="baRepTo"></div>
+        </div>
+        <button class="btn" id="baRepFind">Show matching comparisons</button>
+      </div>
+    </div>
+    <div id="baRepStep2" style="display:none">
+      <p class="ba-lead">Step 2 of 2 &mdash; tick the comparisons to print. Open a row to leave out single photos.</p>
+      <div class="ba-bar">
+        <button class="btn ghost sm" id="baRepAll">Select all</button>
+        <button class="btn ghost sm" id="baRepNone">Select none</button>
+        <button class="btn ghost sm" id="baRepBack">&larr; Change filter</button>
+        <span class="ba-count" id="baRepCount"></span>
+      </div>
+      <div id="baRepList" style="max-height:46vh;overflow:auto"></div>
+      <button class="btn" id="baRepGen">Generate print preview</button>
+    </div>
+  </div>
+</div>
+
 <div id="pinOverlay">
   <div class="pin-box" id="pinBox">
     <label>Enter PIN</label>
@@ -1413,7 +1593,7 @@ var DESK_READY=new Promise(function(res){
   'use strict';
   const LS_KEY='tankLogEngine_v2';
   const OLD_KEY='tankLogEngine_v1';
-  const APP_VERSION='1.5.0';
+  const APP_VERSION='3.0.0';
   /* Data-format version, deliberately NOT the app version — the two move
      independently. It only has to differ from what older builds wrote, so the
      import guard can refuse a file this app cannot read safely. */
@@ -1462,7 +1642,7 @@ var DESK_READY=new Promise(function(res){
   let state={tanks:defaultTanks(),logs:{},limits:{ul:0.05,tp:1.0,pr:50},uti:0,pin:'0000',miscSeeded:true,
              vessel:{name:'',imo:'',flag:'',grt:'',prep:''},quickPicks:DEFAULT_QP.slice(),view:{l3c:false,status:false,hl:true,pinnedOnly:false},lastBackup:null,theme:'dark',nightDim:false,tl:{mode:'diag',order:'new'},voyages:[],audit:[],fieldHist:{hl:[],l3c:[],status:[]},
              noteSecs:{note:true,cnote:true,onote:true,dnote:true,ba:true},
-             cats:defaultCats(),groups:[],collapsed:{},presets:[],schemaVersion:SCHEMA_VERSION};
+             cats:defaultCats(),groups:[],collapsed:{},presets:[],baTray:[],schemaVersion:SCHEMA_VERSION};
   let masterMode=false;
   await DESK_READY;
   try{
@@ -1493,6 +1673,7 @@ var DESK_READY=new Promise(function(res){
       if(Array.isArray(p.groups))state.groups=p.groups;
       if(p.collapsed&&typeof p.collapsed==='object')state.collapsed=p.collapsed;
       if(Array.isArray(p.presets))state.presets=p.presets;
+      if(Array.isArray(p.baTray))state.baTray=p.baTray;
       state.miscSeeded=!!p.miscSeeded;
       if(!state.miscSeeded){
         // one-time upgrade: add the fresh water tank set if not already present
@@ -1552,6 +1733,15 @@ var DESK_READY=new Promise(function(res){
     });
     if(!state.collapsed||typeof state.collapsed!=='object')state.collapsed={};
     if(!Array.isArray(state.presets))state.presets=[];
+    /* Before/After holding tray — photos shot before their space is known.
+       Optional and defaults to empty, so schemaVersion does not move. */
+    if(!Array.isArray(state.baTray))state.baTray=[];
+    state.baTray.forEach(x=>{
+      if(!x.id)x.id=uid();
+      if(!x.modified)x.modified=x.ts?Date.parse(x.ts):Date.now();
+      if(typeof x.deleted!=='boolean')x.deleted=false;
+      if(x.role!=='before'&&x.role!=='after')x.role='after';
+    });
     state.schemaVersion=SCHEMA_VERSION;
     Object.keys(state.logs||{}).forEach(tankId=>{
       (state.logs[tankId]||[]).forEach(e=>{
@@ -3245,8 +3435,9 @@ var DESK_READY=new Promise(function(res){
         if(!Array.isArray(e.att))e.att=[];
         /* stamp roles on a legacy pair before adding, so nothing is mis-labelled */
         if(e.att.length&&!e.att.some(x=>x.role))e.att[0].role=(job.role==='after')?'before':'after';
-        e.att=e.att.filter(x=>x.role!==job.role);
-        e.att.push({mediaId:mid,kind:'photo',role:job.role,name:files[0].name||'photo.jpg',thumb:r.dataUrl});
+        /* n:n — extra photos of the same role are added as stages, not swapped in */
+        e.att.push({mediaId:mid,kind:'photo',role:job.role,name:files[0].name||'photo.jpg',
+                    thumb:r.dataUrl,at:new Date().toISOString(),tankId:tankId});
         e.modified=Date.now();
         if(!baPending(e))e.baDone=new Date().toISOString();
         state.dataVersion=(state.dataVersion||1)+1;
@@ -3265,7 +3456,9 @@ var DESK_READY=new Promise(function(res){
     }).catch(err=>{console.error(err);toast('Photo failed: '+err.message);});
   }
   function routePhotos(f){
-    if(attachTarget==='baLater')completeBa(f);
+    if(attachTarget==='hubB')addHubPhotos('before',f);
+    else if(attachTarget==='hubA')addHubPhotos('after',f);
+    else if(attachTarget==='baLater')completeBa(f);
     else if(isBaTarget(attachTarget))addBaPhoto(attachTarget,f);
     else addPendingPhotos(attachTarget,f);
   }
@@ -3443,11 +3636,17 @@ var DESK_READY=new Promise(function(res){
   function baParts(e){
     if(e.type!=='ba'||!Array.isArray(e.att))return{b:null,a:null};
     const tagged=e.att.some(x=>x.role==='before'||x.role==='after');
+    let befores,afters;
     if(tagged){
-      return{b:e.att.find(x=>x.role==='before')||null,
-             a:e.att.find(x=>x.role==='after')||null};
+      befores=e.att.filter(x=>x.role==='before');
+      afters =e.att.filter(x=>x.role==='after');
+    }else{                                           // legacy untagged pair
+      befores=e.att[0]?[e.att[0]]:[];
+      afters =e.att[1]?[e.att[1]]:[];
     }
-    return{b:e.att[0]||null,a:e.att[1]||null};      // legacy untagged pair
+    /* n:n — a comparison may hold several of each. The first of each is the
+       primary pair; b and a keep their old meaning so nothing downstream broke. */
+    return{b:befores[0]||null,a:afters[0]||null,befores:befores,afters:afters};
   }
   function baPair(e){
     const p=baParts(e);
@@ -3455,8 +3654,23 @@ var DESK_READY=new Promise(function(res){
   }
   function baPending(e){
     if(e.type!=='ba')return false;
+    if(e.baSolo)return false;      /* deliberately one-sided — complete, never nags */
     const p=baParts(e);
     return !(p.b&&p.a);
+  }
+  /* every space a comparison touches, derived from its photos so it cannot drift */
+  function baSpacesOf(e,ownerId){
+    const out=[];
+    if(ownerId)out.push(ownerId);
+    (e.att||[]).forEach(a=>{if(a.tankId&&out.indexOf(a.tankId)<0)out.push(a.tankId);});
+    return out;
+  }
+  function baOwnerOf(entryId){
+    const ks=Object.keys(state.logs||{});
+    for(let i=0;i<ks.length;i++){
+      if((state.logs[ks[i]]||[]).some(e=>e.id===entryId))return ks[i];
+    }
+    return null;
   }
   function pendingBaCount(tankId){
     return logsOf(tankId).filter(e=>e.type==='ba'&&baPending(e)).length;
@@ -3488,6 +3702,15 @@ var DESK_READY=new Promise(function(res){
                '</div><figcaption>'+label+'</figcaption></figure>';
       };
       b+='<div class="lt-ba">'+half('before',p.b,'Before')+half('after',p.a,'After')+'</div>';
+      /* extras beyond the primary pair — progress stages, or a second angle */
+      const xtra=p.befores.slice(1).map((r,i)=>['Before \u00b7 '+(i+2)+' of '+p.befores.length,r])
+                 .concat(p.afters.slice(1).map((r,i)=>['After \u00b7 '+(i+2)+' of '+p.afters.length,r]));
+      if(xtra.length){
+        b+='<div class="lt-ba-extra">'+xtra.map(([lbl,r])=>
+             '<figure><img src="'+(r.thumb||'')+'" data-mid="'+esc(r.mediaId||'')+'" alt="'+esc(lbl)+'">'+
+             '<figcaption>'+esc(lbl)+'</figcaption></figure>').join('')+'</div>';
+      }
+      if(e.baSolo)b+='<div class="lt-edited">standalone \u2014 no matching photo expected</div>';
       if(!(p.b&&p.a))
         b+='<div class="lt-pending">\u23F3 Awaiting the '+(p.b?'After':'Before')+' photo \u2014 opened '+fmtTime(e.ts)+'</div>';
       if(e.baDone)b+='<div class="lt-edited">completed '+fmtTime(e.baDone)+'</div>';
@@ -4209,7 +4432,7 @@ var DESK_READY=new Promise(function(res){
   // Merges an incoming TankLog payload into current state without wiping anything.
   // Returns {tanksAdded,tanksUpdated,logsAdded,logsUpdated,mediaAdded}.
   function mergeTankData(p){
-    let tanksAdded=0,tanksUpdated=0,logsAdded=0,logsUpdated=0,unchanged=0,deleted=0;
+    let tanksAdded=0,tanksUpdated=0,logsAdded=0,logsUpdated=0,unchanged=0,deleted=0,trayAdded=0,trayUpdated=0;
     // groups by id — newest wins, soft deletes propagate
     if(!Array.isArray(state.groups))state.groups=[];
     const gById={}; state.groups.forEach(g=>gById[g.id]=g);
@@ -4272,6 +4495,18 @@ var DESK_READY=new Promise(function(res){
       // keep newest-first ordering by ts for display consistency
       state.logs[tankId].sort((a,b)=>Date.parse(b.ts||0)-Date.parse(a.ts||0));
     });
+    // before/after holding tray by id — newest wins, soft deletes propagate
+    if(!Array.isArray(state.baTray))state.baTray=[];
+    const trayById={}; state.baTray.forEach(x=>trayById[x.id]=x);
+    (p.baTray||[]).forEach(inc=>{
+      if(!inc||!inc.id)return;
+      if(typeof inc.deleted!=='boolean')inc.deleted=false;
+      if(!inc.modified)inc.modified=Date.now();
+      const cur=trayById[inc.id];
+      if(!cur){state.baTray.push(inc);trayById[inc.id]=inc;trayAdded++;if(inc.deleted)deleted++;}
+      else if((inc.modified||0)>(cur.modified||0)){const wasDel=cur.deleted;Object.assign(cur,inc);trayUpdated++;if(inc.deleted&&!wasDel)deleted++;}
+      else unchanged++;
+    });
     // voyages by id (newest-wins, soft deletes propagate)
     if(!Array.isArray(state.voyages))state.voyages=[];
     const vById={}; state.voyages.forEach(v=>vById[v.id]=v);
@@ -4328,8 +4563,30 @@ var DESK_READY=new Promise(function(res){
         state.cats.push({id:cid,label:cid.charAt(0).toUpperCase()+cid.slice(1),short:cid.toUpperCase().slice(0,10),ord:mx+10,modified:Date.now(),deleted:false});
       }
     });
+    /* A photo assigned on both devices could land in two comparisons. The group
+       touched most recently keeps it; the older one lets it go, so no photo is
+       ever shown twice and none is silently destroyed. */
+    (function dedupeBaMedia(){
+      const owner={};
+      const all=[];
+      Object.keys(state.logs||{}).forEach(tid=>{
+        (state.logs[tid]||[]).forEach(e=>{if(e.type==='ba'&&!e.deleted&&Array.isArray(e.att))all.push(e);});
+      });
+      all.sort((a,b)=>(b.modified||0)-(a.modified||0));
+      all.forEach(e=>{
+        e.att=e.att.filter(a=>{
+          if(!a||a.kind!=='photo'||!a.mediaId)return true;
+          if(owner[a.mediaId])return false;
+          owner[a.mediaId]=e.id;return true;
+        });
+      });
+      /* and a tray photo that has since been filed into a space leaves the tray */
+      (state.baTray||[]).forEach(x=>{if(x.mediaId&&owner[x.mediaId]&&!x.deleted){x.deleted=true;x.modified=Date.now();}});
+    })();
+    /* a comparison pointing at a space this device has never seen keeps its link
+       rather than losing it — the link goes quiet until that space arrives */
     state.dataVersion=Math.max(state.dataVersion||1, p.dataVersion||1)+1;
-    return {tanksAdded,tanksUpdated,logsAdded,logsUpdated,unchanged,deleted};
+    return {tanksAdded,tanksUpdated,logsAdded,logsUpdated,unchanged,deleted,trayAdded,trayUpdated};
   }
   // Restore incoming media additively (never clears existing).
   function mergeMedia(media){
@@ -4375,7 +4632,8 @@ var DESK_READY=new Promise(function(res){
             'Updated:    '+(rep.tanksUpdated+rep.logsUpdated)+'\n'+
             'Unchanged:  '+rep.unchanged+'\n'+
             'Deletions:  '+rep.deleted+' propagated\n'+
-            'Media:      '+mediaAdded+' restored\n\n'+
+            'Media:      '+mediaAdded+' restored\n'+
+            (rep.trayAdded||rep.trayUpdated?('Loose photos: '+rep.trayAdded+' added, '+rep.trayUpdated+' updated\n'):'')+'\n'+
             'Source file: '+src;
           toast('Merged: +'+(rep.tanksAdded+rep.logsAdded)+' new, '+(rep.tanksUpdated+rep.logsUpdated)+' updated');
           setTimeout(()=>alert(msg),150);
@@ -4574,6 +4832,9 @@ var DESK_READY=new Promise(function(res){
     if(info.scopeSpace&&info.scopeSpace!=='all'){const tt=tankById(info.scopeSpace);if(tt)filters.push('Space: '+tt.name);}
     if(Array.isArray(info.types)&&info.types.length&&info.types.length<Object.keys(CV_TYPES).length)
       filters.push('Entry types: '+info.types.map(k=>CV_TYPES[k]?CV_TYPES[k][0]:k).join(', '));
+    if(baRepSel)filters.push(baRepSel.ids.size+' comparison'+(baRepSel.ids.size===1?'':'s')+' hand-picked');
+    if(baRepOutside)filters.push(baRepOutside+' comparison'+(baRepOutside===1?'':'s')+
+      ' carried in whole \u2014 photos outside the scope are marked, not dropped');
     const rows=[['Report scope',esc(repHeading||'All Spaces')],
                 ['Period covered',esc(info.period||repPeriodLabel())],
                 ['Filters applied',filters.length?esc(filters.join(' \u00b7 ')):'None \u2014 everything in scope'],
@@ -4694,7 +4955,31 @@ var DESK_READY=new Promise(function(res){
     return html+pvFooter();
   }
 
+  /* Comparisons owned by this space, plus any owned elsewhere that hold one of
+     this space's photos. Date range applies exactly as it does to every table. */
+  function repBaGroups(tankId){
+    const out=[],seen={};
+    const push=(e,owner)=>{if(e&&!e.deleted&&e.type==='ba'&&!seen[e.id]){seen[e.id]=1;out.push({e:e,owner:owner});}};
+    (state.logs[tankId]||[]).forEach(e=>push(e,tankId));
+    Object.keys(state.logs||{}).forEach(tid=>{
+      if(tid===tankId)return;
+      (state.logs[tid]||[]).forEach(e=>{
+        if(e.type==='ba'&&!e.deleted&&(e.att||[]).some(a=>a.tankId===tankId))push(e,tid);
+      });
+    });
+    return out.filter(x=>{
+      if(repRange.f===null&&repRange.t===null)return true;
+      const ms=Date.parse(x.e.ts);
+      if(isNaN(ms))return false;
+      if(repRange.f!==null&&ms<repRange.f)return false;
+      if(repRange.t!==null&&ms>repRange.t)return false;
+      return true;
+    }).sort((a,b)=>Date.parse(a.e.ts||0)-Date.parse(b.e.ts||0));
+  }
+  let pvBaSeen=new Set();      /* one comparison prints once, however many spaces it spans */
+  let baRepSel=null;           /* {ids:Set, photos:{entryId:Set(mediaId)}} when the hub drove the report */
   function buildReportHTML(tanks,type){
+    pvBaSeen=new Set();
     if(type==='board')return buildBoardHTML(tanks);
     const L=state.limits;
     const coverEnts=[];
@@ -4758,22 +5043,56 @@ var DESK_READY=new Promise(function(res){
           sec+='</div>';
         }
       }
-      /* ---- before / after photo pairs: full width, two per row, caption beneath ---- */
+      /* ---- before / after comparisons: full width, two per row, caption beneath.
+             A group spanning several spaces prints once, in whole, with the photos
+             that fall outside the report's scope marked rather than dropped. ---- */
       if(type==='ba'||type==='full'){
-        const bas=repLogs(t.id).filter(e=>e.type==='ba'&&(baParts(e).b||baParts(e).a)).slice().reverse();
+        const bas=repBaGroups(t.id).filter(x=>{
+          if(pvBaSeen.has(x.e.id))return false;
+          if(baRepSel&&!baRepSel.ids.has(x.e.id))return false;
+          const q=baParts(x.e);
+          return !!(q.b||q.a);
+        });
         if(bas.length){
-          const openN=bas.filter(e=>baPending(e)).length;
-          sec+='<h3><span>Before / After Comparisons</span><span class="pv-avg">'+bas.length+' pair'+(bas.length===1?'':'s')+
+          const openN=bas.filter(x=>baPending(x.e)).length;
+          sec+='<h3><span>Before / After Comparisons</span><span class="pv-avg">'+bas.length+' comparison'+(bas.length===1?'':'s')+
                (openN?' \u00b7 '+openN+' awaiting a photo':'')+'</span></h3>';
-          bas.forEach(e=>{
+          bas.forEach(x=>{
+            const e=x.e;pvBaSeen.add(e.id);
             const p=baParts(e);
-            const fig=(cls,ref,label)=>ref
-              ? '<figure class="'+cls+'"><img src="'+(ref.thumb||'')+'" alt="'+label+'"><figcaption>'+label+'</figcaption></figure>'
-              : '<figure class="'+cls+' pending"><div class="pv-bawait">Not yet taken</div><figcaption>'+label+'</figcaption></figure>';
-            sec+='<div class="pv-baw"><div class="pv-ba">'+
-              fig('before',p.b,'Before')+fig('after',p.a,'After')+
-              '</div><div class="pv-bacap"><b>'+fmtTime(e.ts)+'</b>'+
+            const spans=baSpacesOf(e,x.owner);
+            const keep=r=>!baRepSel||!baRepSel.photos[e.id]||baRepSel.photos[e.id].has(r.mediaId);
+            const fig=(cls,ref,label)=>{
+              if(!ref)return '<figure class="'+cls+' pending"><div class="pv-bawait">Not yet taken</div><figcaption>'+label+'</figcaption></figure>';
+              const own=ref.tankId||x.owner;
+              const outside=!!(repScope&&repScope.length&&!repScope.some(k=>k.id===own));
+              const nm=tankById(own);
+              const extra=(outside?' \u00b7 \u2197 OUTSIDE SCOPE':'')+((spans.length>1||outside)&&nm?' \u00b7 '+esc(nm.name):'');
+              return '<figure class="'+cls+(outside?' pv-outside':'')+'"><img src="'+(ref.thumb||'')+'" alt="'+label+'">'+
+                     '<figcaption>'+label+extra+'</figcaption></figure>';
+            };
+            let block='<div class="pv-ba">';
+            block+=(p.b&&!keep(p.b))?fig('before',null,'Before'):fig('before',p.b,'Before');
+            block+=(p.a&&!keep(p.a))?fig('after',null,'After'):fig('after',p.a,'After');
+            block+='</div>';
+            const xs=p.befores.slice(1).filter(keep).map((r,i)=>['Before \u00b7 stage '+(i+2),r])
+                     .concat(p.afters.slice(1).filter(keep).map((r,i)=>['After \u00b7 stage '+(i+2),r]));
+            if(xs.length){
+              block+='<div class="pv-bax">'+xs.map(([lbl,r])=>{
+                const own=r.tankId||x.owner;
+                const outside=!!(repScope&&repScope.length&&!repScope.some(k=>k.id===own));
+                const nm=tankById(own);
+                return '<figure'+(outside?' class="pv-outside"':'')+'><img src="'+(r.thumb||'')+'" alt="'+esc(lbl)+'">'+
+                       '<figcaption>'+esc(lbl)+(r.at?' \u00b7 '+fmtTime(r.at):'')+
+                       (outside?' \u00b7 \u2197 OUTSIDE SCOPE':'')+((spans.length>1||outside)&&nm?' \u00b7 '+esc(nm.name):'')+
+                       '</figcaption></figure>';
+              }).join('')+'</div>';
+            }
+            sec+='<div class="pv-baw">'+block+
+              '<div class="pv-bacap"><b>'+fmtTime(e.ts)+'</b>'+
+              (spans.length>1?' &nbsp;<span style="color:#5c4a86">['+spans.map(id=>esc(tankById(id)?tankById(id).name:id)).join(' + ')+']</span>':'')+
               (e.text?' &nbsp;\u2014&nbsp; '+esc(e.text):'')+
+              (e.baSolo?' &nbsp;<span style="color:#5c4a86">[standalone]</span>':'')+
               (baPending(e)?' &nbsp;<span style="color:#a05a00">[awaiting the '+(p.b?'After':'Before')+' photo]</span>':'')+
               '</div></div>';
           });
@@ -4877,6 +5196,509 @@ var DESK_READY=new Promise(function(res){
     toast('Tank deleted');
   });
 
+
+  /* ==================================================================
+     BEFORE & AFTER HUB (3.0)
+
+     A second front door onto the same `ba` records that already live in each
+     space — not a second store. Photos shot before their space is known park
+     in state.baTray; the moment a space is chosen they become an ordinary
+     comparison under that space and the tray item retires. Everything a
+     comparison touches is derived from its own photos, so nothing can drift.
+     ================================================================== */
+  const BA_TRAY_TANK='__batray';
+  let baTab='before', baShowAll=false, baSel=new Map(), baRepMatch=[], baRepOutside=0;
+
+  function liveTray(){return (state.baTray||[]).filter(x=>!x.deleted);}
+  function baEntriesAll(){
+    const out=[];
+    Object.keys(state.logs||{}).forEach(tid=>{
+      (state.logs[tid]||[]).forEach(e=>{if(e.type==='ba'&&!e.deleted)out.push({e:e,owner:tid});});
+    });
+    return out.sort((a,b)=>Date.parse(b.e.ts||0)-Date.parse(a.e.ts||0));
+  }
+  function baSpaceNames(e,owner){
+    return baSpacesOf(e,owner).map(id=>{const t=tankById(id);return t?t.name:id;}).join(' + ');
+  }
+  function baOpenBefores(){
+    return baEntriesAll().filter(x=>{const q=baParts(x.e);return q.befores.length&&!q.afters.length&&!x.e.baSolo;});
+  }
+  /* ---- what each tab shows ---- */
+  function baItems(tab,showAll){
+    const out=[];
+    liveTray().filter(x=>x.role===tab).forEach(x=>{
+      out.push({key:'T:'+x.id,kind:'tray',trayId:x.id,role:x.role,thumb:x.thumb,mediaId:x.mediaId,
+                name:x.name,tag:x.tag||'',caption:x.caption||'',ts:x.ts,tankId:null,state:'loose'});
+    });
+    baEntriesAll().forEach(x=>{
+      const q=baParts(x.e);
+      if(tab==='before'){
+        if(!q.befores.length)return;
+        const done=!baPending(x.e);
+        if(done&&!showAll)return;
+        out.push({key:'E:'+x.e.id,kind:'entry',entryId:x.e.id,owner:x.owner,role:'before',
+                  thumb:q.b?q.b.thumb:'',mediaId:q.b?q.b.mediaId:'',name:baSpaceNames(x.e,x.owner),
+                  tag:(q.b&&q.b.tag)||'',caption:x.e.text||'',ts:x.e.ts,tankId:x.owner,
+                  state:done?'done':'open',count:q.befores.length+q.afters.length});
+      }else{
+        if(!q.afters.length)return;
+        const loose=!q.befores.length;
+        if(!loose&&!showAll)return;
+        q.afters.forEach((r,i)=>{
+          out.push({key:'E:'+x.e.id+':'+(r.mediaId||i),kind:'entry',entryId:x.e.id,owner:x.owner,role:'after',
+                    thumb:r.thumb||'',mediaId:r.mediaId||'',name:baSpaceNames(x.e,x.owner),
+                    tag:r.tag||'',caption:x.e.text||'',ts:r.at||x.e.ts,tankId:x.owner,
+                    state:loose?(x.e.baSolo?'solo':'loose'):'paired'});
+        });
+      }
+    });
+    return out.sort((a,b)=>Date.parse(b.ts||0)-Date.parse(a.ts||0));
+  }
+  function baOutstanding(){
+    return liveTray().length+baOpenBefores().length+
+           baItems('after',false).filter(i=>i.state==='loose').length;
+  }
+  function baRefreshHomeBadge(){
+    const b=$('baHubBadge');if(!b)return;
+    const n=baOutstanding();
+    b.textContent=n?(n+' open'):'';
+    b.title=n?(n+' item'+(n===1?'':'s')+' still to finish'):'';
+  }
+  /* ---- space picker ---- */
+  function baFillSpaceSel(sel,withAll){
+    if(!sel)return;
+    const keep=sel.value;
+    let h=withAll?'<option value="all">All spaces</option>':'<option value="">No space yet \u2014 sort later</option>';
+    catsInOrder().forEach(c=>{
+      const list=catTanks(c.id);
+      if(!list.length)return;
+      h+='<optgroup label="'+esc(c.label)+'">'+list.map(t=>'<option value="'+esc(t.id)+'">'+esc(t.name)+'</option>').join('')+'</optgroup>';
+    });
+    sel.innerHTML=h;
+    if(keep&&[...sel.options].some(o=>o.value===keep))sel.value=keep;
+  }
+  /* ---- rendering ---- */
+  function baDayLabel(ms){
+    const d=new Date(ms),n=new Date();
+    const same=(a,b)=>a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();
+    if(same(d,n))return 'Today';
+    const y=new Date(n.getTime()-864e5);
+    if(same(d,y))return 'Yesterday';
+    return fmtTime(d.toISOString()).split(' ')[0];
+  }
+  function baCardHTML(it){
+    const chips=[];
+    chips.push('<span class="ba-chip '+(it.role==='before'?'b':'a')+'">'+(it.role==='before'?'Before':'After')+'</span>');
+    if(it.state==='loose')chips.push('<span class="ba-chip open">Needs a space</span>');
+    if(it.state==='open')chips.push('<span class="ba-chip open">Awaiting After</span>');
+    if(it.state==='done')chips.push('<span class="ba-chip done">Complete</span>');
+    if(it.state==='solo')chips.push('<span class="ba-chip done">Standalone</span>');
+    if(it.state==='paired')chips.push('<span class="ba-chip done">Paired</span>');
+    if(it.tag)chips.push('<span class="ba-chip">'+esc(it.tag)+'</span>');
+    return '<button class="ba-card'+(it.role==='after'?' after':'')+(baSel.has(it.key)?' sel':'')+
+      '" data-bakey="'+esc(it.key)+'">'+
+      (it.thumb?'<img src="'+it.thumb+'" alt="'+esc(it.role)+' photo">':'')+
+      '<span class="nm">'+esc(it.name||'Not filed to a space yet')+'</span>'+
+      '<span class="chips">'+chips.join('')+'</span>'+
+      (it.caption?'<span class="mt">'+esc(it.caption.slice(0,60))+'</span>':'')+
+      '<span class="mt">'+esc(fmtTime(it.ts))+'</span></button>';
+  }
+  function renderBaHub(){
+    if(!$('baOverlay'))return;
+    const items=baItems(baTab,baShowAll);
+    const openB=baOpenBefores().length;
+    const looseA=baItems('after',false).filter(i=>i.state==='loose').length;
+    $('baCntB').textContent=openB;
+    $('baCntA').textContent=looseA;
+    $('baShowAll').textContent=baShowAll?'Show open only':'Show all';
+    const totB=baEntriesAll().filter(x=>baParts(x.e).befores.length).length;
+    const totA=baEntriesAll().reduce((n,x)=>n+baParts(x.e).afters.length,0);
+    $('baCounts').textContent=baTab==='before'
+      ? (openB+' open \u00b7 '+totB+' total')
+      : (looseA+' loose \u00b7 '+totA+' total');
+    $('baLead').textContent=baTab==='before'
+      ? 'Shoot as you walk the round. Nothing has to be typed \u2014 a space, a tag and a caption can all be added later.'
+      : 'Shoot the After photos as jobs finish, then tick them and link them to the Before they belong to.';
+    /* unfinished work is pinned above the round rather than left in date order */
+    const loose=liveTray().filter(x=>x.role===baTab);
+    const pin=$('baPinned');
+    if(loose.length){
+      pin.innerHTML='<div class="ba-pin"><h5>'+loose.length+' photo'+(loose.length===1?'':'s')+' need'+(loose.length===1?'s':'')+
+        ' a space</h5><div class="ba-grid">'+
+        loose.map(x=>baCardHTML({key:'T:'+x.id,role:x.role,thumb:x.thumb,name:'',tag:x.tag||'',
+                                 caption:x.caption||'',ts:x.ts,state:'loose'})).join('')+'</div></div>';
+    }else pin.innerHTML='';
+    const body=$('baBody');
+    const rest=items.filter(i=>i.kind!=='tray');
+    if(!rest.length&&!loose.length){
+      body.innerHTML='<div class="ba-empty">Nothing here yet. Pick a space above if you already know it, then tap Camera or Gallery '+
+        'to start the round \u2014 photos with no space chosen wait at the top of this screen until you file them.</div>';
+    }else if(!rest.length){
+      body.innerHTML='<div class="ba-empty">Everything shot so far is still waiting for a space. Tick the photos above and use '+
+        '\u201cSet space\u2026\u201d to file them.</div>';
+    }else{
+      let h='',day='';
+      rest.forEach(it=>{
+        const d=baDayLabel(Date.parse(it.ts)||Date.now());
+        if(d!==day){if(day)h+='</div>';day=d;h+='<div class="ba-daysep">'+esc(d)+'</div><div class="ba-grid">';}
+        h+=baCardHTML(it);
+      });
+      if(day)h+='</div>';
+      body.innerHTML=h;
+    }
+    body.querySelectorAll('[data-bakey]').forEach(b=>b.addEventListener('click',()=>baToggleSel(b.dataset.bakey)));
+    pin.querySelectorAll('[data-bakey]').forEach(b=>b.addEventListener('click',()=>baToggleSel(b.dataset.bakey)));
+    baRenderLinkBar();
+    baRefreshHomeBadge();
+  }
+  function baAllItems(){return baItems('before',true).concat(baItems('after',true));}
+  function baToggleSel(key){
+    if(baSel.has(key))baSel.delete(key);
+    else{
+      const it=baAllItems().find(x=>x.key===key);
+      if(it)baSel.set(key,it);
+    }
+    renderBaHub();
+  }
+  function baRenderLinkBar(){
+    const bar=$('baLinkBar');if(!bar)return;
+    const n=baSel.size;
+    bar.style.display=n?'flex':'none';
+    if(!n)return;
+    const sel=[...baSel.values()];
+    $('baSelInfo').textContent=n+' selected';
+    $('baLinkBtn').style.display=sel.every(i=>i.role==='after')?'':'none';
+    $('baAssignBtn').style.display=sel.some(i=>i.kind==='tray')?'':'none';
+    $('baSoloBtn').style.display=sel.some(i=>i.kind==='entry')?'':'none';
+  }
+  /* ---- capture ---- */
+  function baCreateEntry(tankId,role,m,when){
+    if(!Array.isArray(state.logs[tankId]))state.logs[tankId]=[];
+    const ts=when||new Date().toISOString();
+    const e={id:uid(),ts:ts,type:'ba',text:'',
+             att:[{mediaId:m.mid,kind:'photo',role:role,name:m.name,thumb:m.thumb,at:ts,tankId:tankId}],
+             modified:Date.now(),deleted:false};
+    /* an After filed on its own is a complete record, not an unfinished one */
+    if(role==='after')e.baSolo=true;
+    state.logs[tankId].unshift(e);
+    return e;
+  }
+  function addHubPhotos(role,files){
+    if(!files.length)return;
+    const tid=$('baSpaceSel')?$('baSpaceSel').value:'';
+    toast('Compressing '+files.length+' photo'+(files.length>1?'s':'')+'\u2026');
+    Promise.all(files.map(f=>compressImage(f,400).then(r=>{
+      const mid='m_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+      return idbPut({id:mid,tankId:tid||BA_TRAY_TANK,kind:'photo',name:f.name||(role+'.jpg'),
+                     size:r.blob.size,ts:Date.now(),data:r.dataUrl})
+             .then(()=>({mid:mid,name:f.name||(role+'.jpg'),thumb:r.dataUrl}));
+    }))).then(list=>{
+      list.forEach(m=>{
+        if(tid)baCreateEntry(tid,role,m);
+        else state.baTray.push({id:uid(),mediaId:m.mid,role:role,tankId:null,name:m.name,thumb:m.thumb,
+                                tag:'',caption:'',ts:new Date().toISOString(),modified:Date.now(),deleted:false});
+      });
+      state.dataVersion=(state.dataVersion||1)+1;
+      auditRec('BEFORE/AFTER',tid?tankById(tid):null,
+               list.length+' '+role+' photo'+(list.length>1?'s':'')+(tid?' captured':' captured, no space set'));
+      save();refreshBadges();buildGrids();renderBaHub();
+      if(current)renderEntries();
+      toast(list.length+' '+(role==='before'?'Before':'After')+' photo'+(list.length>1?'s':'')+
+            (tid?(' saved to '+tankById(tid).name):' saved \u2014 file them to a space when you can'));
+    }).catch(err=>{console.error(err);toast('Photo failed: '+err.message);});
+  }
+  /* ---- filing a loose photo into a space ---- */
+  function baAssignSelected(tankId){
+    const t=tankById(tankId);if(!t)return;
+    const sel=[...baSel.values()].filter(i=>i.kind==='tray');
+    if(!sel.length){toast('Nothing loose is selected');return;}
+    sel.forEach(i=>{
+      const item=(state.baTray||[]).find(x=>x.id===i.trayId);
+      if(!item||item.deleted)return;
+      baCreateEntry(tankId,item.role,{mid:item.mediaId,name:item.name,thumb:item.thumb},item.ts);
+      item.deleted=true;item.modified=Date.now();
+      idbPut({id:item.mediaId,tankId:tankId,kind:'photo',name:item.name,size:0,ts:Date.parse(item.ts)||Date.now(),data:item.thumb}).catch(()=>{});
+    });
+    baSel.clear();
+    state.dataVersion=(state.dataVersion||1)+1;
+    auditRec('BEFORE/AFTER',t,sel.length+' loose photo'+(sel.length>1?'s':'')+' filed to this space');
+    save();refreshBadges();buildGrids();renderBaHub();
+    if(current)renderEntries();
+    toast(sel.length+' photo'+(sel.length>1?'s':'')+' filed to '+t.name);
+  }
+  /* ---- pairing ---- */
+  function baOpenPicker(){
+    const sel=[...baSel.values()];
+    if(!sel.length||!sel.every(i=>i.role==='after')){toast('Select the After photos first');return;}
+    /* Show all widens the picker to comparisons that are already complete, which
+       is how a second After — a later stage, or another angle — gets attached. */
+    const opts=baShowAll?baEntriesAll().filter(x=>baParts(x.e).befores.length):baOpenBefores();
+    const box=$('baPickList');
+    if(!opts.length){
+      box.innerHTML='<div class="ba-empty">No Before photo is waiting for a partner. Shoot one in the Before tab first, '+
+        'or leave these as standalone After records.</div>';
+    }else{
+      box.innerHTML=opts.map(x=>{
+        const q=baParts(x.e);
+        return '<button class="ba-pickrow" data-baeid="'+esc(x.e.id)+'">'+
+          (q.b&&q.b.thumb?'<img src="'+q.b.thumb+'" alt="Before photo">':'')+
+          '<span class="tx"><b>'+esc(baSpaceNames(x.e,x.owner))+'</b>'+
+          '<span>'+esc(fmtTime(x.e.ts))+(x.e.text?' \u00b7 '+esc(x.e.text.slice(0,40)):'')+'</span></span></button>';
+      }).join('');
+      box.querySelectorAll('[data-baeid]').forEach(b=>b.addEventListener('click',()=>baDoLink(b.dataset.baeid)));
+    }
+    $('baPickOverlay').classList.add('open');
+  }
+  function baDoLink(targetId){
+    const owner=baOwnerOf(targetId);
+    const target=owner?(state.logs[owner]||[]).find(e=>e.id===targetId):null;
+    if(!target){toast('That comparison is no longer there');return;}
+    const sel=[...baSel.values()].filter(i=>i.role==='after');
+    let moved=0;
+    sel.forEach(i=>{
+      if(i.kind==='tray'){
+        const item=(state.baTray||[]).find(x=>x.id===i.trayId);
+        if(!item||item.deleted)return;
+        target.att.push({mediaId:item.mediaId,kind:'photo',role:'after',name:item.name,
+                         thumb:item.thumb,at:item.ts,tag:item.tag||'',tankId:owner});
+        item.deleted=true;item.modified=Date.now();moved++;
+      }else{
+        const src=(state.logs[i.owner]||[]).find(e=>e.id===i.entryId);
+        if(!src)return;
+        const ref=(src.att||[]).find(a=>a.mediaId===i.mediaId);
+        if(!ref)return;
+        target.att.push(Object.assign({},ref,{role:'after',tankId:ref.tankId||i.owner}));
+        src.att=(src.att||[]).filter(a=>a.mediaId!==i.mediaId);
+        src.modified=Date.now();
+        if(!src.att.length){src.deleted=true;}     /* soft delete propagates */
+        moved++;
+      }
+    });
+    if(!moved){toast('Nothing could be linked');$('baPickOverlay').classList.remove('open');return;}
+    target.baSolo=false;
+    target.modified=Date.now();
+    if(!baPending(target))target.baDone=new Date().toISOString();
+    baSel.clear();
+    state.dataVersion=(state.dataVersion||1)+1;
+    const tn=tankById(owner);
+    auditRec('BEFORE/AFTER',tn||null,moved+' After photo'+(moved>1?'s':'')+' linked to a Before');
+    save();refreshBadges();buildGrids();renderBaHub();
+    if(current)renderEntries();
+    $('baPickOverlay').classList.remove('open');
+    toast(moved+' After photo'+(moved>1?'s':'')+' linked'+(tn?' \u2014 '+tn.name:''));
+  }
+  function baMarkSolo(){
+    const sel=[...baSel.values()].filter(i=>i.kind==='entry');
+    if(!sel.length){toast('Select a comparison first');return;}
+    const ids=new Set(sel.map(i=>i.entryId));
+    let n=0;
+    ids.forEach(id=>{
+      const own=baOwnerOf(id);
+      const e=own?(state.logs[own]||[]).find(x=>x.id===id):null;
+      if(!e)return;
+      e.baSolo=true;e.modified=Date.now();n++;
+    });
+    baSel.clear();
+    state.dataVersion=(state.dataVersion||1)+1;
+    auditRec('BEFORE/AFTER',null,n+' comparison'+(n>1?'s':'')+' marked standalone');
+    save();refreshBadges();buildGrids();renderBaHub();
+    if(current)renderEntries();
+    toast(n+' marked standalone \u2014 they will stop asking for a partner');
+  }
+  function baDeleteSel(){
+    const sel=[...baSel.values()];
+    if(!sel.length)return;
+    if(!confirm('Move '+sel.length+' selected photo'+(sel.length===1?'':'s')+' to Trash?\n\n'+
+                'Nothing is erased \u2014 they can be restored from Settings, and the deletion is carried to the other device on the next sync.'))return;
+    let n=0;
+    sel.forEach(i=>{
+      if(i.kind==='tray'){
+        const item=(state.baTray||[]).find(x=>x.id===i.trayId);
+        if(item&&!item.deleted){item.deleted=true;item.modified=Date.now();n++;}
+      }else{
+        const e=(state.logs[i.owner]||[]).find(x=>x.id===i.entryId);
+        if(!e)return;
+        e.att=(e.att||[]).filter(a=>a.mediaId!==i.mediaId);
+        e.modified=Date.now();n++;
+        if(!e.att.length)e.deleted=true;
+      }
+    });
+    baSel.clear();
+    state.dataVersion=(state.dataVersion||1)+1;
+    auditRec('BEFORE/AFTER',null,n+' before/after photo'+(n>1?'s':'')+' moved to Trash');
+    save();refreshBadges();buildGrids();renderBaHub();
+    if(current)renderEntries();
+    toast(n+' photo'+(n>1?'s':'')+' moved to Trash');
+  }
+  /* ---- open / wire ---- */
+  function openBaHub(){
+    baSel.clear();
+    baFillSpaceSel($('baSpaceSel'),false);
+    $('baOverlay').classList.add('open');
+    renderBaHub();
+  }
+  document.querySelectorAll('[data-batab]').forEach(b=>b.addEventListener('click',()=>{
+    baTab=b.dataset.batab;baSel.clear();
+    document.querySelectorAll('[data-batab]').forEach(x=>x.classList.toggle('active',x===b));
+    renderBaHub();
+  }));
+  $('baHubBtn').addEventListener('click',openBaHub);
+  $('baHubClose').addEventListener('click',()=>$('baOverlay').classList.remove('open'));
+  $('baOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)$('baOverlay').classList.remove('open');});
+  $('baShowAll').addEventListener('click',()=>{baShowAll=!baShowAll;renderBaHub();});
+  $('baCam').addEventListener('click',()=>{attachTarget=(baTab==='before')?'hubB':'hubA';$('camIn').click();});
+  $('baGal').addEventListener('click',()=>{attachTarget=(baTab==='before')?'hubB':'hubA';$('phoIn').click();});
+  $('baClearSel').addEventListener('click',()=>{baSel.clear();renderBaHub();});
+  $('baLinkBtn').addEventListener('click',baOpenPicker);
+  $('baSoloBtn').addEventListener('click',baMarkSolo);
+  $('baDelBtn').addEventListener('click',baDeleteSel);
+  $('baAssignBtn').addEventListener('click',()=>{
+    const sel=$('baSpaceSel');
+    if(!sel||!sel.value){toast('Choose a space in the picker above first');return;}
+    baAssignSelected(sel.value);
+  });
+  $('baPickClose').addEventListener('click',()=>$('baPickOverlay').classList.remove('open'));
+  $('baPickOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)$('baPickOverlay').classList.remove('open');});
+
+  /* ---- two-step report ---- */
+  function baRepFillFilters(){
+    const g=$('baRepGrp');
+    g.innerHTML='<option value="all">All groups</option>'+liveGroups().map(x=>'<option value="'+esc(x.id)+'">'+esc(x.label)+'</option>').join('');
+    baRepFillCats();
+  }
+  function baRepFillCats(){
+    const gv=$('baRepGrp').value,c=$('baRepCat');
+    const cats=(gv==='all')?liveCats():liveCats().filter(x=>(x.grp||null)===gv);
+    c.innerHTML='<option value="all">All categories</option>'+cats.map(x=>'<option value="'+esc(x.id)+'">'+esc(x.label)+'</option>').join('');
+    baRepFillSpaces();
+  }
+  function baRepFillSpaces(){
+    const cv=$('baRepCat').value,sp=$('baRepSpace');
+    const pool=baRepScopeTanks(true);
+    sp.innerHTML='<option value="all">All spaces</option>'+pool.map(t=>'<option value="'+esc(t.id)+'">'+esc(t.name)+'</option>').join('');
+    if(cv){/* keeps lint quiet */}
+  }
+  function baRepScopeTanks(ignoreSpace){
+    const gv=$('baRepGrp').value,cv=$('baRepCat').value,sv=$('baRepSpace')?$('baRepSpace').value:'all';
+    let cats=liveCats();
+    if(gv!=='all')cats=cats.filter(c=>(c.grp||null)===gv);
+    if(cv!=='all')cats=cats.filter(c=>c.id===cv);
+    const ids=new Set(cats.map(c=>c.id));
+    let arr=liveTanks().filter(t=>ids.has(t.cat));
+    if(!ignoreSpace&&sv&&sv!=='all')arr=arr.filter(t=>t.id===sv);
+    const order=[];catsInOrder().forEach(k=>order.push(...catTanks(k.id,arr)));
+    arr.forEach(t=>{if(order.indexOf(t)<0)order.push(t);});
+    return order;
+  }
+  function baRepFind(){
+    const fv=$('baRepFrom').value,tv=$('baRepTo').value;
+    if(fv&&tv&&fv>tv){toast('From date is after the To date');return;}
+    const f=fv?Date.parse(fv+'T00:00:00'):null,t=tv?Date.parse(tv+'T23:59:59'):null;
+    const scope=new Set(baRepScopeTanks(false).map(x=>x.id));
+    baRepMatch=baEntriesAll().filter(x=>{
+      const q=baParts(x.e);
+      if(!q.befores.length&&!q.afters.length)return false;
+      const ms=Date.parse(x.e.ts);
+      if(f!==null&&(isNaN(ms)||ms<f))return false;
+      if(t!==null&&(isNaN(ms)||ms>t))return false;
+      return baSpacesOf(x.e,x.owner).some(id=>scope.has(id));
+    });
+    if(!baRepMatch.length){toast('No comparison matches that filter');return;}
+    $('baRepStep1').style.display='none';
+    $('baRepStep2').style.display='';
+    baRepRender(true);
+  }
+  function baRepRender(selectAll){
+    const scope=new Set(baRepScopeTanks(false).map(x=>x.id));
+    $('baRepList').innerHTML=baRepMatch.map(x=>{
+      const q=baParts(x.e),spans=baSpacesOf(x.e,x.owner);
+      const outside=spans.some(id=>!scope.has(id));
+      const photos=q.befores.map(r=>['Before',r]).concat(q.afters.map(r=>['After',r]));
+      return '<div class="ba-sel-row">'+
+        '<input type="checkbox" data-bagrp="'+esc(x.e.id)+'"'+(selectAll?' checked':'')+' aria-label="Include this comparison">'+
+        '<div class="bd"><b>'+esc(spans.map(id=>tankById(id)?tankById(id).name:id).join(' + '))+'</b>'+
+        '<div class="mt">'+esc(fmtTime(x.e.ts))+' \u00b7 '+photos.length+' photo'+(photos.length===1?'':'s')+
+        (outside?' \u00b7 \u2197 spans outside the filter':'')+'</div>'+
+        (x.e.text?'<div class="mt">'+esc(x.e.text.slice(0,80))+'</div>':'')+
+        '<div class="ba-sel-photos">'+photos.map(([lbl,r])=>
+          '<label><input type="checkbox" data-baph="'+esc(x.e.id)+'" data-bamid="'+esc(r.mediaId||'')+'"'+(selectAll?' checked':'')+'>'+
+          (r.thumb?'<img src="'+r.thumb+'" alt="'+lbl+'">':'')+lbl+'</label>').join('')+
+        '</div></div></div>';
+    }).join('');
+    $('baRepList').querySelectorAll('[data-bagrp]').forEach(cb=>cb.addEventListener('change',()=>{
+      $('baRepList').querySelectorAll('[data-baph="'+cb.dataset.bagrp+'"]').forEach(x=>{x.checked=cb.checked;});
+      baRepCount();
+    }));
+    $('baRepList').querySelectorAll('[data-baph]').forEach(cb=>cb.addEventListener('change',baRepCount));
+    baRepCount();
+  }
+  function baRepCount(){
+    const g=[...$('baRepList').querySelectorAll('[data-bagrp]')].filter(x=>x.checked).length;
+    const ph=[...$('baRepList').querySelectorAll('[data-baph]')].filter(x=>x.checked).length;
+    $('baRepCount').textContent=g+' comparison'+(g===1?'':'s')+' \u00b7 '+ph+' photo'+(ph===1?'':'s')+' selected';
+  }
+  function baRepGenerate(){
+    const ids=new Set(),photos={};
+    [...$('baRepList').querySelectorAll('[data-bagrp]')].forEach(cb=>{if(cb.checked)ids.add(cb.dataset.bagrp);});
+    if(!ids.size){toast('Tick at least one comparison');return;}
+    [...$('baRepList').querySelectorAll('[data-baph]')].forEach(cb=>{
+      if(!ids.has(cb.dataset.baph))return;
+      if(!photos[cb.dataset.baph])photos[cb.dataset.baph]=new Set();
+      if(cb.checked)photos[cb.dataset.baph].add(cb.dataset.bamid);
+    });
+    const fv=$('baRepFrom').value,tv=$('baRepTo').value;
+    repRange={fv:fv,tv:tv,f:fv?Date.parse(fv+'T00:00:00'):null,t:tv?Date.parse(tv+'T23:59:59'):null};
+    const tanks=baRepScopeTanks(false);
+    if(!tanks.length){toast('No space matches this scope');return;}
+    /* the whole group prints even where it spills outside the filter */
+    const scope=new Set(tanks.map(t=>t.id));
+    const extra=[];
+    baRepMatch.forEach(x=>{
+      if(!ids.has(x.e.id))return;
+      baSpacesOf(x.e,x.owner).forEach(id=>{
+        if(!scope.has(id))return;
+      });
+      if(!tanks.some(t=>t.id===x.owner)&&!extra.some(t=>t.id===x.owner)){
+        const ow=tankById(x.owner);if(ow)extra.push(ow);
+      }
+    });
+    baRepOutside=baRepMatch.filter(x=>ids.has(x.e.id)&&baSpacesOf(x.e,x.owner).some(id=>!scope.has(id))).length;
+    repBase=tanks;repSingle=null;repScope=tanks;
+    repCoverOn=$('repCover')?$('repCover').checked:true;
+    const sv=$('baRepSpace').value,cv=$('baRepCat').value;
+    if($('repCat'))$('repCat').value=(cv&&liveCats().some(c=>c.id===cv))?cv:'all';
+    if($('repSpace')){$('repSpace').innerHTML='<option value="all">All spaces</option>'+
+      liveTanks().map(t=>'<option value="'+esc(t.id)+'">'+esc(t.name)+'</option>').join('');
+      $('repSpace').value=(sv&&sv!=='all')?sv:'all';}
+    repHeading='Before / After \u00b7 '+(sv!=='all'&&tankById(sv)?tankById(sv).name:(cv!=='all'?catName(cv):'All Spaces'))+
+               ((fv||tv)?(' \u00b7 '+repPeriodLabel()):'');
+    baRepSel={ids:ids,photos:photos};
+    const html=buildReportHTML(tanks.concat(extra),'ba');
+    baRepSel=null;baRepOutside=0;
+    if(!html){toast('Nothing to print from that selection');return;}
+    $('pvDoc').innerHTML=html;
+    sizeRepPhotos();
+    $('baRepOverlay').classList.remove('open');
+    $('baOverlay').classList.remove('open');
+    document.body.classList.add('printing');
+    window.scrollTo(0,0);
+  }
+  $('baReportBtn').addEventListener('click',()=>{
+    baRepFillFilters();
+    $('baRepStep1').style.display='';
+    $('baRepStep2').style.display='none';
+    $('baRepOverlay').classList.add('open');
+  });
+  $('baRepGrp').addEventListener('change',baRepFillCats);
+  $('baRepCat').addEventListener('change',baRepFillSpaces);
+  $('baRepFind').addEventListener('click',baRepFind);
+  $('baRepBack').addEventListener('click',()=>{$('baRepStep1').style.display='';$('baRepStep2').style.display='none';});
+  $('baRepAll').addEventListener('click',()=>baRepRender(true));
+  $('baRepNone').addEventListener('click',()=>baRepRender(false));
+  $('baRepGen').addEventListener('click',baRepGenerate);
+  $('baRepClose').addEventListener('click',()=>$('baRepOverlay').classList.remove('open'));
+  $('baRepOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)$('baRepOverlay').classList.remove('open');});
+
   /* ==================================================================
      Layer stack — one dismissal order shared by the Esc key and the
      Android back button.
@@ -4897,6 +5719,9 @@ var DESK_READY=new Promise(function(res){
     {el:()=>document.body,open:()=>document.body.classList.contains('printing'),
      close:()=>{document.body.classList.remove('printing');const d=$('pvDoc');if(d)d.innerHTML='';}},
     ovl('pinOverlay'),
+    ovl('baPickOverlay'),
+    ovl('baRepOverlay'),
+    ovl('baOverlay'),
     ovl('fldOverlay'),
     ovl('voySumOverlay'),
     ovl('cmpOverlay'),
@@ -4981,6 +5806,7 @@ var DESK_READY=new Promise(function(res){
           break;
         }
         case 'search': openSearch(); break;
+        case 'ba': openBaHub(); break;
         case 'bulk': openBulk(); break;
         case 'sort': $('sortOverlay').classList.add('open'); break;
         case 'pinned': state.view.pinnedOnly=!state.view.pinnedOnly; save(); buildGrids(); toast(state.view.pinnedOnly?'Showing pinned tanks':'Showing all tanks'); break;
