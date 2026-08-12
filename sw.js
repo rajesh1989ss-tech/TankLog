@@ -1,7 +1,7 @@
 /* Tank Log service worker — network-first, cache fallback.
    Updates flow the moment the phone is online; the app still opens offline.
    CACHE must be bumped on every release or Android keeps serving stale code. */
-const CACHE = 'tanklog-v1.5.0';
+const CACHE = 'tanklog-v1.6.0';
 const CORE = ['./', './index.html', './manifest.webmanifest',
               './icon-192.png', './icon-512.png', './icon-512-maskable.png'];
 
